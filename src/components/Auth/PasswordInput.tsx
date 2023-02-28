@@ -29,7 +29,13 @@ export default function PasswordInput(props: PasswordInputProps) {
     <FormControl {...props.FormControlProps} mb={7}>
       <FormLabel {...props.FormLabelProps}>Password</FormLabel>
       <InputGroup size="md">
-        <Input pr="4.5rem" type={show ? "text" : "password"} placeholder="Enter password" />
+        <Input
+          border="1px solid"
+          borderColor="input-border"
+          pr="4.5rem"
+          type={show ? "text" : "password"}
+          placeholder="Enter password"
+        />
         <InputRightElement width="4.5rem">
           <Button h="1.75rem" size="sm" bg="none" onClick={handleClick}>
             {show ? <FiEye /> : <FiEyeOff />}
