@@ -10,22 +10,29 @@ import {
 interface OutlineInputProps {
   label: string;
   placeholder: string;
-  type: string;
+  type?: string;
   FormControlProps?: FormControlProps;
   FormLabelProps?: FormLabelProps;
   InputProps?: InputProps;
 }
 
-export default function OutlineInput(props: OutlineInputProps) {
+export default function OutlineInput({
+  label,
+  placeholder,
+  type = "text",
+  FormControlProps,
+  FormLabelProps,
+  InputProps,
+}: OutlineInputProps) {
   return (
-    <FormControl {...props.FormControlProps} mb={7}>
-      <FormLabel {...props.FormLabelProps}>{props.label}</FormLabel>
+    <FormControl {...FormControlProps} mb={7}>
+      <FormLabel {...FormLabelProps}>{label}</FormLabel>
       <Input
-        {...props.InputProps}
+        {...InputProps}
         border="1px solid"
         borderColor="input-border"
-        type={props.type}
-        placeholder={props.placeholder}
+        type={type}
+        placeholder={placeholder}
       />
     </FormControl>
   );

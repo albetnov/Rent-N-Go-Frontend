@@ -16,6 +16,7 @@ interface PasswordInputProps {
   FormControlProps?: FormControlProps;
   FormLabelProps?: FormLabelProps;
   InputProps?: InputProps;
+  title?: string;
 }
 
 export default function PasswordInput(props: PasswordInputProps) {
@@ -27,7 +28,7 @@ export default function PasswordInput(props: PasswordInputProps) {
 
   return (
     <FormControl {...props.FormControlProps} mb={7}>
-      <FormLabel {...props.FormLabelProps}>Password</FormLabel>
+      <FormLabel {...props.FormLabelProps}>{props.title ?? "Password"}</FormLabel>
       <InputGroup size="md">
         <Input
           border="1px solid"
