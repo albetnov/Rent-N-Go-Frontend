@@ -8,8 +8,11 @@ export default function Logout() {
 
   const navigate = useNavigate();
 
-  useEffect(() => {
+  setTimeout(() => {
     callToast("Logged out");
+  }, 1000);
+
+  useEffect(() => {
     logout();
     navigate("/");
   }, []);
