@@ -11,7 +11,7 @@ export default function Register() {
 
   return (
     <AuthScaffold title="Register">
-      <form method="POST" onSubmit={registerModel.onSubmitHandler}>
+      <form onSubmit={registerModel.onSubmitHandler}>
         <OutlineInput
           InputProps={{
             onChange: registerModel.onFieldChangeHandler,

@@ -19,4 +19,20 @@ const register = async (data: RegisterData) => {
   }
 };
 
-export { register };
+interface LoginData {
+  email: string;
+  password: string;
+}
+
+const login = async (data: LoginData) => {
+  try {
+    const res = await client.post("/auth/login", data);
+
+    return res.data;
+  } catch (err: any) {
+    console.error(err);
+    return err.response.status;
+  }
+};
+
+export { register, login };
