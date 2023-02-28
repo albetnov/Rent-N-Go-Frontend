@@ -7,7 +7,7 @@ const callToast = (
   status: "success" | "error" | "warning" | "info" = "success",
   duration: number = 2500,
   description?: string
-) => {
+) =>
   toast({
     title,
     description,
@@ -15,6 +15,5 @@ const callToast = (
     position: "top-right",
     duration: duration,
   });
-};
 
 export { ToastContainer, toast, callToast };

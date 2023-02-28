@@ -1,12 +1,18 @@
-import { ChangeEvent, FormEvent, useState } from "react";
+import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import useCustomBackground from "../../hooks/useCustomBackground";
-import { login } from "../../services/apis/auth";
+import useAuthStore from "../../stores/auth";
 import colors from "../../utils/colors";
 import { callToast } from "../../utils/toasts";
 
 export default function LoginModel() {
   useCustomBackground(colors.primary);
+
+  const { login, error, clear } = useAuthStore((state) => ({
+    login: state.login,
+    error: state.error,
+    clear: state.clear,
+  }));
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -18,29 +24,21 @@ export default function LoginModel() {
 
   const onSubmitHandler = async (e: FormEvent) => {
     e.preventDefault();
+    login(email, password);
+  };
 
-    const result = await login({ email, password });
-
-    if (result === 404) {
-      return callToast("Credentials not found", "error");
-    }
-
-    if (result) {
-      const payload = {
-        accessToken: result.token,
-        accessTokenExpr: result.token_expired_at,
-        refreshToken: result.refresh_token,
-        refreshTokenExpr: result.refresh_token_expired_at,
-      };
-
-      console.log(payload);
-
-      // tell zustand to login
-
-      callToast("Logged in successfully");
+  useEffect(() => {
+    console.log(error);
+    if (error) {
+      callToast(error, "error");
+      clear();
+      navigate("/auth/login");
+    } else if (error === false) {
+      callToast("You're logged in!", "success");
+      clear();
       navigate("/");
     }
-  };
+  }, [error, navigate]);
 
   return {
     email,

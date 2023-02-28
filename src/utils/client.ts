@@ -22,8 +22,7 @@ client.interceptors.request.use((api) => {
   const token = getTokens();
 
   if (!token) {
-    // warn zustand
-    // revokeToken()
+    localStorage.removeItem("tokens");
     return api;
   }
 
@@ -34,7 +33,7 @@ client.interceptors.request.use((api) => {
 
 client.interceptors.response.use(
   (config) => config,
-  (error) => {
+  async (error) => {
     if (error.response.status >= 500) {
       toast({
         title: "Error",
@@ -65,15 +64,16 @@ client.interceptors.response.use(
       const token = getTokens();
 
       if (!token) {
-        // warn zustand
+        localStorage.removeItem("tokens");
         return Promise.reject(error);
       }
 
-      // refresh the token.
-      const result = client.post("/auth/refresh", { refreshToken: token.refreshToken });
-
-      // store to zustand
-      // setToken($result)
+      try {
+        const result = await client.post("/auth/refresh", { refreshToken: token.refreshToken });
+        localStorage.setItem("tokens", JSON.stringify(result.data));
+      } catch (err) {
+        localStorage.removeItem("tokens");
+      }
     }
 
     return Promise.reject(error);
