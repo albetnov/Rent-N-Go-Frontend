@@ -22,7 +22,7 @@ export default function AuthScaffold({ title, message, children }: AuthScaffoldP
     <CenteredGrid px={13} py={{ base: 0, xl: 7 }}>
       <Title title={title} />
       <GlowCard rounded={30} p="10">
-        <Flex flexDir="column" h="full" justifyContent="space-between" py={10} gap={7}>
+        <Flex flexDir="column" h="full" justifyContent="space-between" py={9} gap={7}>
           <CardHeader>
             <CenteredText color="primary" fontSize={55} fontWeight={700}>
               {title}

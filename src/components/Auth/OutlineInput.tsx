@@ -1,6 +1,7 @@
 import {
   FormControl,
   FormControlProps,
+  FormErrorMessage,
   FormLabel,
   FormLabelProps,
   Input,
@@ -14,6 +15,7 @@ interface OutlineInputProps {
   FormControlProps?: FormControlProps;
   FormLabelProps?: FormLabelProps;
   InputProps?: InputProps;
+  error?: string;
 }
 
 export default function OutlineInput({
@@ -23,9 +25,10 @@ export default function OutlineInput({
   FormControlProps,
   FormLabelProps,
   InputProps,
+  error,
 }: OutlineInputProps) {
   return (
-    <FormControl {...FormControlProps} mb={7}>
+    <FormControl {...FormControlProps} isInvalid={typeof error == undefined} mb={7}>
       <FormLabel {...FormLabelProps}>{label}</FormLabel>
       <Input
         {...InputProps}
@@ -34,6 +37,7 @@ export default function OutlineInput({
         type={type}
         placeholder={placeholder}
       />
+      {error && <FormErrorMessage>{error}</FormErrorMessage>}
     </FormControl>
   );
 }

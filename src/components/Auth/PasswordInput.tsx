@@ -2,6 +2,7 @@ import {
   Button,
   FormControl,
   FormControlProps,
+  FormErrorMessage,
   FormLabel,
   FormLabelProps,
   Input,
@@ -17,6 +18,7 @@ interface PasswordInputProps {
   FormLabelProps?: FormLabelProps;
   InputProps?: InputProps;
   title?: string;
+  error?: string;
 }
 
 export default function PasswordInput(props: PasswordInputProps) {
@@ -27,10 +29,11 @@ export default function PasswordInput(props: PasswordInputProps) {
   };
 
   return (
-    <FormControl {...props.FormControlProps} mb={7}>
+    <FormControl {...props.FormControlProps} mb={7} isInvalid={typeof props.error == undefined}>
       <FormLabel {...props.FormLabelProps}>{props.title ?? "Password"}</FormLabel>
       <InputGroup size="md">
         <Input
+          {...props.InputProps}
           border="1px solid"
           borderColor="input-border"
           pr="4.5rem"
@@ -43,6 +46,7 @@ export default function PasswordInput(props: PasswordInputProps) {
           </Button>
         </InputRightElement>
       </InputGroup>
+      {props.error && <FormErrorMessage>{props.error}</FormErrorMessage>}
     </FormControl>
   );
 }
