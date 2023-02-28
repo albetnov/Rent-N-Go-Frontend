@@ -31,7 +31,7 @@ const login = async (data: LoginData) => {
     return res.data;
   } catch (err: any) {
     console.error(err);
-    return err.response.status;
+    return false;
   }
 };
 

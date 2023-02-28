@@ -2,13 +2,14 @@ import { Navigate, Outlet } from "react-router-dom";
 import useAuthStore from "../stores/auth";
 
 export default function Guest() {
-  const { loggedIn } = useAuthStore((state) => ({
+  const { loggedIn, error } = useAuthStore((state) => ({
     loggedIn: state.isLoggedIn,
+    error: state.error,
   }));
 
-  if (!loggedIn) {
+  if (!loggedIn && !error) {
     return <Outlet />;
   }
 
-  return <Navigate to="/" />;
+  return <Navigate to="/" replace />;
 }

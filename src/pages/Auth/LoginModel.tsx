@@ -1,4 +1,4 @@
-import { ChangeEvent, FormEvent, useEffect, useState } from "react";
+import { ChangeEvent, FormEvent, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import useCustomBackground from "../../hooks/useCustomBackground";
 import useAuthStore from "../../stores/auth";
@@ -8,10 +8,8 @@ import { callToast } from "../../utils/toasts";
 export default function LoginModel() {
   useCustomBackground(colors.primary);
 
-  const { login, error, clear } = useAuthStore((state) => ({
+  const { login } = useAuthStore((state) => ({
     login: state.login,
-    error: state.error,
-    clear: state.clear,
   }));
 
   const [email, setEmail] = useState("");
@@ -24,21 +22,16 @@ export default function LoginModel() {
 
   const onSubmitHandler = async (e: FormEvent) => {
     e.preventDefault();
-    login(email, password);
-  };
+    const check = await login(email, password);
 
-  useEffect(() => {
-    console.log(error);
-    if (error) {
-      callToast(error, "error");
-      clear();
-      navigate("/auth/login");
-    } else if (error === false) {
-      callToast("You're logged in!", "success");
-      clear();
+    if (check) {
+      callToast("Logged In Successfully");
       navigate("/");
+    } else {
+      callToast("Invalid Credentials");
+      navigate("/auth/login");
     }
-  }, [error, navigate]);
+  };
 
   return {
     email,
