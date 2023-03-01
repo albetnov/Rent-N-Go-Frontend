@@ -39,6 +39,9 @@ client.interceptors.request.use(async (api) => {
   if (token.token_expired_at < Date.now() && token.refresh_token_expired_at > Date.now()) {
     await refreshToken();
     token = getTokens();
+  } else {
+    localStorage.removeItem("tokens");
+    return api;
   }
 
   api.headers.Authorization = `Bearer ${token.token}`;
@@ -47,6 +50,10 @@ client.interceptors.request.use(async (api) => {
 });
 
 client.interceptors.response.use(undefined, async (error) => {
+  if (!error.response) {
+    return Promise.reject(error);
+  }
+
   if (error.response.status >= 500) {
     toast({
       title: "Error",

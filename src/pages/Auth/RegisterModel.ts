@@ -1,11 +1,8 @@
+import { useDisclosure } from "@chakra-ui/react";
 import { ChangeEvent, FormEvent, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { register } from "../../services/apis/auth";
-import { callToast, toast } from "../../utils/toasts";
-
-interface FieldsProps {
-  [index: string]: string | number;
-}
+import { callToast } from "../../utils/toasts";
 
 const initialFields = {
   name: "",
@@ -17,6 +14,11 @@ export default function RegisterModel() {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
+  const { isOpen, onClose, onOpen } = useDisclosure();
+  const [isUserAgree, setIsUserAgree] = useState(false);
+
+  const userIsAgreeHandler = () => setIsUserAgree(true);
+
   const navigate = useNavigate();
 
   const onFieldChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
@@ -25,9 +27,17 @@ export default function RegisterModel() {
     });
   };
 
-  const onSubmitHandler = async (e: FormEvent) => {
-    e.preventDefault();
+  const onUserAgreeHandler = () => {
+    if (!isUserAgree) {
+      callToast("Hey, wtf man? Check that shit. You think I am dumb?", "error");
+      return;
+    }
 
+    registerAction();
+    onClose();
+  };
+
+  const registerAction = async () => {
     const result = await register({
       name: fields.name,
       email: fields.email,
@@ -47,6 +57,12 @@ export default function RegisterModel() {
     }
   };
 
+  const onSubmitHandler = async (e: FormEvent) => {
+    e.preventDefault();
+
+    return onOpen();
+  };
+
   const passwordChangeHandler = (e: ChangeEvent<HTMLInputElement>) => setPassword(e.target.value);
   const confirmPasswordChangeHandler = (e: ChangeEvent<HTMLInputElement>) =>
     setConfirmPassword(e.target.value);
@@ -62,5 +78,10 @@ export default function RegisterModel() {
     onFieldChangeHandler,
     passwordChangeHandler,
     confirmPasswordChangeHandler,
+    isOpen,
+    onUserAgreeHandler,
+    onClose,
+    isUserAgree,
+    userIsAgreeHandler,
   };
 }
