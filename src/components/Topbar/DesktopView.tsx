@@ -16,9 +16,7 @@ export default function DesktopView({ links }: TopbarViewProps) {
           <WhiteLink to={link.path}>{link.name}</WhiteLink>
         </ListItem>
       ))}
-      <ListItem>
-        <Profile />
-      </ListItem>
+      <Profile />
     </UnorderedList>
   )
 }

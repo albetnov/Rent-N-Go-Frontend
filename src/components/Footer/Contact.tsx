@@ -1,18 +1,10 @@
-import { Box, Flex, Image } from '@chakra-ui/react'
+import { Box, Flex } from '@chakra-ui/react'
 import WhiteText from '../WhiteText'
 import BoldText from './BoldText'
 
 export default function Contact() {
   return (
-    <Box
-      position="absolute"
-      top={7}
-      left={10}
-      display="flex"
-      flexDir="column"
-      alignItems="center"
-    >
-      <Image src="/logo.webp" width="272px" />
+    <>
       <Flex
         flexDir="column"
         justifyContent="space-around"
@@ -50,6 +42,6 @@ export default function Contact() {
           </WhiteText>
         </Box>
       </Flex>
-    </Box>
+    </>
   )
 }

@@ -1,15 +1,13 @@
-import { Button } from '@chakra-ui/react'
+import { Button, type ButtonProps } from '@chakra-ui/react'
 
-export default function FaqButton() {
+export default function FaqButton(props: ButtonProps) {
   return (
     <Button
+      {...props}
       rounded="full"
       color="white"
       bg="black"
-      position="absolute"
       py={5}
-      right={5}
-      bottom={5}
       _hover={{
         shadow: 'lg'
       }}
