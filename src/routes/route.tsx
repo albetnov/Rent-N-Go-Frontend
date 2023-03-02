@@ -1,38 +1,38 @@
-import { createBrowserRouter } from "react-router-dom";
-import Login from "../pages/Auth/Login";
-import Logout from "../pages/Auth/Logout";
-import Register from "../pages/Auth/Register";
-import Home from "../pages/Home";
-import Authed from "../services/Authed";
-import Guest from "../services/Guest";
+import { createBrowserRouter } from 'react-router-dom'
+import Login from '../pages/Auth/Login'
+import Logout from '../pages/Auth/Logout'
+import Register from '../pages/Auth/Register'
+import Home from '../pages/Home'
+import Authed from '../services/Authed'
+import Guest from '../services/Guest'
 
 export default createBrowserRouter([
   {
-    path: "/",
-    element: <Home />,
+    path: '/',
+    element: <Home />
   },
   {
-    path: "/auth",
+    path: '/auth',
     element: <Guest />,
     children: [
       {
-        path: "login",
-        element: <Login />,
+        path: 'login',
+        element: <Login />
       },
       {
-        path: "register",
-        element: <Register />,
-      },
-    ],
+        path: 'register',
+        element: <Register />
+      }
+    ]
   },
   {
-    path: "",
+    path: '',
     element: <Authed />,
     children: [
       {
-        path: "/logout",
-        element: <Logout />,
-      },
-    ],
-  },
-]);
+        path: '/logout',
+        element: <Logout />
+      }
+    ]
+  }
+])

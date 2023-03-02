@@ -1,102 +1,110 @@
-import axios from "axios";
-import { toast } from "./toasts";
+import axios from 'axios'
+import { toast } from './toasts'
 
 const client = axios.create({
   baseURL: import.meta.env.VITE_BASE_URL,
   headers: {
-    "Content-Type": "application/json",
-    Accept: "application/json",
-  },
-});
+    'Content-Type': 'application/json',
+    Accept: 'application/json'
+  }
+})
 
 const getTokens = () => {
-  const token = localStorage.getItem("tokens");
+  const token = localStorage.getItem('tokens')
   if (token) {
-    return JSON.parse(token);
+    return JSON.parse(token)
   }
 
-  return null;
-};
+  return null
+}
 
 const refreshToken = async () => {
-  const token = getTokens();
+  const token = getTokens()
   try {
-    const result = await client.post("/auth/refresh", { refreshToken: token.refresh_token });
-    localStorage.setItem("tokens", JSON.stringify(result.data));
+    const result = await client.post('/auth/refresh', {
+      refreshToken: token.refresh_token
+    })
+    localStorage.setItem('tokens', JSON.stringify(result.data))
   } catch (err) {
-    localStorage.removeItem("tokens");
+    localStorage.removeItem('tokens')
   }
-};
+}
 
 client.interceptors.request.use(async (api) => {
-  let token = getTokens();
+  let token = getTokens()
 
   if (!token) {
-    localStorage.removeItem("tokens");
-    return api;
+    localStorage.removeItem('tokens')
+    return api
   }
 
-  if (token.token_expired_at < Date.now() && token.refresh_token_expired_at > Date.now()) {
-    await refreshToken();
-    token = getTokens();
+  if (
+    token.token_expired_at < Date.now() &&
+    token.refresh_token_expired_at > Date.now()
+  ) {
+    await refreshToken()
+    token = getTokens()
   } else {
-    localStorage.removeItem("tokens");
-    return api;
+    localStorage.removeItem('tokens')
+    return api
   }
 
-  api.headers.Authorization = `Bearer ${token.token}`;
+  api.headers.Authorization = `Bearer ${token.token}`
 
-  return api;
-});
+  return api
+})
 
 client.interceptors.response.use(undefined, async (error) => {
   if (!error.response) {
-    return Promise.reject(error);
+    return await Promise.reject(error)
   }
 
   if (error.response.status >= 500) {
     toast({
-      title: "Error",
-      description: "Something went wrong. Please try again later.",
-      status: "error",
+      title: 'Error',
+      description: 'Something went wrong. Please try again later.',
+      status: 'error',
       duration: 3000,
       isClosable: true,
-      position: "top-right",
-    });
+      position: 'top-right'
+    })
   }
 
-  if (error.response.status === 400 && error.response.data.action === "INVALID_PAYLOAD") {
-    const errors = error.response.data.errors.map(
-      (item: any) => `${item.FailedFields.split(".")[1]} is ${item.Tag}`
-    );
+  if (
+    error.response.status === 400 &&
+    error.response.data.action === 'INVALID_PAYLOAD'
+  ) {
+    const errors = error.response.data.errors
+      .map((item: any) => `${item.FailedFields.split('.')[1]} is ${item.Tag}`)
+      .join(',')
 
     toast({
-      title: "Error sending data",
-      description: "Please check the fields and try again: " + errors.join(", "),
-      status: "error",
+      title: 'Error sending data',
+      description: `Please check the fields and try again: ${errors}`,
+      status: 'error',
       duration: 5000,
       isClosable: true,
-      position: "top-right",
-    });
+      position: 'top-right'
+    })
   }
 
   if (error.response.status === 401) {
-    const token = getTokens();
+    const token = getTokens()
 
     if (!token) {
-      localStorage.removeItem("tokens");
-      return Promise.reject(error);
+      localStorage.removeItem('tokens')
+      return await Promise.reject(error)
     }
 
     try {
-      await refreshToken();
-      return axios(error.config);
+      await refreshToken()
+      return await axios(error.config)
     } catch (err) {
-      localStorage.removeItem("tokens");
+      localStorage.removeItem('tokens')
     }
   }
 
-  return Promise.reject(error);
-});
+  return await Promise.reject(error)
+})
 
-export default client;
+export default client

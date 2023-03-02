@@ -1,10 +1,17 @@
-import { Box, Flex, Image, Text } from "@chakra-ui/react";
-import WhiteText from "../WhiteText";
-import BoldText from "./BoldText";
+import { Box, Flex, Image } from '@chakra-ui/react'
+import WhiteText from '../WhiteText'
+import BoldText from './BoldText'
 
 export default function Contact() {
   return (
-    <Box position="absolute" top={7} left={10} display="flex" flexDir="column" alignItems="center">
+    <Box
+      position="absolute"
+      top={7}
+      left={10}
+      display="flex"
+      flexDir="column"
+      alignItems="center"
+    >
       <Image src="/logo.webp" width="272px" />
       <Flex
         flexDir="column"
@@ -18,8 +25,8 @@ export default function Contact() {
         w="full"
       >
         <WhiteText noOfLines={3}>
-          <BoldText>Address:</BoldText> Digital Park, Sambau, Kecamatan Nongsa, Kota Batam,
-          Kepulauan Riau 29466
+          <BoldText>Address:</BoldText> Digital Park, Sambau, Kecamatan Nongsa,
+          Kota Batam, Kepulauan Riau 29466
         </WhiteText>
         <Box>
           <WhiteText fontSize={20} fontWeight={700}>
@@ -44,5 +51,5 @@ export default function Contact() {
         </Box>
       </Flex>
     </Box>
-  );
+  )
 }

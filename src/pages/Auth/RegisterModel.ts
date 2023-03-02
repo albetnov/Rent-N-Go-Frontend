@@ -1,41 +1,43 @@
-import { useDisclosure } from "@chakra-ui/react";
-import { ChangeEvent, FormEvent, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { register } from "../../services/apis/auth";
-import { callToast } from "../../utils/toasts";
+import { useDisclosure } from '@chakra-ui/react'
+import { type ChangeEvent, type FormEvent, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
+import { register } from '../../services/apis/auth'
+import { callToast } from '../../utils/toasts'
 
 const initialFields = {
-  name: "",
-  email: "",
-  phoneNumber: "",
-};
+  name: '',
+  email: '',
+  phoneNumber: ''
+}
 export default function RegisterModel() {
-  const [fields, setFields] = useState(initialFields);
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
+  const [fields, setFields] = useState(initialFields)
+  const [password, setPassword] = useState('')
+  const [confirmPassword, setConfirmPassword] = useState('')
 
-  const { isOpen, onClose, onOpen } = useDisclosure();
-  const [isUserAgree, setIsUserAgree] = useState(false);
+  const { isOpen, onClose, onOpen } = useDisclosure()
+  const [isUserAgree, setIsUserAgree] = useState(false)
 
-  const userIsAgreeHandler = () => setIsUserAgree(true);
+  const userIsAgreeHandler = () => {
+    setIsUserAgree(true)
+  }
 
-  const navigate = useNavigate();
+  const navigate = useNavigate()
 
   const onFieldChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
     setFields((prev) => {
-      return { ...prev, [e.target.name]: e.target.value };
-    });
-  };
+      return { ...prev, [e.target.name]: e.target.value }
+    })
+  }
 
-  const onUserAgreeHandler = () => {
+  const onUserAgreeHandler = async () => {
     if (!isUserAgree) {
-      callToast("Hey, wtf man? Check that shit. You think I am dumb?", "error");
-      return;
+      callToast('Hey, wtf man? Check that shit. You think I am dumb?', 'error')
+      return
     }
 
-    registerAction();
-    onClose();
-  };
+    await registerAction()
+    onClose()
+  }
 
   const registerAction = async () => {
     const result = await register({
@@ -43,29 +45,32 @@ export default function RegisterModel() {
       email: fields.email,
       phone_number: fields.phoneNumber,
       password,
-      confirm_password: confirmPassword,
-    });
+      confirm_password: confirmPassword
+    })
 
     if (result) {
-      callToast("Registered successfully", "success");
-      setFields(initialFields);
-      setPassword("");
-      setConfirmPassword("");
+      callToast('Registered successfully', 'success')
+      setFields(initialFields)
+      setPassword('')
+      setConfirmPassword('')
       setTimeout(() => {
-        navigate("/auth/login");
-      }, 2000);
+        navigate('/auth/login')
+      }, 2000)
     }
-  };
+  }
 
   const onSubmitHandler = async (e: FormEvent) => {
-    e.preventDefault();
+    e.preventDefault()
 
-    return onOpen();
-  };
+    onOpen()
+  }
 
-  const passwordChangeHandler = (e: ChangeEvent<HTMLInputElement>) => setPassword(e.target.value);
-  const confirmPasswordChangeHandler = (e: ChangeEvent<HTMLInputElement>) =>
-    setConfirmPassword(e.target.value);
+  const passwordChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
+    setPassword(e.target.value)
+  }
+  const confirmPasswordChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
+    setConfirmPassword(e.target.value)
+  }
 
   return {
     name,
@@ -82,6 +87,6 @@ export default function RegisterModel() {
     onUserAgreeHandler,
     onClose,
     isUserAgree,
-    userIsAgreeHandler,
-  };
+    userIsAgreeHandler
+  }
 }

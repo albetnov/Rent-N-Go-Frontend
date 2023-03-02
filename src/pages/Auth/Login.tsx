@@ -1,24 +1,28 @@
-import AuthScaffold from "../../components/Auth/AuthScaffold";
-import OutlineInput from "../../components/Auth/OutlineInput";
-import PasswordInput from "../../components/Auth/PasswordInput";
-import CenteredText from "../../components/CenteredText";
-import PrimaryButton from "../../components/PrimaryButton";
-import RouterLink from "../../components/RouterLink";
-import LoginModel from "./LoginModel";
+import AuthScaffold from '../../components/Auth/AuthScaffold'
+import OutlineInput from '../../components/Auth/OutlineInput'
+import PasswordInput from '../../components/Auth/PasswordInput'
+import CenteredText from '../../components/CenteredText'
+import PrimaryButton from '../../components/PrimaryButton'
+import RouterLink from '../../components/RouterLink'
+import LoginModel from './LoginModel'
 
 export default function Login() {
-  const { email, onEmailChange, onPasswordChange, onSubmitHandler, password } = LoginModel();
+  const { email, onEmailChange, onPasswordChange, onSubmitHandler, password } =
+    LoginModel()
 
   return (
     <AuthScaffold
       title="Log In"
-      message={{ first: "Welcome Back!", second: "Please enter your credentials" }}
+      message={{
+        first: 'Welcome Back!',
+        second: 'Please enter your credentials'
+      }}
     >
       <form onSubmit={onSubmitHandler}>
         <OutlineInput
           InputProps={{
             onChange: onEmailChange,
-            value: email,
+            value: email
           }}
           type="email"
           placeholder="Enter your email"
@@ -27,7 +31,7 @@ export default function Login() {
         <PasswordInput
           InputProps={{
             onChange: onPasswordChange,
-            value: password,
+            value: password
           }}
         />
         <PrimaryButton w="full" type="submit">
@@ -35,11 +39,11 @@ export default function Login() {
         </PrimaryButton>
       </form>
       <CenteredText mt={5}>
-        Don&lsquo;t have an account?{" "}
+        Don&lsquo;t have an account?{' '}
         <RouterLink fontWeight="semibold" to="/auth/register">
           Register
         </RouterLink>
       </CenteredText>
     </AuthScaffold>
-  );
+  )
 }

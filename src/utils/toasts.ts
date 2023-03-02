@@ -1,10 +1,10 @@
-import { createStandaloneToast } from "@chakra-ui/react";
+import { createStandaloneToast } from '@chakra-ui/react'
 
-const { ToastContainer, toast } = createStandaloneToast();
+const { ToastContainer, toast } = createStandaloneToast()
 
 const callToast = (
   title: string,
-  status: "success" | "error" | "warning" | "info" = "success",
+  status: 'success' | 'error' | 'warning' | 'info' = 'success',
   duration: number = 2500,
   description?: string
 ) =>
@@ -12,8 +12,8 @@ const callToast = (
     title,
     description,
     status,
-    position: "top-right",
-    duration: duration,
-  });
+    position: 'top-right',
+    duration
+  })
 
-export { ToastContainer, toast, callToast };
+export { ToastContainer, toast, callToast }

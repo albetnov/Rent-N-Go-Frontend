@@ -9,17 +9,17 @@ import {
   DrawerOverlay,
   ListItem,
   UnorderedList,
-  useDisclosure,
-} from "@chakra-ui/react";
-import { useRef } from "react";
-import { FiMenu, FiX } from "react-icons/fi";
-import RouterLink from "../RouterLink";
-import Profile from "./Profile";
-import { TopbarViewProps } from "./Topbar";
+  useDisclosure
+} from '@chakra-ui/react'
+import { useRef } from 'react'
+import { FiMenu } from 'react-icons/fi'
+import RouterLink from '../RouterLink'
+import Profile from './Profile'
+import { type TopbarViewProps } from './Topbar'
 
 export default function MobileView({ links }: TopbarViewProps) {
-  const { isOpen, onOpen, onClose } = useDisclosure();
-  const buttonRef = useRef<HTMLButtonElement>(null);
+  const { isOpen, onOpen, onClose } = useDisclosure()
+  const buttonRef = useRef<HTMLButtonElement>(null)
 
   return (
     <>
@@ -34,7 +34,12 @@ export default function MobileView({ links }: TopbarViewProps) {
       >
         <FiMenu />
       </Button>
-      <Drawer isOpen={isOpen} placement="right" onClose={onClose} finalFocusRef={buttonRef}>
+      <Drawer
+        isOpen={isOpen}
+        placement="right"
+        onClose={onClose}
+        finalFocusRef={buttonRef}
+      >
         <DrawerOverlay />
         <DrawerContent>
           <DrawerCloseButton color="white" />
@@ -66,5 +71,5 @@ export default function MobileView({ links }: TopbarViewProps) {
         </DrawerContent>
       </Drawer>
     </>
-  );
+  )
 }
