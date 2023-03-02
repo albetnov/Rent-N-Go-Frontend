@@ -1,22 +1,34 @@
-import { Flex, Link } from "@chakra-ui/react";
+import { Flex, useBreakpointValue } from "@chakra-ui/react";
+import DesktopView from "./DesktopView";
 import Logo from "./Logo";
-import WhiteLink from "./WhiteLink";
+import MobileView from "./MobileView";
+
+interface LinkProps {
+  name: string;
+  path: string;
+}
+
+export interface TopbarViewProps {
+  links: LinkProps[];
+}
+
+const links: LinkProps[] = [
+  { name: "Home", path: "/" },
+  { name: "About Us", path: "/about" },
+  { name: "Our Services", path: "#services" },
+  { name: "Promo Cars", path: "#promo-cars" },
+];
 
 export default function Topbar() {
+  const isDekstop = useBreakpointValue({
+    base: false,
+    lg: true,
+  });
+
   return (
-    <Flex justifyContent="space-around" bg="primary" px={5} py={7} alignItems="center">
+    <Flex justifyContent="space-around" bg="primary" p={5} alignItems="center">
       <Logo />
-      <Flex gap={7}>
-        <WhiteLink to="/">Home</WhiteLink>
-        <Link href="#services" color="white">
-          Our Services
-        </Link>
-        <WhiteLink to="/">Rental Policies</WhiteLink>
-        <WhiteLink to="/">Contacts</WhiteLink>
-        <WhiteLink to="/">About</WhiteLink>
-        <WhiteLink to="/auth/login">Login</WhiteLink>
-        <WhiteLink to="/auth/register">Register</WhiteLink>
-      </Flex>
+      {isDekstop ? <DesktopView links={links} /> : <MobileView links={links} />}
     </Flex>
   );
 }
