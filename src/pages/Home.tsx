@@ -1,9 +1,5 @@
-import Topbar from "../components/Topbar/Topbar";
+import Layout from "../components/Layout";
 
 export default function Home() {
-  return (
-    <>
-      <Topbar />
-    </>
-  );
+  return <Layout>Test</Layout>;
 }
