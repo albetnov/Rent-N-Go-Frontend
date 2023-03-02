@@ -1,17 +1,11 @@
-import { Box, Image } from '@chakra-ui/react'
-import Contact from './Contact'
-import FaqButton from './FaqButton'
+import { useBreakpointValue } from '@chakra-ui/react'
+import DesktopView from './DesktopView'
+import MobileView from './MobileView'
 
 export default function Footer() {
-  return (
-    <Box w="full" position="relative">
-      <Image
-        src="/maps.webp"
-        width="100%"
-        style={{ maxHeight: '500px', objectFit: 'cover' }}
-      />
-      <Contact />
-      <FaqButton />
-    </Box>
-  )
+  const isDesktop = useBreakpointValue({ base: false, lg: true })
+
+  if (isDesktop) return <DesktopView />
+
+  return <MobileView />
 }
