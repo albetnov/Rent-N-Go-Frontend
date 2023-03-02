@@ -1,3 +1,4 @@
+/* eslint-disable multiline-ternary */
 import {
   Button,
   Drawer,
@@ -13,11 +14,16 @@ import {
 } from '@chakra-ui/react'
 import { useRef } from 'react'
 import { FiMenu } from 'react-icons/fi'
+import useAuthStore from '../../stores/auth'
 import RouterLink from '../RouterLink'
 import Profile from './Profile'
 import { type TopbarViewProps } from './Topbar'
+import WhiteLink from './WhiteLink'
 
 export default function MobileView({ links }: TopbarViewProps) {
+  const { isLoggedIn } = useAuthStore((state) => ({
+    isLoggedIn: state.isLoggedIn
+  }))
   const { isOpen, onOpen, onClose } = useDisclosure()
   const buttonRef = useRef<HTMLButtonElement>(null)
 
@@ -66,7 +72,11 @@ export default function MobileView({ links }: TopbarViewProps) {
             </UnorderedList>
           </DrawerBody>
           <DrawerFooter bg="primary">
-            <Profile />
+            {isLoggedIn ? (
+              <Profile />
+            ) : (
+              <WhiteLink to="/auth/login">Login</WhiteLink>
+            )}
           </DrawerFooter>
         </DrawerContent>
       </Drawer>

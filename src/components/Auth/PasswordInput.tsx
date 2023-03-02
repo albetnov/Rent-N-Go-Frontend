@@ -32,7 +32,7 @@ export default function PasswordInput(props: PasswordInputProps) {
     <FormControl
       {...props.FormControlProps}
       mb={7}
-      isInvalid={typeof props.error === 'undefined'}
+      isInvalid={typeof props.error !== 'undefined'}
     >
       <FormLabel {...props.FormLabelProps}>
         {props.title ?? 'Password'}

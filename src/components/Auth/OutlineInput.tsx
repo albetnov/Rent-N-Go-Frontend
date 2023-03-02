@@ -30,7 +30,7 @@ export default function OutlineInput({
   return (
     <FormControl
       {...FormControlProps}
-      isInvalid={typeof error === 'undefined'}
+      isInvalid={typeof error !== 'undefined'}
       mb={7}
     >
       <FormLabel {...FormLabelProps}>{label}</FormLabel>
