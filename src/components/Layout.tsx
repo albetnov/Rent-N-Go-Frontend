@@ -1,6 +1,6 @@
-import { PropsWithChildren } from "react";
-import Footer from "./Footer/Footer";
-import Topbar from "./Topbar/Topbar";
+import { type PropsWithChildren } from 'react'
+import Footer from './Footer/Footer'
+import Topbar from './Topbar/Topbar'
 
 export default function Layout({ children }: PropsWithChildren) {
   return (
@@ -13,5 +13,5 @@ export default function Layout({ children }: PropsWithChildren) {
         <Footer />
       </footer>
     </>
-  );
+  )
 }

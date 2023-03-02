@@ -1,43 +1,49 @@
 import {
   Button,
   FormControl,
-  FormControlProps,
+  type FormControlProps,
   FormErrorMessage,
   FormLabel,
-  FormLabelProps,
+  type FormLabelProps,
   Input,
   InputGroup,
-  InputProps,
-  InputRightElement,
-} from "@chakra-ui/react";
-import { useState } from "react";
-import { FiEye, FiEyeOff } from "react-icons/fi";
+  type InputProps,
+  InputRightElement
+} from '@chakra-ui/react'
+import { useState } from 'react'
+import { FiEye, FiEyeOff } from 'react-icons/fi'
 
 interface PasswordInputProps {
-  FormControlProps?: FormControlProps;
-  FormLabelProps?: FormLabelProps;
-  InputProps?: InputProps;
-  title?: string;
-  error?: string;
+  FormControlProps?: FormControlProps
+  FormLabelProps?: FormLabelProps
+  InputProps?: InputProps
+  title?: string
+  error?: string
 }
 
 export default function PasswordInput(props: PasswordInputProps) {
-  const [show, setShow] = useState(false);
+  const [show, setShow] = useState(false)
 
   const handleClick = () => {
-    setShow((prev) => !prev);
-  };
+    setShow((prev) => !prev)
+  }
 
   return (
-    <FormControl {...props.FormControlProps} mb={7} isInvalid={typeof props.error == undefined}>
-      <FormLabel {...props.FormLabelProps}>{props.title ?? "Password"}</FormLabel>
+    <FormControl
+      {...props.FormControlProps}
+      mb={7}
+      isInvalid={typeof props.error === 'undefined'}
+    >
+      <FormLabel {...props.FormLabelProps}>
+        {props.title ?? 'Password'}
+      </FormLabel>
       <InputGroup size="md">
         <Input
           {...props.InputProps}
           border="1px solid"
           borderColor="input-border"
           pr="4.5rem"
-          type={show ? "text" : "password"}
+          type={show ? 'text' : 'password'}
           placeholder="Enter password"
         />
         <InputRightElement width="4.5rem">
@@ -48,5 +54,5 @@ export default function PasswordInput(props: PasswordInputProps) {
       </InputGroup>
       {props.error && <FormErrorMessage>{props.error}</FormErrorMessage>}
     </FormControl>
-  );
+  )
 }

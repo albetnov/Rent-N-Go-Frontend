@@ -1,4 +1,4 @@
-import { Button } from "@chakra-ui/react";
+import { Button } from '@chakra-ui/react'
 
 export default function FaqButton() {
   return (
@@ -11,13 +11,13 @@ export default function FaqButton() {
       right={5}
       bottom={5}
       _hover={{
-        shadow: "lg",
+        shadow: 'lg'
       }}
       _active={{
-        opacity: 0.8,
+        opacity: 0.8
       }}
     >
       ?
     </Button>
-  );
+  )
 }

@@ -1,22 +1,22 @@
-import { ChakraProvider, extendTheme } from "@chakra-ui/react";
-import React from "react";
-import ReactDOM from "react-dom/client";
-import { RouterProvider } from "react-router-dom";
-import routes from "./routes/route";
-import colors from "./utils/colors";
-import "@fontsource/poppins";
-import { HelmetProvider } from "react-helmet-async";
+import { ChakraProvider, extendTheme } from '@chakra-ui/react'
+import React from 'react'
+import ReactDOM from 'react-dom/client'
+import { RouterProvider } from 'react-router-dom'
+import routes from './routes/route'
+import colors from './utils/colors'
+import '@fontsource/poppins'
+import { HelmetProvider } from 'react-helmet-async'
 
-import { ToastContainer } from "./utils/toasts";
+import { ToastContainer } from './utils/toasts'
 
 const theme = extendTheme({
   colors: { ...colors },
   fonts: {
-    body: `'Poppins'`,
-  },
-});
+    body: "'Poppins'"
+  }
+})
 
-ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
+ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
     <ToastContainer />
     <HelmetProvider>
@@ -25,4 +25,4 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
       </ChakraProvider>
     </HelmetProvider>
   </React.StrictMode>
-);
+)

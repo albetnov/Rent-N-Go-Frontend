@@ -1,5 +1,5 @@
-import { Flex, Menu, MenuButton, MenuItem, MenuList, SkeletonCircle, Text } from "@chakra-ui/react";
-import ProfileItem from "./ProfileItem";
+import { Menu, MenuButton, MenuList, SkeletonCircle } from '@chakra-ui/react'
+import ProfileItem from './ProfileItem'
 
 export default function Profile() {
   return (
@@ -17,5 +17,5 @@ export default function Profile() {
         </ProfileItem>
       </MenuList>
     </Menu>
-  );
+  )
 }

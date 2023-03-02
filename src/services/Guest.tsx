@@ -1,14 +1,14 @@
-import { Navigate, Outlet } from "react-router-dom";
-import useAuthStore from "../stores/auth";
+import { Navigate, Outlet } from 'react-router-dom'
+import useAuthStore from '../stores/auth'
 
 export default function Guest() {
   const { loggedIn } = useAuthStore((state) => ({
-    loggedIn: state.isLoggedIn,
-  }));
+    loggedIn: state.isLoggedIn
+  }))
 
   if (!loggedIn) {
-    return <Outlet />;
+    return <Outlet />
   }
 
-  return <Navigate to="/" replace />;
+  return <Navigate to="/" replace />
 }

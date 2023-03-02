@@ -2,7 +2,6 @@ import {
   Checkbox,
   FormControl,
   FormLabel,
-  List,
   ListItem,
   Modal,
   ModalBody,
@@ -11,18 +10,18 @@ import {
   ModalHeader,
   ModalOverlay,
   OrderedList,
-  Text,
-} from "@chakra-ui/react";
-import AuthScaffold from "../../components/Auth/AuthScaffold";
-import OutlineInput from "../../components/Auth/OutlineInput";
-import PasswordInput from "../../components/Auth/PasswordInput";
-import CenteredText from "../../components/CenteredText";
-import PrimaryButton from "../../components/PrimaryButton";
-import RouterLink from "../../components/RouterLink";
-import RegisterModel from "./RegisterModel";
+  Text
+} from '@chakra-ui/react'
+import AuthScaffold from '../../components/Auth/AuthScaffold'
+import OutlineInput from '../../components/Auth/OutlineInput'
+import PasswordInput from '../../components/Auth/PasswordInput'
+import CenteredText from '../../components/CenteredText'
+import PrimaryButton from '../../components/PrimaryButton'
+import RouterLink from '../../components/RouterLink'
+import RegisterModel from './RegisterModel'
 
 export default function Register() {
-  const registerModel = RegisterModel();
+  const registerModel = RegisterModel()
 
   return (
     <>
@@ -43,60 +42,68 @@ export default function Register() {
           <ModalBody>
             <OrderedList>
               <ListItem>
-                Rental Requirements: The renter must have a valid driver's license, be at least 21
-                years old, provide a credit card or debit card for payment, and a security deposit.
+                Rental Requirements: The renter must have a valid driver&lsquo;s
+                license, be at least 21 years old, provide a credit card or
+                debit card for payment, and a security deposit.
               </ListItem>
               <ListItem>
-                Rental Period: The rental period starts from the time the renter takes possession of
-                the vehicle and ends when the vehicle is returned to Rent and Go. Late returns will
-                incur additional fees.
+                Rental Period: The rental period starts from the time the renter
+                takes possession of the vehicle and ends when the vehicle is
+                returned to Rent and Go. Late returns will incur additional
+                fees.
               </ListItem>
               <ListItem>
-                Rental Rates: Renters are responsible for all charges associated with the rental,
-                including fuel, tolls, parking fees, and any fines or tickets incurred during the
-                rental period. Rental rates are subject to change without notice.
+                Rental Rates: Renters are responsible for all charges associated
+                with the rental, including fuel, tolls, parking fees, and any
+                fines or tickets incurred during the rental period. Rental rates
+                are subject to change without notice.
               </ListItem>
               <ListItem>
-                Insurance: Rent and Go provides liability insurance coverage for all rented
-                vehicles. The renter is responsible for any damage or loss to the rented vehicle, up
-                to the deductible amount specified in the rental agreement. Personal Driver and Tour
+                Insurance: Rent and Go provides liability insurance coverage for
+                all rented vehicles. The renter is responsible for any damage or
+                loss to the rented vehicle, up to the deductible amount
+                specified in the rental agreement. Personal Driver and Tour
                 Guide
               </ListItem>
               <ListItem>
-                Services: Rent and Go offers personal driver and tour guide services for an
-                additional fee. The renter must specify their requirements for these services at the
-                time of reservation.
+                Services: Rent and Go offers personal driver and tour guide
+                services for an additional fee. The renter must specify their
+                requirements for these services at the time of reservation.
               </ListItem>
               <ListItem>
-                Cancellation Policy: The renter may cancel a reservation up to 24 hours before the
-                rental period starts without incurring any penalty. If the renter cancels a
-                reservation within 24 hours of the rental period, they will be charged a
-                cancellation fee.
+                Cancellation Policy: The renter may cancel a reservation up to
+                24 hours before the rental period starts without incurring any
+                penalty. If the renter cancels a reservation within 24 hours of
+                the rental period, they will be charged a cancellation fee.
               </ListItem>
               <ListItem>
-                Prohibited Use: The renter may not use the rented vehicle for any illegal activity,
-                towing or pushing other vehicles, or allowing unauthorized drivers.
+                Prohibited Use: The renter may not use the rented vehicle for
+                any illegal activity, towing or pushing other vehicles, or
+                allowing unauthorized drivers.
               </ListItem>
               <ListItem>
-                Vehicle Maintenance: Rent and Go provides well-maintained and clean vehicles. The
-                renter is responsible for checking basic maintenance items during the rental period
-                and returning the vehicle in the same condition as it was rented.
+                Vehicle Maintenance: Rent and Go provides well-maintained and
+                clean vehicles. The renter is responsible for checking basic
+                maintenance items during the rental period and returning the
+                vehicle in the same condition as it was rented.
               </ListItem>
               <ListItem>
-                Governing Law: These terms are governed by the laws of the state/country where Rent
-                and Go is located. Disputes resolved in courts of the same jurisdiction.
+                Governing Law: These terms are governed by the laws of the
+                state/country where Rent and Go is located. Disputes resolved in
+                courts of the same jurisdiction.
               </ListItem>
               <ListItem>
-                Indemnification: Renter holds Rent and Go harmless from any claims, damages, or
-                liability.By renting a vehicle, using personal driver or tour guide services from
-                Rent and Go, you agree to the above terms and conditions.
+                Indemnification: Renter holds Rent and Go harmless from any
+                claims, damages, or liability.By renting a vehicle, using
+                personal driver or tour guide services from Rent and Go, you
+                agree to the above terms and conditions.
               </ListItem>
             </OrderedList>
           </ModalBody>
           <ModalFooter flexDir="column">
             <Text>
-              By renting a vehicle, using personal driver or tour guide services from Rent and Go,
-              you agree to the above terms and conditions.
+              By renting a vehicle, using personal driver or tour guide services
+              from Rent and Go, you agree to the above terms and conditions.
             </Text>
 
             <FormControl
@@ -111,7 +118,9 @@ export default function Register() {
                 checked={registerModel.isUserAgree}
                 onChange={registerModel.userIsAgreeHandler}
               />
-              <FormLabel mt={2}>I have read and agree to the terms and condition</FormLabel>
+              <FormLabel mt={2}>
+                I have read and agree to the terms and condition
+              </FormLabel>
             </FormControl>
 
             <PrimaryButton my={3} onClick={registerModel.onUserAgreeHandler}>
@@ -125,8 +134,8 @@ export default function Register() {
           <OutlineInput
             InputProps={{
               onChange: registerModel.onFieldChangeHandler,
-              name: "name",
-              value: registerModel.fields.name,
+              name: 'name',
+              value: registerModel.fields.name
             }}
             label="Name"
             placeholder="Enter your name"
@@ -134,8 +143,8 @@ export default function Register() {
           <OutlineInput
             InputProps={{
               onChange: registerModel.onFieldChangeHandler,
-              name: "email",
-              value: registerModel.fields.email,
+              name: 'email',
+              value: registerModel.fields.email
             }}
             type="email"
             label="Email"
@@ -144,8 +153,8 @@ export default function Register() {
           <OutlineInput
             InputProps={{
               onChange: registerModel.onFieldChangeHandler,
-              name: "phoneNumber",
-              value: registerModel.fields.phoneNumber,
+              name: 'phoneNumber',
+              value: registerModel.fields.phoneNumber
             }}
             type="number"
             label="Phone Number"
@@ -154,15 +163,15 @@ export default function Register() {
           <PasswordInput
             InputProps={{
               onChange: registerModel.passwordChangeHandler,
-              name: "password",
-              value: registerModel.password,
+              name: 'password',
+              value: registerModel.password
             }}
           />
           <PasswordInput
             InputProps={{
               onChange: registerModel.confirmPasswordChangeHandler,
-              name: "confirmPassword",
-              value: registerModel.confirmPassword,
+              name: 'confirmPassword',
+              value: registerModel.confirmPassword
             }}
             title="Confirm Password"
           />
@@ -171,12 +180,12 @@ export default function Register() {
           </PrimaryButton>
         </form>
         <CenteredText mt={5}>
-          Already have an account?{" "}
+          Already have an account?{' '}
           <RouterLink fontWeight="semibold" to="/auth/login">
             Login
           </RouterLink>
         </CenteredText>
       </AuthScaffold>
     </>
-  );
+  )
 }

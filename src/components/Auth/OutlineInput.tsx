@@ -1,34 +1,38 @@
 import {
   FormControl,
-  FormControlProps,
+  type FormControlProps,
   FormErrorMessage,
   FormLabel,
-  FormLabelProps,
+  type FormLabelProps,
   Input,
-  InputProps,
-} from "@chakra-ui/react";
+  type InputProps
+} from '@chakra-ui/react'
 
 interface OutlineInputProps {
-  label: string;
-  placeholder: string;
-  type?: string;
-  FormControlProps?: FormControlProps;
-  FormLabelProps?: FormLabelProps;
-  InputProps?: InputProps;
-  error?: string;
+  label: string
+  placeholder: string
+  type?: string
+  FormControlProps?: FormControlProps
+  FormLabelProps?: FormLabelProps
+  InputProps?: InputProps
+  error?: string
 }
 
 export default function OutlineInput({
   label,
   placeholder,
-  type = "text",
+  type = 'text',
   FormControlProps,
   FormLabelProps,
   InputProps,
-  error,
+  error
 }: OutlineInputProps) {
   return (
-    <FormControl {...FormControlProps} isInvalid={typeof error == undefined} mb={7}>
+    <FormControl
+      {...FormControlProps}
+      isInvalid={typeof error === 'undefined'}
+      mb={7}
+    >
       <FormLabel {...FormLabelProps}>{label}</FormLabel>
       <Input
         {...InputProps}
@@ -39,5 +43,5 @@ export default function OutlineInput({
       />
       {error && <FormErrorMessage>{error}</FormErrorMessage>}
     </FormControl>
-  );
+  )
 }

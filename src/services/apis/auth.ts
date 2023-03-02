@@ -1,38 +1,38 @@
-import client from "../../utils/client";
+import client from '../../utils/client'
 
 interface RegisterData {
-  name: string;
-  email: string;
-  phone_number: string;
-  password: string;
-  confirm_password: string;
+  name: string
+  email: string
+  phone_number: string
+  password: string
+  confirm_password: string
 }
 
 const register = async (data: RegisterData) => {
   try {
-    const res = await client.post("/auth/register", data);
+    const res = await client.post('/auth/register', data)
 
-    return res.data;
+    return res.data
   } catch (err: any) {
-    console.error(err);
-    return false;
+    console.error(err)
+    return false
   }
-};
+}
 
 interface LoginData {
-  email: string;
-  password: string;
+  email: string
+  password: string
 }
 
 const login = async (data: LoginData) => {
   try {
-    const res = await client.post("/auth/login", data);
+    const res = await client.post('/auth/login', data)
 
-    return res.data;
+    return res.data
   } catch (err: any) {
-    console.error(err);
-    return false;
+    console.error(err)
+    return false
   }
-};
+}
 
-export { register, login };
+export { register, login }

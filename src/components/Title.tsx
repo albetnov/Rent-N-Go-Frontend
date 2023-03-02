@@ -1,7 +1,7 @@
-import { Helmet } from "react-helmet-async";
+import { Helmet } from 'react-helmet-async'
 
 interface TitleProps {
-  title: string;
+  title: string
 }
 
 export default function Title({ title }: TitleProps) {
@@ -9,5 +9,5 @@ export default function Title({ title }: TitleProps) {
     <Helmet>
       <title>Rent-N-Go | {title}</title>
     </Helmet>
-  );
+  )
 }

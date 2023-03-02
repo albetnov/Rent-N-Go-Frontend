@@ -1,8 +1,8 @@
-import { PropsWithChildren } from "react";
-import RouterLink from "../RouterLink";
+import { type PropsWithChildren } from 'react'
+import RouterLink from '../RouterLink'
 
 interface WhiteLinkProps extends PropsWithChildren {
-  to: string;
+  to: string
 }
 
 export default function WhiteLink({ children, to }: WhiteLinkProps) {
@@ -10,5 +10,5 @@ export default function WhiteLink({ children, to }: WhiteLinkProps) {
     <RouterLink to={to} color="white">
       {children}
     </RouterLink>
-  );
+  )
 }
