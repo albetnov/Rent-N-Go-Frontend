@@ -4,7 +4,7 @@ import FaqButton from './FaqButton'
 
 export default function DesktopView() {
   return (
-    <Box w="full" position="relative">
+    <Box w="full" position="relative" mt={10}>
       <Image
         src="/maps.webp"
         width="100%"
