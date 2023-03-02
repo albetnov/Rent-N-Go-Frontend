@@ -12,6 +12,7 @@ export default function MobileView() {
       bg="box-footer"
       py={3}
       position="relative"
+      mt={5}
     >
       <Logo />
       <Contact />
