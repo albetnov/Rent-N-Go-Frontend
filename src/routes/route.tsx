@@ -5,7 +5,7 @@ import Register from '../pages/Auth/Register'
 import Home from '../pages/Home'
 import Profile from '../pages/Users/Profile'
 import Authed from '../services/Authed'
-import Guest from '../services/Guest'
+import Carlist from '../pages/Services/Carlist'
 
 export default createBrowserRouter([
   {
@@ -13,8 +13,8 @@ export default createBrowserRouter([
     element: <Home />
   },
   {
-    path: '/auth',
-    element: <Guest />,
+    path: '/carlist',
+    element: <Carlist />,
     children: [
       {
         path: 'login',
