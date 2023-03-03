@@ -3,6 +3,7 @@ import Login from '../pages/Auth/Login'
 import Logout from '../pages/Auth/Logout'
 import Register from '../pages/Auth/Register'
 import Home from '../pages/Home'
+import Profile from '../pages/Users/Profile'
 import Authed from '../services/Authed'
 import Guest from '../services/Guest'
 
@@ -29,6 +30,10 @@ export default createBrowserRouter([
     path: '',
     element: <Authed />,
     children: [
+      {
+        path: '/profile',
+        element: <Profile />
+      },
       {
         path: '/logout',
         element: <Logout />
