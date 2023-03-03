@@ -4,12 +4,15 @@ import OrderHistory from '../../components/Users/Profile/OrderHistory'
 import ProfileDetail from '../../components/Users/Profile/ProfileDetail'
 import ProfileName from '../../components/Users/Profile/ProfileName'
 import ProfilePicture from '../../components/Users/Profile/ProfilePicture'
-
+import useCustomBackground from '../../hooks/useCustomBackground'
+import colors from '../../utils/colors'
 export default function Profile() {
+  useCustomBackground(colors.secondary)
+
   return (
     <>
       <Topbar />
-      <Box as="section" px={{ base: 0, md: 24 }}>
+      <Box my={5} as="section" px={{ base: 0, md: 24 }}>
         <Card mt={10} mx="auto" shadow="xl" rounded="2xl">
           <CardBody
             display="flex"
@@ -21,10 +24,13 @@ export default function Profile() {
               flexDir={{ base: 'column', md: 'row' }}
               alignItems="center"
             >
-              <ProfilePicture />
-              <ProfileName />
+              <ProfilePicture imgUrl="https://source.unsplash.com/1000x1000?potrait" />
+              <ProfileName name="Delvin Jason" />
             </Flex>
-            <ProfileDetail />
+            <ProfileDetail
+              email="delvinjason@mail.com"
+              phoneNumber="0928-3939-3948"
+            />
           </CardBody>
         </Card>
         <OrderHistory />
