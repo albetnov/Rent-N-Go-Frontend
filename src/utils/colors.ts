@@ -6,5 +6,6 @@ export default {
   'btn-primary': '#468FCE',
   'input-border': '#282828',
   'box-footer': '#59534F',
-  'field-color': '#EAEAEA'
+  'field-color': '#EAEAEA',
+  'profile-button': '#d3d3d3'
 }

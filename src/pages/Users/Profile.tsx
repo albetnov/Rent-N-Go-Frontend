@@ -1,5 +1,6 @@
 import { Box, Card, CardBody, Flex } from '@chakra-ui/react'
 import Topbar from '../../components/Topbar/Topbar'
+import OrderHistory from '../../components/Users/Profile/OrderHistory'
 import ProfileDetail from '../../components/Users/Profile/ProfileDetail'
 import ProfileName from '../../components/Users/Profile/ProfileName'
 import ProfilePicture from '../../components/Users/Profile/ProfilePicture'
@@ -26,6 +27,7 @@ export default function Profile() {
             <ProfileDetail />
           </CardBody>
         </Card>
+        <OrderHistory />
       </Box>
     </>
   )
