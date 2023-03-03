@@ -3,8 +3,6 @@ import Layout from '../components/Layout'
 import { Box, Flex, Grid, GridItem, Image, Text } from '@chakra-ui/react'
 import { Pagination } from 'swiper'
 import ServiceCard from '../components/Home/ServiceCard'
-import useCustomBackground from '../hooks/useCustomBackground'
-import colors from '../utils/colors'
 import ImageSlide from '../components/Home/ImageSlide'
 import SectionText from '../components/Home/SectionText'
 
@@ -13,7 +11,6 @@ import 'swiper/css/pagination'
 import CarCard from '../components/Home/CarCard'
 
 export default function Home() {
-  useCustomBackground(colors.secondary)
   return (
     <Layout>
       <Box as="section">

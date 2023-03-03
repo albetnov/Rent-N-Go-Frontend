@@ -5,5 +5,7 @@ export default {
   'light-secondary': '#31d4f0',
   'btn-primary': '#468FCE',
   'input-border': '#282828',
-  'box-footer': '#59534F'
+  'box-footer': '#59534F',
+  'field-color': '#EAEAEA',
+  'profile-button': '#d3d3d3'
 }

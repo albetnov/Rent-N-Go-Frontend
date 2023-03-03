@@ -1,4 +1,3 @@
-/* eslint-disable multiline-ternary */
 import {
   Button,
   Drawer,
@@ -73,7 +72,9 @@ export default function MobileView({ links }: TopbarViewProps) {
           </DrawerBody>
           <DrawerFooter bg="primary">
             {isLoggedIn ? (
-              <Profile />
+              <UnorderedList listStyleType="none">
+                <Profile />
+              </UnorderedList>
             ) : (
               <WhiteLink to="/auth/login">Login</WhiteLink>
             )}

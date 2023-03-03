@@ -7,7 +7,7 @@ export default function MyProfile() {
       <MenuButton>
         <SkeletonCircle w={14} h={14} />
       </MenuButton>
-      <MenuList p={4} border="none" bg="primary" shadow="xl">
+      <MenuList zIndex={10} p={4} border="none" bg="primary" shadow="xl">
         <ProfileItem isActive to="/profile">
           My Profile
         </ProfileItem>
