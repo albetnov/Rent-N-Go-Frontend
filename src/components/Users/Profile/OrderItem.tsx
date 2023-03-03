@@ -9,8 +9,8 @@ export default function OrderItem({ children, ...props }: MenuItemProps) {
       w="full"
       rounded="full"
       shadow="lg"
-      py={3}
-      my={3}
+      py={2}
+      my="1.5"
     >
       <CenteredText w="full" fontWeight={400}>
         {children}
