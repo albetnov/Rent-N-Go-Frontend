@@ -3,6 +3,7 @@ import { FiChevronDown, FiChevronUp } from 'react-icons/fi'
 import CarCard from '../../Cars/CarCard'
 import DriverCard from '../../Drivers/DriverCard'
 import { type DriverFeatureProps } from '../../Drivers/DriverFeatures'
+import TourCard from '../../Tour/TourCard'
 import OrderItem from './OrderItem'
 
 const DRIVER_FEATURE: DriverFeatureProps = {
@@ -49,6 +50,12 @@ export default function OrderHistory() {
           name="Delvin Jason"
           stars={3}
           features={DRIVER_FEATURE}
+        />
+        <TourCard
+          name="Bali Tour"
+          imgUrl="https://source.unsplash.com/1000x1000?bali"
+          price={100000}
+          features={[{ name: 'Full Ac', isChecked: true }]}
         />
       </Flex>
     </Box>

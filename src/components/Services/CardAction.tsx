@@ -3,9 +3,13 @@ import PrimaryButton from '../PrimaryButton'
 
 interface CardActionProps {
   price?: number
+  type?: string
 }
 
-export default function CardAction({ price = 100000 }: CardActionProps) {
+export default function CardAction({
+  price = 100000,
+  type = 'Day'
+}: CardActionProps) {
   return (
     <Box alignSelf="flex-end">
       <Flex flexDir="column">
@@ -14,7 +18,7 @@ export default function CardAction({ price = 100000 }: CardActionProps) {
           <Text fontSize={{ base: 14, md: 24 }} as="span" color="orange.600">
             Rp {new Intl.NumberFormat('id-ID').format(price)}
           </Text>{' '}
-          / Day
+          / {type}
         </Text>
       </Flex>
       <PrimaryButton px={{ base: 7, md: 14 }} py={{ base: 3, md: 7 }} mt={5}>
