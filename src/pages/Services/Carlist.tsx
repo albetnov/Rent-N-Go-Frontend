@@ -10,7 +10,13 @@ import CarCardShadow from '../../components/Cars/CarCardShadow'
 export default function CarList() {
   return (
     <Layout>
-      <Flex mt={50} gap={6} justifyContent="center">
+      <Flex
+        mt={50}
+        gap={6}
+        justifyContent="center"
+        flexDir={{ base: 'column', md: 'row' }}
+        px={3}
+      >
         <SearchBar />
 
         <BrandFilter />

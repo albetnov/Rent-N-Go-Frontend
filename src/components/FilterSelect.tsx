@@ -6,8 +6,7 @@ export default function FilterSelect(props: SelectProps) {
       {...props}
       boxShadow="2xl"
       bgColor="white"
-      maxWidth={300}
-      placeholder="Price"
+      maxWidth={{ base: 'none', md: 300 }}
     />
   )
 }
