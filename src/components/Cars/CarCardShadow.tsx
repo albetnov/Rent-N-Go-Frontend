@@ -1,9 +1,9 @@
-import { Box } from '@chakra-ui/react'
+import ShadowBox from '../ShadowBox'
 import CarCard from './CarCard'
 
 export default function () {
   return (
-    <Box mx="auto" w="full" maxW="8xl" boxShadow="dark-lg">
+    <ShadowBox>
       <CarCard
         name="Lexus LC 500"
         imgUrl="https://bit.ly/dan-abramov"
@@ -11,6 +11,6 @@ export default function () {
         baggages={2}
         stock={10}
       />
-    </Box>
+    </ShadowBox>
   )
 }
