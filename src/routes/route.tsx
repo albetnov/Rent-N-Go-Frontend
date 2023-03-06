@@ -8,6 +8,7 @@ import Authed from '../services/Authed'
 import Drivers from '../pages/Services/Drivers'
 import CarList from '../pages/Services/Carlist'
 import FAQ from '../pages/Services/FAQ'
+import Artificier from '../pages/Artificier'
 
 export default createBrowserRouter([
   {
@@ -25,6 +26,10 @@ export default createBrowserRouter([
   {
     path: '/faq',
     element: <FAQ />
+  },
+  {
+    path: '/about/teams',
+    element: <Artificier />
   },
   {
     path: '/auth',

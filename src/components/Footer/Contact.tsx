@@ -1,4 +1,5 @@
 import { Box, Flex } from '@chakra-ui/react'
+import RouterLink from '../RouterLink'
 import WhiteText from '../WhiteText'
 import BoldText from './BoldText'
 
@@ -39,6 +40,10 @@ export default function Contact() {
           <WhiteText>
             <BoldText>Twitter: </BoldText>
             rentngo_batam
+          </WhiteText>
+          <WhiteText>
+            A project by{' '}
+            <RouterLink to="/about/teams">Artificier Team</RouterLink>.
           </WhiteText>
         </Box>
       </Flex>
