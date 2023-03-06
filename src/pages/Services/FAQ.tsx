@@ -1,7 +1,7 @@
 import { Box, Text } from '@chakra-ui/react'
 import Layout from '../../components/Layout'
-import FaqCard from '../../components/FAQ/Faqcard'
-import BlackLogo from '../../components/FAQ/Black_logo'
+import FaqCard from '../../components/FAQ/FaqCard'
+import BlackLogo from '../../components/FAQ/BlackLogo'
 import useCustomBackground from '../../hooks/useCustomBackground'
 import colors from '../../utils/colors'
 
