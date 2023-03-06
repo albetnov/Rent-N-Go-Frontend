@@ -5,8 +5,12 @@ import Register from '../pages/Auth/Register'
 import Home from '../pages/Home'
 import Profile from '../pages/Users/Profile'
 import Authed from '../services/Authed'
+<<<<<<< HEAD
 import Drivers from '../pages/Services/Drivers'
 import CarList from '../pages/Services/Carlist'
+=======
+import FAQ from '../pages/Services/FAQ'
+>>>>>>> 5f3911e (membuat FAQ)
 
 export default createBrowserRouter([
   {
@@ -14,6 +18,7 @@ export default createBrowserRouter([
     element: <Home />
   },
   {
+<<<<<<< HEAD
     path: '/cars',
     element: <CarList />
   },
@@ -24,6 +29,10 @@ export default createBrowserRouter([
   {
     path: '/auth',
     element: <Authed />,
+=======
+    path: '/FAQ',
+    element: <FAQ />,
+>>>>>>> 5f3911e (membuat FAQ)
     children: [
       {
         path: 'login',
