@@ -1,4 +1,4 @@
-import { Select, SelectProps } from '@chakra-ui/react'
+import { Select, type SelectProps } from '@chakra-ui/react'
 
 export default function FilterSelect(props: SelectProps) {
   return (

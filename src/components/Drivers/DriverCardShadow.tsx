@@ -1,6 +1,6 @@
 import ShadowBox from '../ShadowBox'
 import DriverCard from './DriverCard'
-import { DriverFeatureProps } from './DriverFeatures'
+import { type DriverFeatureProps } from './DriverFeatures'
 
 const DRIVER_FEATURE: DriverFeatureProps = {
   isPhotoChecked: true,

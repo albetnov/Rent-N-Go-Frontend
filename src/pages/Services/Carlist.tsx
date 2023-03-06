@@ -1,6 +1,5 @@
 import Layout from '../../components/Layout'
-import CarCard from '../../components/Cars/CarCard'
-import { Box, Flex } from '@chakra-ui/react'
+import { Flex } from '@chakra-ui/react'
 import SearchBar from '../../components/Searchbar'
 import BrandFilter from '../../components/Cars/BrandFilter'
 import PriceFilter from '../../components/Cars/PriceFilter'

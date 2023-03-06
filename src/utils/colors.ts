@@ -8,5 +8,5 @@ export default {
   'box-footer': '#59534F',
   'field-color': '#EAEAEA',
   'profile-button': '#d3d3d3',
-  'white': '#FFFFFF'
+  white: '#FFFFFF'
 }
