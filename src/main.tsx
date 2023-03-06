@@ -5,6 +5,7 @@ import { RouterProvider } from 'react-router-dom'
 import routes from './routes/route'
 import colors from './utils/colors'
 import '@fontsource/poppins'
+import '@fontsource/raleway'
 import { HelmetProvider } from 'react-helmet-async'
 
 import { ToastContainer } from './utils/toasts'
@@ -12,7 +13,8 @@ import { ToastContainer } from './utils/toasts'
 const theme = extendTheme({
   colors: { ...colors },
   fonts: {
-    body: "'Poppins'"
+    body: "'Poppins'",
+    raleway: "'Raleway', sans-serif"
   }
 })
 
