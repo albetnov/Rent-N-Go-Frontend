@@ -13,7 +13,9 @@ export default function SearchBar() {
     <Popover>
       <PopoverTrigger>
         <InputGroup maxW={670} boxShadow="2xl">
-          <InputLeftElement pointerEvents="none" children={<FiSearch />} />
+          <InputLeftElement pointerEvents="none">
+            <FiSearch />
+          </InputLeftElement>
           <Input type="search" bgColor="white" placeholder="Search" />
         </InputGroup>
       </PopoverTrigger>

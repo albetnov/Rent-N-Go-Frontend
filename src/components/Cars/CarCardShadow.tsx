@@ -1,7 +1,7 @@
 import ShadowBox from '../ShadowBox'
 import CarCard from './CarCard'
 
-export default function () {
+export default function CarCardShadow() {
   return (
     <ShadowBox>
       <CarCard

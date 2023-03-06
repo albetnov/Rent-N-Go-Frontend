@@ -1,6 +1,13 @@
 import { Button, type ButtonProps } from '@chakra-ui/react'
+import { useNavigate } from 'react-router-dom'
 
 export default function FaqButton(props: ButtonProps) {
+  const navigate = useNavigate()
+
+  const redirectToFaq = () => {
+    navigate('/faq')
+  }
+
   return (
     <Button
       {...props}
@@ -14,6 +21,7 @@ export default function FaqButton(props: ButtonProps) {
       _active={{
         opacity: 0.8
       }}
+      onClick={redirectToFaq}
     >
       ?
     </Button>

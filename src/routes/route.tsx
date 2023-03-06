@@ -7,6 +7,7 @@ import Profile from '../pages/Users/Profile'
 import Authed from '../services/Authed'
 import Drivers from '../pages/Services/Drivers'
 import CarList from '../pages/Services/Carlist'
+import FAQ from '../pages/Services/FAQ'
 
 export default createBrowserRouter([
   {
@@ -20,6 +21,10 @@ export default createBrowserRouter([
   {
     path: '/drivers',
     element: <Drivers />
+  },
+  {
+    path: '/faq',
+    element: <FAQ />
   },
   {
     path: '/auth',

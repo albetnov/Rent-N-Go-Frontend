@@ -7,5 +7,6 @@ export default {
   'input-border': '#282828',
   'box-footer': '#59534F',
   'field-color': '#EAEAEA',
-  'profile-button': '#d3d3d3'
+  'profile-button': '#d3d3d3',
+  white: '#FFFFFF'
 }
