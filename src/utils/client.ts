@@ -27,11 +27,14 @@ const refreshToken = async () => {
     localStorage.setItem('tokens', JSON.stringify(result.data))
   } catch (err) {
     localStorage.removeItem('tokens')
+    return false
   }
+
+  return localStorage.getItem('tokens')
 }
 
 client.interceptors.request.use(async (api) => {
-  let token = getTokens()
+  let token = await getTokens()
 
   if (!token) {
     localStorage.removeItem('tokens')
@@ -43,7 +46,7 @@ client.interceptors.request.use(async (api) => {
     token.refresh_token_expired_at > Date.now()
   ) {
     await refreshToken()
-    token = getTokens()
+    token = await getTokens()
   } else {
     localStorage.removeItem('tokens')
     return api
