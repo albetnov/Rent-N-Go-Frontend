@@ -6,11 +6,11 @@ export default function TourDetail({
   features,
   name
 }: Pick<TourCardProps, 'features' | 'name'>) {
-  const fontSize = useBreakpointValue({ base: 10, lg: 20 })
+  const fontSize = useBreakpointValue({ base: 16, lg: 20 })
 
   return (
     <Box>
-      <Text fontWeight={700} fontSize={{ base: 14, lg: 24 }}>
+      <Text fontWeight={700} fontSize={{ base: 20, lg: 24 }}>
         {name}
       </Text>
       <Flex flexDir="column" gap={2}>

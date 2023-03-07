@@ -3,11 +3,11 @@ import Login from '../pages/Auth/Login'
 import Logout from '../pages/Auth/Logout'
 import Register from '../pages/Auth/Register'
 import Home from '../pages/Home'
-import Tourguide from '../pages/services/Tourguide'
+import TourGuide from '../pages/Services/TourGuide'
 import Profile from '../pages/Users/Profile'
 import Authed from '../services/Authed'
 import Drivers from '../pages/Services/Drivers'
-import CarList from '../pages/Services/Carlist'
+import CarList from '../pages/Services/CarList'
 import FAQ from '../pages/Services/FAQ'
 import Artificier from '../pages/Artificier'
 
@@ -33,8 +33,8 @@ export default createBrowserRouter([
     element: <Artificier />
   },
   {
-    path: '/tour',
-    element: <Tourguide />
+    path: '/tours',
+    element: <TourGuide />
   },
   {
     path: '/auth',
