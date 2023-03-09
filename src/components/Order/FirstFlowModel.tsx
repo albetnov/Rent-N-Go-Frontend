@@ -45,7 +45,7 @@ export default function firstFlowModel() {
 
     if (
       !firstDate.isSame(dayjs(), 'day') ||
-      !secondDate.isAfter(firstDate.add(1, 'day'), 'day')
+      !secondDate.isAfter(firstDate, 'day')
     ) {
       callToast(
         'invalid dates being passed',

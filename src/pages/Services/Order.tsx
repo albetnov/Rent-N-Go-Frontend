@@ -2,6 +2,7 @@ import { Box, Button } from '@chakra-ui/react'
 import Layout from '../../components/Layout'
 import FirstFlow from '../../components/Order/FirstFlow'
 import Navigation from '../../components/Order/Navigation'
+import SecondFlow from '../../components/Order/SecondFlow'
 import useOrderWizardStore from '../../stores/orderWizard'
 import { callToast } from '../../utils/toasts'
 
@@ -32,6 +33,7 @@ export default function Order() {
       <Navigation />
       <Box px={8} mt={16} mb={10}>
         <FirstFlow step={step} />
+        <SecondFlow step={step} />
       </Box>
       {hasOrder ? (
         <Box mt={14}>

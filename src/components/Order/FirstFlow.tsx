@@ -32,7 +32,11 @@ export default function FirstFlow({ step }: WizardStep) {
         bg="none"
         borderColor="violet"
       >
-        <CardBody display="flex" justifyContent="space-between">
+        <CardBody
+          display="flex"
+          flexDir={{ base: 'column', md: 'row' }}
+          justifyContent="space-between"
+        >
           <Box>
             <OrderInput
               label="Pick-Up Date/Time"

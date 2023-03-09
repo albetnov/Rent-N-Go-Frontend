@@ -13,11 +13,13 @@ interface OrderWizardStore {
     returnDate: string,
     returnLocation: string
   ) => void
+  getLocation: string | null
 }
 
 const useOrderWizardStore = create<OrderWizardStore>((set) => ({
   step: parseInt(localStorage.getItem('wizard_step') ?? '0'),
   hasOrder: !!localStorage.getItem('wizard_step'),
+  getLocation: localStorage.getItem('order_location'),
 
   enableOrder() {
     localStorage.setItem('wizard_step', '1')
