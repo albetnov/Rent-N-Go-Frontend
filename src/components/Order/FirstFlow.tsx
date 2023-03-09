@@ -15,6 +15,7 @@ export default function FirstFlow({ step }: WizardStep) {
     pickupLocation,
     returnDate,
     returnLocation,
+    locations,
     onSubmit
   } = firstFlowModel()
 
@@ -47,7 +48,13 @@ export default function FirstFlow({ step }: WizardStep) {
               label="Pick-Up Location"
               onChange={onPickupLocationChange}
               value={pickupLocation}
-            />
+            >
+              {locations.map((location) => (
+                <option value={location.nama} key={location.id}>
+                  {location.nama}
+                </option>
+              ))}
+            </OrderSelect>
           </Box>
           <Box>
             <OrderInput
@@ -59,7 +66,13 @@ export default function FirstFlow({ step }: WizardStep) {
               label="Return Location"
               onChange={onReturnLocationChange}
               value={returnLocation}
-            />
+            >
+              {locations.map((location) => (
+                <option value={location.nama} key={location.id}>
+                  {location.nama}
+                </option>
+              ))}
+            </OrderSelect>
           </Box>
         </CardBody>
       </Card>

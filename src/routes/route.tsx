@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/promise-function-async */
 import { lazy } from 'react'
 import { createBrowserRouter } from 'react-router-dom'
+import FakeOrderProcess from '../pages/Services/FakeOrderProcess'
 const Login = lazy(() => import('../pages/Auth/Login'))
 const Logout = lazy(() => import('../pages/Auth/Logout'))
 const Register = lazy(() => import('../pages/Auth/Register'))
@@ -68,7 +69,17 @@ export default createBrowserRouter([
       },
       {
         path: 'order',
-        element: <Order />
+        element: <Order />,
+        loader: async () => {
+          // eslint-disable-next-line @typescript-eslint/return-await
+          return fetch(
+            'https://dev.farizdotid.com/api/daerahindonesia/kecamatan?id_kota=2171'
+          )
+        }
+      },
+      {
+        path: 'order/process/:requestId',
+        element: <FakeOrderProcess />
       }
     ]
   }

@@ -1,7 +1,7 @@
 import { FormControl, Select, Text } from '@chakra-ui/react'
-import { type ChangeEvent } from 'react'
+import { type PropsWithChildren, type ChangeEvent } from 'react'
 
-interface OrderSelectProps {
+interface OrderSelectProps extends PropsWithChildren {
   label: string
   value?: string
   onChange?: (e: ChangeEvent<HTMLSelectElement>) => void
@@ -10,7 +10,8 @@ interface OrderSelectProps {
 export default function OrderSelect({
   label,
   value,
-  onChange
+  onChange,
+  children
 }: OrderSelectProps) {
   return (
     <FormControl mt={5}>
@@ -25,7 +26,7 @@ export default function OrderSelect({
         _hover={{}}
         rounded="none"
       >
-        <option value="batam">Batam</option>
+        {children}
       </Select>
     </FormControl>
   )

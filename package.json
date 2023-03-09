@@ -31,12 +31,14 @@
     "react-icons": "^4.7.1",
     "react-router-dom": "^6.8.1",
     "swiper": "^9.1.0",
+    "uuid": "^9.0.0",
     "zustand": "^4.3.4"
   },
   "devDependencies": {
     "@types/react": "^18.0.27",
     "@types/react-dom": "^18.0.10",
     "@types/react-helmet": "^6.1.6",
+    "@types/uuid": "^9.0.1",
     "@typescript-eslint/eslint-plugin": "^5.54.0",
     "@typescript-eslint/parser": "^5.54.0",
     "@vitejs/plugin-react": "^3.1.0",

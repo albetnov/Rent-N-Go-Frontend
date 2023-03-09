@@ -2,6 +2,7 @@ import { type ChangeEvent, useState } from 'react'
 import useOrderWizardStore from '../../stores/orderWizard'
 import { callToast } from '../../utils/toasts'
 import dayjs from 'dayjs'
+import { useLoaderData } from 'react-router-dom'
 
 export default function firstFlowModel() {
   const { continueOrder } = useOrderWizardStore((state) => ({
@@ -9,9 +10,9 @@ export default function firstFlowModel() {
   }))
 
   const [pickupDate, setPickupDate] = useState('')
-  const [pickupLocation, setPickupLocation] = useState('batam')
+  const [pickupLocation, setPickupLocation] = useState('Batam Kota')
   const [returnDate, setReturnDate] = useState('')
-  const [returnLocation, setReturnLocation] = useState('batam')
+  const [returnLocation, setReturnLocation] = useState('Batam Kota')
 
   const onPickupDateChange = (e: ChangeEvent<HTMLInputElement>) => {
     setPickupDate(e.target.value)
@@ -59,6 +60,8 @@ export default function firstFlowModel() {
     callToast('Location saved!')
   }
 
+  const locations = useLoaderData()
+
   return {
     pickupDate,
     pickupLocation,
@@ -68,6 +71,7 @@ export default function firstFlowModel() {
     onPickupLocationChange,
     onReturnDateChange,
     onReturnLocationChange,
-    onSubmit
+    onSubmit,
+    locations: (locations as any).kecamatan as any[]
   }
 }

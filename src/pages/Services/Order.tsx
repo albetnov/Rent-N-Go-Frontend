@@ -3,6 +3,7 @@ import Layout from '../../components/Layout'
 import FirstFlow from '../../components/Order/FirstFlow'
 import Navigation from '../../components/Order/Navigation'
 import SecondFlow from '../../components/Order/SecondFlow'
+import ThirdFlow from '../../components/Order/ThirdFlow'
 import useOrderWizardStore from '../../stores/orderWizard'
 import { callToast } from '../../utils/toasts'
 
@@ -34,6 +35,7 @@ export default function Order() {
       <Box px={8} mt={16} mb={10}>
         <FirstFlow step={step} />
         <SecondFlow step={step} />
+        <ThirdFlow step={step} />
       </Box>
       {hasOrder ? (
         <Box mt={14}>
