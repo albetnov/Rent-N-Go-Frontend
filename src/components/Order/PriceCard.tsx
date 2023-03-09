@@ -36,7 +36,7 @@ export default function PriceCard({
       </CardHeader>
       <CardBody>
         <Divider my={3} />
-        <Grid px={6} templateColumns="1fr 1fr">
+        <Grid px={6} templateColumns={{ base: '1fr', md: '1fr 1fr' }}>
           <GridItem>
             <Image src={imgUrl} w="246px" h="142px" objectFit="cover" />
           </GridItem>

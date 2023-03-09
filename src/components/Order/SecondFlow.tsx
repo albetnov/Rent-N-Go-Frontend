@@ -25,7 +25,7 @@ export default function SecondFlow({ step }: WizardStep) {
   }
 
   return (
-    <Grid templateColumns="35% 1fr" gap={14}>
+    <Grid templateColumns={{ base: '1fr', md: '35% 1fr' }} gap={14}>
       <GridItem>
         <Card rounded="xl">
           <CardHeader bg="primary" roundedTop="xl">
@@ -76,7 +76,7 @@ export default function SecondFlow({ step }: WizardStep) {
           <PriceSummary />
         </OrderDetailCard>
       </GridItem>
-      <GridItem colSpan={2}>
+      <GridItem colSpan={{ base: 1, md: 2 }}>
         <OutlineButton onClick={next}>Continue</OutlineButton>
       </GridItem>
     </Grid>
