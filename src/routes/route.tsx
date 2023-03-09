@@ -1,15 +1,19 @@
+/* eslint-disable @typescript-eslint/promise-function-async */
+import { lazy } from 'react'
 import { createBrowserRouter } from 'react-router-dom'
-import Login from '../pages/Auth/Login'
-import Logout from '../pages/Auth/Logout'
-import Register from '../pages/Auth/Register'
-import Home from '../pages/Home'
-import TourGuide from '../pages/Services/TourGuide'
-import Profile from '../pages/Users/Profile'
-import Authed from '../services/Authed'
-import Drivers from '../pages/Services/Drivers'
-import CarList from '../pages/Services/CarList'
-import FAQ from '../pages/Services/FAQ'
-import Artificier from '../pages/Artificier'
+const Login = lazy(() => import('../pages/Auth/Login'))
+const Logout = lazy(() => import('../pages/Auth/Logout'))
+const Register = lazy(() => import('../pages/Auth/Register'))
+const Home = lazy(() => import('../pages/Home'))
+const TourGuide = lazy(() => import('../pages/Services/TourGuide'))
+const Profile = lazy(() => import('../pages/Users/Profile'))
+const Authed = lazy(() => import('../services/Authed'))
+const Drivers = lazy(() => import('../pages/Services/Drivers'))
+const CarList = lazy(() => import('../pages/Services/CarList'))
+const FAQ = lazy(() => import('../pages/Services/FAQ'))
+const Artificier = lazy(() => import('../pages/Artificier'))
+const Order = lazy(() => import('../pages/Services/Order'))
+const Guest = lazy(() => import('../services/Guest'))
 
 export default createBrowserRouter([
   {
@@ -38,7 +42,7 @@ export default createBrowserRouter([
   },
   {
     path: '/auth',
-    element: <Authed />,
+    element: <Guest />,
     children: [
       {
         path: 'login',
@@ -61,6 +65,10 @@ export default createBrowserRouter([
       {
         path: '/logout',
         element: <Logout />
+      },
+      {
+        path: 'order',
+        element: <Order />
       }
     ]
   }
