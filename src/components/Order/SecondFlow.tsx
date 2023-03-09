@@ -1,9 +1,13 @@
 import { Card, CardBody, CardHeader, Grid, GridItem } from '@chakra-ui/react'
 import WhiteText from '../WhiteText'
 import CarOrderCard from './CarOrderCard'
+import DriverOrderCard from './DriverOrderCard'
 import OrderDetailCard from './OrderDetailCard'
+import OutlineButton from './OutlineButton'
+import PriceSummary from './PriceSummary'
 import SecondFlowModel from './SecondFlowModel'
 import TextCombo from './TextCombo'
+import TourOrderCard from './TourOrderCard'
 import { type WizardStep } from './types'
 
 export default function SecondFlow({ step }: WizardStep) {
@@ -12,7 +16,8 @@ export default function SecondFlow({ step }: WizardStep) {
     pickupLocation,
     rentalEstimation,
     returnDate,
-    returnLocation
+    returnLocation,
+    next
   } = SecondFlowModel()
 
   if (step !== 2) {
@@ -54,7 +59,25 @@ export default function SecondFlow({ step }: WizardStep) {
             period="3 Days"
             totalCost="Rp 3.000.000"
           />
+          <DriverOrderCard
+            imgUrl="https://source.unsplash.com/1000x1000?driver"
+            name="Delvin Jason"
+            period="3 Days"
+            price="Rp 500.000/day"
+            totalCost="Rp 1.500.000"
+          />
+          <TourOrderCard
+            imgUrl="https://source.unsplash.com/1000x1000?travel"
+            name="Place Tour"
+            period="3 Days"
+            price="Rp 5.000.000/day"
+            totalCost="Rp 15.000.000"
+          />
+          <PriceSummary />
         </OrderDetailCard>
+      </GridItem>
+      <GridItem colSpan={2}>
+        <OutlineButton onClick={next}>Continue</OutlineButton>
       </GridItem>
     </Grid>
   )

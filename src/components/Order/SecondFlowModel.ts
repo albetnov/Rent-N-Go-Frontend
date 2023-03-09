@@ -2,8 +2,9 @@ import useOrderWizardStore from '../../stores/orderWizard'
 import dayjs from 'dayjs'
 
 export default function SecondFlowModel() {
-  const { location } = useOrderWizardStore((state) => ({
-    location: state.getLocation
+  const { location, finish } = useOrderWizardStore((state) => ({
+    location: state.getLocation,
+    finish: state.finishSecondFlow
   }))
 
   if (!location) {
@@ -21,6 +22,7 @@ export default function SecondFlowModel() {
     pickupDate: parsedLocation.pickUpDate,
     returnLocation: parsedLocation.returnLocation,
     returnDate: parsedLocation.returnDate,
-    rentalEstimation: estimate
+    rentalEstimation: estimate,
+    next: finish
   }
 }

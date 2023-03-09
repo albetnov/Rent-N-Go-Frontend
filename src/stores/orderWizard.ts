@@ -14,6 +14,7 @@ interface OrderWizardStore {
     returnLocation: string
   ) => void
   getLocation: string | null
+  finishSecondFlow: () => void
 }
 
 const useOrderWizardStore = create<OrderWizardStore>((set) => ({
@@ -52,6 +53,11 @@ const useOrderWizardStore = create<OrderWizardStore>((set) => ({
     localStorage.setItem('wizard_step', '2')
 
     set(() => ({ step: 2, getLocation: payload }))
+  },
+
+  finishSecondFlow() {
+    localStorage.setItem('wizard_step', '3')
+    set(() => ({ step: 3 }))
   }
 }))
 

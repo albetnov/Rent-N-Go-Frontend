@@ -6,7 +6,9 @@ export default function OrderDetailCard({ children }: PropsWithChildren) {
     <Card rounded="none" shadow="lg">
       <CardBody>
         <Card rounded="lg" shadow="none" border="1px dotted violet">
-          <CardBody>{children}</CardBody>
+          <CardBody display="flex" flexDir="column" gap={10}>
+            {children}
+          </CardBody>
         </Card>
       </CardBody>
     </Card>
