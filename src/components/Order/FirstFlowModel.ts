@@ -44,7 +44,7 @@ export default function firstFlowModel() {
     const secondDate = dayjs(returnDate)
 
     if (
-      !firstDate.isSame(dayjs(), 'day') ||
+      firstDate.isBefore(dayjs(), 'day') ||
       !secondDate.isAfter(firstDate, 'day')
     ) {
       callToast(

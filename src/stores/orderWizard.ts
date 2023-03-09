@@ -41,18 +41,17 @@ const useOrderWizardStore = create<OrderWizardStore>((set) => ({
   },
 
   setFirstFlow(pickUpDate, pickUpLocation, returnDate, returnLocation) {
-    localStorage.setItem(
-      'order_location',
-      JSON.stringify({
-        pickUpDate,
-        pickUpLocation,
-        returnDate,
-        returnLocation
-      })
-    )
+    const payload = JSON.stringify({
+      pickUpDate,
+      pickUpLocation,
+      returnDate,
+      returnLocation
+    })
 
+    localStorage.setItem('order_location', payload)
     localStorage.setItem('wizard_step', '2')
-    set(() => ({ step: 2 }))
+
+    set(() => ({ step: 2, getLocation: payload }))
   }
 }))
 

@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { toast } from './toasts'
+import { callToast, toast } from './toasts'
 
 const client = axios.create({
   baseURL: import.meta.env.VITE_BASE_URL,
@@ -59,6 +59,7 @@ client.interceptors.request.use(async (api) => {
 
 client.interceptors.response.use(undefined, async (error) => {
   if (!error.response) {
+    callToast('something went wrong', 'error')
     return await Promise.reject(error)
   }
 
@@ -106,6 +107,8 @@ client.interceptors.response.use(undefined, async (error) => {
       localStorage.removeItem('tokens')
     }
   }
+
+  callToast('Something went wrong', 'error')
 
   return await Promise.reject(error)
 })

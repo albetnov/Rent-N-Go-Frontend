@@ -2,10 +2,19 @@ import { Card, CardBody, CardHeader, Grid, GridItem } from '@chakra-ui/react'
 import WhiteText from '../WhiteText'
 import CarOrderCard from './CarOrderCard'
 import OrderDetailCard from './OrderDetailCard'
+import SecondFlowModel from './SecondFlowModel'
 import TextCombo from './TextCombo'
 import { type WizardStep } from './types'
 
 export default function SecondFlow({ step }: WizardStep) {
+  const {
+    pickupDate,
+    pickupLocation,
+    rentalEstimation,
+    returnDate,
+    returnLocation
+  } = SecondFlowModel()
+
   if (step !== 2) {
     return <></>
   }
@@ -20,15 +29,18 @@ export default function SecondFlow({ step }: WizardStep) {
           <CardBody>
             <TextCombo
               label="Pickup Location"
-              child="Batam"
-              optionalChild="2023/02/01 23:00PM"
+              child={pickupLocation}
+              optionalChild={pickupDate}
             />
             <TextCombo
               label="Return Location"
-              child="Batam"
-              optionalChild="2023/02/01 23:00PM"
+              child={returnLocation}
+              optionalChild={returnDate}
             />
-            <TextCombo label="Rental Duration" child="3 Days" />
+            <TextCombo
+              label="Rental Duration"
+              child={`${rentalEstimation} Days`}
+            />
           </CardBody>
         </Card>
       </GridItem>
