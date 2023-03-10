@@ -1,7 +1,10 @@
 /* eslint-disable @typescript-eslint/promise-function-async */
 import { lazy } from 'react'
 import { createBrowserRouter } from 'react-router-dom'
-import FakeOrderProcess from '../pages/Services/FakeOrderProcess'
+const NotFound = lazy(() => import('../pages/NotFound'))
+const FakeOrderProcess = lazy(
+  () => import('../pages/Services/FakeOrderProcess')
+)
 const Login = lazy(() => import('../pages/Auth/Login'))
 const Logout = lazy(() => import('../pages/Auth/Logout'))
 const Register = lazy(() => import('../pages/Auth/Register'))
@@ -82,5 +85,9 @@ export default createBrowserRouter([
         element: <FakeOrderProcess />
       }
     ]
+  },
+  {
+    path: '*',
+    element: <NotFound />
   }
 ])

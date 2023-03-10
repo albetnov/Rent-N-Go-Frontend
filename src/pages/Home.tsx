@@ -40,6 +40,9 @@ export default function Home() {
       >
         <SectionText>Our Services</SectionText>
         <Flex
+          w="full"
+          maxW="80%"
+          mx="auto"
           gap={4}
           justifyContent="space-between"
           flexDir={{ base: 'column', md: 'row' }}

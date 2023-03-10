@@ -5,12 +5,12 @@ export default function OrderItem({ children, ...props }: MenuItemProps) {
   return (
     <MenuItem
       {...props}
-      bg="profile-button"
+      bg="gray.50"
       w="full"
       rounded="full"
       shadow="lg"
       py={2}
-      my="1.5"
+      my="5"
     >
       <CenteredText w="full" fontWeight={400}>
         {children}
