@@ -1,9 +1,8 @@
-import { Box, Flex } from '@chakra-ui/react'
+import { Box, Flex, Text, type FlexProps } from '@chakra-ui/react'
 import RouterLink from '../RouterLink'
-import WhiteText from '../WhiteText'
 import BoldText from './BoldText'
 
-export default function Contact() {
+export default function Contact(props: FlexProps) {
   return (
     <>
       <Flex
@@ -16,35 +15,37 @@ export default function Contact() {
         maxW="443px"
         gap={14}
         w="full"
+        color="white"
+        {...props}
       >
-        <WhiteText noOfLines={3}>
+        <Text noOfLines={3}>
           <BoldText>Address:</BoldText> Digital Park, Sambau, Kecamatan Nongsa,
           Kota Batam, Kepulauan Riau 29466
-        </WhiteText>
+        </Text>
         <Box>
-          <WhiteText fontSize={20} fontWeight={700}>
+          <Text fontSize={20} fontWeight={700}>
             0821-9999-9999
-          </WhiteText>
-          <WhiteText fontSize={20} fontWeight={700}>
+          </Text>
+          <Text fontSize={20} fontWeight={700}>
             0811-9999-9999
-          </WhiteText>
+          </Text>
         </Box>
         <Box>
-          <WhiteText>
+          <Text>
             <BoldText>Email: </BoldText> cs@rentngo.com
-          </WhiteText>
-          <WhiteText>
+          </Text>
+          <Text>
             <BoldText>Instagram: </BoldText>
             rentngo_batam
-          </WhiteText>
-          <WhiteText>
+          </Text>
+          <Text>
             <BoldText>Twitter: </BoldText>
             rentngo_batam
-          </WhiteText>
-          <WhiteText>
+          </Text>
+          <Text>
             A project by{' '}
             <RouterLink to="/about/teams">Artificier Team</RouterLink>.
-          </WhiteText>
+          </Text>
         </Box>
       </Flex>
     </>

@@ -12,7 +12,7 @@ export default function FakeOrderProcess() {
 
   const navigate = useNavigate()
 
-  const [orderStatus, setOrderStatus] = useState('processing')
+  const [orderStatus, setOrderStatus] = useState('')
 
   const reqId = localStorage.getItem('fake-uid')
 
@@ -29,7 +29,7 @@ export default function FakeOrderProcess() {
   }, [])
 
   useEffect(() => {
-    if (orderStatus !== 'processing') {
+    if (orderStatus !== '') {
       if (orderStatus === 'invalid') {
         callToast('Ups, order invalid.', 'error')
         doneOrder()
@@ -40,9 +40,10 @@ export default function FakeOrderProcess() {
         navigate('/order')
       }
     }
+
     return () => {
       localStorage.removeItem('fake-uid')
-      setOrderStatus('processing')
+      setOrderStatus('')
     }
   }, [orderStatus])
 

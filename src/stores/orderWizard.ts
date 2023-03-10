@@ -16,6 +16,7 @@ interface OrderWizardStore {
   getLocation: string | null
   finishSecondFlow: () => void
   finishThirdFlow: () => void
+  endOrder: () => void
 }
 
 const useOrderWizardStore = create<OrderWizardStore>((set) => ({
@@ -64,6 +65,12 @@ const useOrderWizardStore = create<OrderWizardStore>((set) => ({
   finishThirdFlow() {
     localStorage.setItem('wizard_step', '4')
     set(() => ({ step: 4 }))
+  },
+
+  endOrder() {
+    localStorage.removeItem('order_location')
+    localStorage.removeItem('wizard_step')
+    set(() => ({ step: 0, hasOrder: false, getLocation: null }))
   }
 }))
 

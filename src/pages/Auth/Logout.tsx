@@ -4,7 +4,9 @@ import useAuthStore from '../../stores/auth'
 import { callToast } from '../../utils/toasts'
 
 export default function Logout() {
-  const { logout } = useAuthStore((state) => ({ logout: state.logout }))
+  const { logout } = useAuthStore((state) => ({
+    logout: state.logout
+  }))
 
   const navigate = useNavigate()
 

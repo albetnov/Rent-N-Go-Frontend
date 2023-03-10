@@ -1,13 +1,18 @@
 import { Box, Button } from '@chakra-ui/react'
 import Layout from '../../components/Layout'
+import FinalFlow from '../../components/Order/FinalFlow'
 import FirstFlow from '../../components/Order/FirstFlow'
 import Navigation from '../../components/Order/Navigation'
 import SecondFlow from '../../components/Order/SecondFlow'
 import ThirdFlow from '../../components/Order/ThirdFlow'
+import useCustomBackground from '../../hooks/useCustomBackground'
 import useOrderWizardStore from '../../stores/orderWizard'
+import colors from '../../utils/colors'
 import { callToast } from '../../utils/toasts'
 
 export default function Order() {
+  useCustomBackground(colors.white)
+
   const { step, hasOrder, order, done, dec, inc } = useOrderWizardStore(
     (state) => ({
       step: state.step,
@@ -36,6 +41,7 @@ export default function Order() {
         <FirstFlow step={step} />
         <SecondFlow step={step} />
         <ThirdFlow step={step} />
+        <FinalFlow step={step} />
       </Box>
       {hasOrder ? (
         <Box mt={14}>

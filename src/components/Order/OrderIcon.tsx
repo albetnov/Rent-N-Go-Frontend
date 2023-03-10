@@ -1,6 +1,5 @@
 import { Box, useBreakpointValue } from '@chakra-ui/react'
 import { type IconType } from 'react-icons'
-import colors from '../../utils/colors'
 import { BsTriangleFill } from 'react-icons/bs'
 
 interface OrderIconProps {
@@ -20,8 +19,8 @@ export default function OrderIcon({ color, Icon, isSelected }: OrderIconProps) {
       border="1px solid"
       borderColor={color}
       color={color}
-      bg={colors.secondary}
       position="relative"
+      bg="white"
     >
       <Icon fontSize={iconSize} />
       {isSelected && (
