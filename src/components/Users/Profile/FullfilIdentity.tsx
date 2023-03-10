@@ -17,7 +17,6 @@ import PrimaryButton from '../../PrimaryButton'
 
 export default function FullfilIdentity() {
   const { isOpen, onOpen, onClose } = useDisclosure()
-  const [ktp, setKtp] = useState<File>()
   const [sim, setSim] = useState<File>()
 
   return (
@@ -43,13 +42,6 @@ export default function FullfilIdentity() {
             </Text>
           </ModalHeader>
           <ModalBody display="flex" gap={12} flexDir="column">
-            <Dropper
-              file={ktp}
-              setFile={setKtp}
-              title="Goverment-Issued National Identification Card"
-              desc="Please upload a valid, clear and colored National Identification
-            Card"
-            />
             <Dropper
               file={sim}
               setFile={setSim}

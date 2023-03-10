@@ -3,7 +3,7 @@ import { useRef, useState } from 'react'
 // eslint-disable-next-line @typescript-eslint/ban-types
 export default function useEditField(
   beforeValue: string,
-  callback: (value: string) => void
+  callback?: (value: string) => void
 ) {
   const inputRef = useRef<HTMLInputElement>(null)
   const [isEdit, setIsEdit] = useState(false)
@@ -14,8 +14,10 @@ export default function useEditField(
       if (inputRef.current?.value === beforeValue) {
         return
       }
-      // eslint-disable-next-line n/no-callback-literal
-      callback(inputRef.current?.value ?? '')
+      if (callback) {
+        // eslint-disable-next-line n/no-callback-literal
+        callback(inputRef.current?.value ?? '')
+      }
       return
     }
     setIsEdit(true)

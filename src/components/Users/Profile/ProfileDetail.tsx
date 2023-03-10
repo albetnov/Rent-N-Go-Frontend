@@ -11,6 +11,7 @@ import BorderlessTableData from './BorderlessTableData'
 import ChangePassword from './ChangePassword'
 import DeleteAccount from './DeleteAccount'
 import FullfilIdentity from './FullfilIdentity'
+import EditableField from './EditableField'
 
 interface ProfileDetailProps {
   phoneNumber: string
@@ -34,17 +35,17 @@ export default function ProfileDetail({
           <Tbody>
             <Tr>
               <BorderlessTableData>Your Phone Number</BorderlessTableData>
-              <BorderlessTableData>{phoneNumber}</BorderlessTableData>
+              <EditableField value={phoneNumber} />
             </Tr>
             <Tr>
               <BorderlessTableData>Your Email</BorderlessTableData>
-              <BorderlessTableData>{email}</BorderlessTableData>
+              <EditableField value={email} />
             </Tr>
             <Tr>
               <BorderlessTableData>
                 Your National Identification Number
               </BorderlessTableData>
-              <BorderlessTableData>{nik ?? '-'}</BorderlessTableData>
+              <EditableField value={nik ?? '-'} />
             </Tr>
             <Tr>
               <BorderlessTableData>

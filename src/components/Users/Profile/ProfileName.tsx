@@ -1,6 +1,6 @@
-import { Box, Button, Flex, Input, Text } from '@chakra-ui/react'
-import { FiEdit2 } from 'react-icons/fi'
+import { Box, Flex, Input, Text } from '@chakra-ui/react'
 import ProfileNameModel from './Models/ProfileNameModel'
+import ProfileEditButton from './ProfileEditButton'
 
 interface ProfileNameProps {
   name: string
@@ -22,15 +22,7 @@ export default function ProfileName({ name }: ProfileNameProps) {
             {name}
           </Text>
         )}
-        <Button
-          bg="none"
-          rounded="full"
-          _hover={{ bg: 'none' }}
-          _active={{ bg: 'none', shadow: 'inner' }}
-          onClick={onEditHandler}
-        >
-          <FiEdit2 fontSize={fontSize} />
-        </Button>
+        <ProfileEditButton fontSize={fontSize} onEdit={onEditHandler} />
       </Flex>
     </Box>
   )
