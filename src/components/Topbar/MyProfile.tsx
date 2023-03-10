@@ -1,9 +1,14 @@
 import { Menu, MenuButton, MenuList, SkeletonCircle } from '@chakra-ui/react'
+import useOrderWizardStore from '../../stores/orderWizard'
 import ProfileItem from './ProfileItem'
 
 export default function MyProfile() {
+  const { hasOrder } = useOrderWizardStore((state) => ({
+    hasOrder: state.hasOrder
+  }))
+
   return (
-    <Menu offset={[100, 10]}>
+    <Menu offset={hasOrder ? [100, 10] : undefined}>
       <MenuButton>
         <SkeletonCircle w={14} h={14} />
       </MenuButton>
@@ -11,7 +16,7 @@ export default function MyProfile() {
         <ProfileItem isActive to="/profile">
           My Profile
         </ProfileItem>
-        <ProfileItem to="/order">Order On Process</ProfileItem>
+        {hasOrder && <ProfileItem to="/order">Order On Process</ProfileItem>}
         <ProfileItem to="/logout" color="red.500">
           Logout
         </ProfileItem>
