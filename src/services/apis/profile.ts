@@ -108,6 +108,24 @@ const updateSim = async (sim: File) => {
   }
 }
 
+const updatePassword = async (
+  oldPassword: string,
+  newPassword: string,
+  confirmPassword: string
+) => {
+  const result = await client.put('/profiles/update/password', {
+    old_password: oldPassword,
+    password: newPassword,
+    confirm_password: confirmPassword
+  })
+
+  if (result.status > 199 || result.status < 300) {
+    return result.data
+  }
+
+  return false
+}
+
 export {
   getProfilePicture,
   getCompletionStatus,
@@ -115,5 +133,6 @@ export {
   updateProfilePhoto,
   updateProfile,
   completeOrUpdateNik,
-  updateSim
+  updateSim,
+  updatePassword
 }
