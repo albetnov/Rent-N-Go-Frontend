@@ -1,3 +1,4 @@
+import { AxiosError } from 'axios'
 import client from '../../utils/client'
 
 interface RegisterData {
@@ -15,6 +16,10 @@ const register = async (data: RegisterData) => {
     return res.data
   } catch (err: any) {
     console.error(err)
+    if (err instanceof AxiosError) {
+      return err.response?.data
+    }
+
     return false
   }
 }
