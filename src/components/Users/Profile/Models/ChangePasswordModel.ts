@@ -45,7 +45,12 @@ export default function ChangePasswordModel() {
     }
 
     if (result.action === 'LOGOUT') {
-      callToast('Password changed successfully')
+      callToast(
+        'Password changed successfully',
+        'success',
+        3000,
+        'Logging you out...'
+      )
       setTimeout(() => {
         logout()
       }, 3500)
