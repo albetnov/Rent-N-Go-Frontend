@@ -126,6 +126,16 @@ const updatePassword = async (
   return false
 }
 
+const deleteAccount = async () => {
+  const result = await client.delete('/profiles/delete')
+
+  if (result.status > 199 || result.status < 300) {
+    return result.data.message
+  }
+
+  return false
+}
+
 export {
   getProfilePicture,
   getCompletionStatus,
@@ -134,5 +144,6 @@ export {
   updateProfile,
   completeOrUpdateNik,
   updateSim,
-  updatePassword
+  updatePassword,
+  deleteAccount
 }
