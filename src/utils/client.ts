@@ -38,6 +38,7 @@ client.interceptors.request.use(async (api) => {
 
   if (!token) {
     localStorage.removeItem('tokens')
+    console.warn('Token exchange failed')
     return api
   }
 
@@ -47,8 +48,11 @@ client.interceptors.request.use(async (api) => {
   ) {
     await refreshToken()
     token = await getTokens()
-  } else {
+  }
+
+  if (!token) {
     localStorage.removeItem('tokens')
+    console.warn('token exchange failed')
     return api
   }
 
