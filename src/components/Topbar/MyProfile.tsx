@@ -15,7 +15,13 @@ export default function MyProfile() {
     <Menu offset={hasOrder ? [100, 10] : undefined}>
       <MenuButton>
         {photo ? (
-          <Image src={photo} rounded="full" w={14} h={14} objectFit="cover" />
+          <Image
+            src={photo}
+            rounded="full"
+            w={14}
+            h={14}
+            objectFit="scale-down"
+          />
         ) : (
           <SkeletonCircle w={14} h={14} />
         )}

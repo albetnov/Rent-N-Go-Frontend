@@ -7,14 +7,15 @@ import {
   ModalFooter,
   ModalHeader,
   ModalOverlay,
-  Text,
-  useDisclosure
+  Text
 } from '@chakra-ui/react'
 import PrimaryButton from '../../PrimaryButton'
+import DeleteAccountModel from './Models/DeleteAccountModel'
 import ProfileButtonAction from './ProfileButtonAction'
 
 export default function DeleteAccount() {
-  const { isOpen, onOpen, onClose } = useDisclosure()
+  const { isOpen, onOpen, onClose, onAccountDeletion, isLoading } =
+    DeleteAccountModel()
 
   return (
     <>
@@ -32,10 +33,17 @@ export default function DeleteAccount() {
             <Text>Are you sure bout this sir? Think twice.</Text>
           </ModalBody>
           <ModalFooter>
-            <Button mr={3} onClick={onClose} colorScheme="red">
+            <Button
+              mr={3}
+              disabled={isLoading}
+              onClick={onClose}
+              colorScheme="red"
+            >
               Of course, not.
             </Button>
-            <PrimaryButton>I am sorry, but yes.</PrimaryButton>
+            <PrimaryButton onClick={onAccountDeletion} isLoading={isLoading}>
+              I am sorry, but yes.
+            </PrimaryButton>
           </ModalFooter>
         </ModalContent>
       </Modal>

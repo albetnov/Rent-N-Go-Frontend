@@ -7,17 +7,17 @@ import {
   ModalContent,
   ModalHeader,
   ModalOverlay,
-  Text,
-  useDisclosure
+  Text
 } from '@chakra-ui/react'
 import ProfileButtonAction from './ProfileButtonAction'
-import { useState } from 'react'
 import Dropper from './Dropper'
 import PrimaryButton from '../../PrimaryButton'
+import FullfillIdentityModel from './Models/FullfilIdentityModel'
+import { type ProfileFetcher } from './types'
 
-export default function FullfilIdentity() {
-  const { isOpen, onOpen, onClose } = useDisclosure()
-  const [sim, setSim] = useState<File>()
+export default function FullfilIdentity({ fetcher }: ProfileFetcher) {
+  const { isOpen, onClose, onOpen, setSim, sim, uploadSimHandler, isLoading } =
+    FullfillIdentityModel(fetcher)
 
   return (
     <>
@@ -49,8 +49,19 @@ export default function FullfilIdentity() {
               desc="Please upload a valid, clear and colored National Driving License Image"
             />
             <Flex gap={5} mx="auto">
-              <PrimaryButton w="fit-content">Upload</PrimaryButton>
-              <Button colorScheme="red" onClick={onClose} w="fit-content">
+              <PrimaryButton
+                isLoading={isLoading}
+                w="fit-content"
+                onClick={uploadSimHandler}
+              >
+                Upload
+              </PrimaryButton>
+              <Button
+                colorScheme="red"
+                disabled={isLoading}
+                onClick={onClose}
+                w="fit-content"
+              >
                 Cancel
               </Button>
             </Flex>
