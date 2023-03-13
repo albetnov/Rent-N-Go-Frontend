@@ -32,12 +32,7 @@ export default function Profile() {
               />
               <ProfileName user={user} fetcher={refetch} />
             </Flex>
-            <ProfileDetail
-              email={user.email}
-              phoneNumber={user.tel}
-              drivingLicense={user.sim}
-              nik={user.nik}
-            />
+            <ProfileDetail user={user} fetcher={refetch} />
           </CardBody>
         </Card>
         <OrderHistory />

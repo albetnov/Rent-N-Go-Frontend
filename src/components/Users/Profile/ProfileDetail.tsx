@@ -12,22 +12,20 @@ import ChangePassword from './ChangePassword'
 import DeleteAccount from './DeleteAccount'
 import FullfilIdentity from './FullfilIdentity'
 import EditableField from './EditableField'
+import { type UserData } from '../../../pages/Users/ProfileLoader'
+import { type ProfileFetcher } from './types'
+import ProfileDetailModel from './Models/ProfileDetailModel'
 
-interface ProfileDetailProps {
-  phoneNumber: string
-  email: string
-  nik?: string
-  drivingLicense?: string
-  isFullfilled?: boolean
+interface ProfileDetailProps extends ProfileFetcher {
+  user: UserData
 }
 
-export default function ProfileDetail({
-  phoneNumber,
-  email,
-  nik,
-  drivingLicense,
-  isFullfilled
-}: ProfileDetailProps) {
+export default function ProfileDetail({ user, fetcher }: ProfileDetailProps) {
+  const { emailHandler, nikHandler, phoneNumberHandler } = ProfileDetailModel(
+    user,
+    fetcher
+  )
+
   return (
     <Box>
       <TableContainer>
@@ -35,31 +33,35 @@ export default function ProfileDetail({
           <Tbody>
             <Tr>
               <BorderlessTableData>Your Phone Number</BorderlessTableData>
-              <EditableField value={phoneNumber} />
+              <EditableField
+                value={user.tel}
+                type="number"
+                callback={phoneNumberHandler}
+              />
             </Tr>
             <Tr>
               <BorderlessTableData>Your Email</BorderlessTableData>
-              <EditableField value={email} />
+              <EditableField value={user.email} callback={emailHandler} />
             </Tr>
             <Tr>
               <BorderlessTableData>
                 Your National Identification Number
               </BorderlessTableData>
-              <EditableField value={nik ?? '-'} />
+              <EditableField value={user.nik ?? '-'} callback={nikHandler} />
             </Tr>
             <Tr>
               <BorderlessTableData>
                 Your National Driving License
               </BorderlessTableData>
               <BorderlessTableData>
-                <Badge>{drivingLicense}</Badge>
+                <Badge>{user.sim}</Badge>
               </BorderlessTableData>
             </Tr>
           </Tbody>
         </Table>
       </TableContainer>
       <Flex flexDir="column" mt={8} gap={3}>
-        {!isFullfilled && <FullfilIdentity />}
+        {user.sim === 'Not Uploaded' && <FullfilIdentity />}
         <ChangePassword />
         <DeleteAccount />
       </Flex>

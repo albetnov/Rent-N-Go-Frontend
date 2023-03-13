@@ -6,15 +6,20 @@ import ProfileEditButton from './ProfileEditButton'
 interface EditableFieldProps {
   value: string
   callback?: (value: string) => void
+  type?: string
 }
 
-export default function EditableField({ value, callback }: EditableFieldProps) {
+export default function EditableField({
+  value,
+  callback,
+  type = 'text'
+}: EditableFieldProps) {
   const { onEditHandler, isEdit, inputRef } = useEditField(value, callback)
 
   return (
     <BorderlessTableData display="flex" alignItems="center">
       {isEdit ? (
-        <Input ref={inputRef} defaultValue={value} />
+        <Input ref={inputRef} type={type} defaultValue={value} />
       ) : (
         <Text>{value}</Text>
       )}
