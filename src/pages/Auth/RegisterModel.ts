@@ -78,7 +78,6 @@ export default function RegisterModel() {
   }
 
   return {
-    name,
     password,
     setPassword,
     confirmPassword,
