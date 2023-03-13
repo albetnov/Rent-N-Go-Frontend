@@ -11,7 +11,7 @@ export default function ProfilePicture({
   imgUrl,
   fetcher
 }: ProfilePictureProps) {
-  const { newImgRef, onImageEditHandler, onFileChange } =
+  const { newImgRef, onImageEditHandler, onFileChange, isLoading } =
     ProfilePictureModel(fetcher)
 
   return (
@@ -33,6 +33,7 @@ export default function ProfilePicture({
         right={0}
         bg="white"
         onClick={onImageEditHandler}
+        isLoading={isLoading}
       >
         <FiEdit />
       </Button>
