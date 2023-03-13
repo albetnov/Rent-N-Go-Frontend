@@ -61,7 +61,7 @@ export default function ProfileDetail({ user, fetcher }: ProfileDetailProps) {
         </Table>
       </TableContainer>
       <Flex flexDir="column" mt={8} gap={3}>
-        {user.sim === 'Not Uploaded' && <FullfilIdentity />}
+        {user.sim === 'Not Uploaded' && <FullfilIdentity fetcher={fetcher} />}
         <ChangePassword />
         <DeleteAccount />
       </Flex>

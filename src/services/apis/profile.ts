@@ -82,11 +82,38 @@ const completeOrUpdateNik = async (nik: number) => {
   return false
 }
 
+const updateSim = async (sim: File) => {
+  const formData = new FormData()
+  formData.append('file_name', sim)
+
+  try {
+    const result = await client.post('/profiles/update/sim', formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      }
+    })
+
+    if (result.status < 200 || result.status > 300) {
+      callToast('Failed update profile picture', 'error')
+      return false
+    }
+
+    return result.data.message
+  } catch (err: any) {
+    if (err instanceof AxiosError) {
+      callToast(err.response?.data.error, 'error')
+    }
+
+    return false
+  }
+}
+
 export {
   getProfilePicture,
   getCompletionStatus,
   getProfile,
   updateProfilePhoto,
   updateProfile,
-  completeOrUpdateNik
+  completeOrUpdateNik,
+  updateSim
 }
