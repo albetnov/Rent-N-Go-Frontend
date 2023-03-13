@@ -1,10 +1,10 @@
 import { Box, Button, Image } from '@chakra-ui/react'
 import { FiEdit } from 'react-icons/fi'
 import ProfilePictureModel from './Models/ProfilePictureModel'
+import { type ProfileFetcher } from './types'
 
-interface ProfilePictureProps {
+interface ProfilePictureProps extends ProfileFetcher {
   imgUrl: string
-  fetcher: () => Promise<void>
 }
 
 export default function ProfilePicture({

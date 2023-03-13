@@ -30,7 +30,7 @@ export default function Profile() {
                 }
                 fetcher={refetch}
               />
-              <ProfileName name={user.name} />
+              <ProfileName user={user} fetcher={refetch} />
             </Flex>
             <ProfileDetail
               email={user.email}

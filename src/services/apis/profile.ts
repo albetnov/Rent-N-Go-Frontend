@@ -56,9 +56,26 @@ const updateProfilePhoto = async (photo: File) => {
   }
 }
 
+interface UpdateProfileProps {
+  name: string
+  phone_number: string
+  email: string
+}
+
+const updateProfile = async (data: UpdateProfileProps) => {
+  const result = await client.put('/profiles/update', data)
+
+  if (result.status > 199 || result.status < 300) {
+    return result.data.message
+  }
+
+  return false
+}
+
 export {
   getProfilePicture,
   getCompletionStatus,
   getProfile,
-  updateProfilePhoto
+  updateProfilePhoto,
+  updateProfile
 }

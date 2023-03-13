@@ -1,8 +1,9 @@
 import { type ChangeEvent, useRef } from 'react'
 import { updateProfilePhoto } from '../../../../services/apis/profile'
 import { callToast } from '../../../../utils/toasts'
+import { type FetcherFunc } from '../types'
 
-export default function ProfilePictureModel(fetcher: () => Promise<void>) {
+export default function ProfilePictureModel(fetcher: FetcherFunc) {
   const newImgRef = useRef<HTMLInputElement>(null)
 
   const onImageEditHandler = () => {
