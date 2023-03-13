@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/promise-function-async */
 import { lazy } from 'react'
 import { createBrowserRouter } from 'react-router-dom'
+import ProfileLoader from '../pages/Users/ProfileLoader'
 const NotFound = lazy(() => import('../pages/NotFound'))
 const FakeOrderProcess = lazy(
   () => import('../pages/Services/FakeOrderProcess')
@@ -64,6 +65,7 @@ export default createBrowserRouter([
     children: [
       {
         path: '/profile',
+        loader: ProfileLoader,
         element: <Profile />
       },
       {

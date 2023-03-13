@@ -17,7 +17,7 @@ interface ProfileDetailProps {
   phoneNumber: string
   email: string
   nik?: string
-  drivingLicense?: boolean
+  drivingLicense?: string
   isFullfilled?: boolean
 }
 
@@ -52,11 +52,7 @@ export default function ProfileDetail({
                 Your National Driving License
               </BorderlessTableData>
               <BorderlessTableData>
-                {drivingLicense ? (
-                  <Badge colorScheme="green">Done</Badge>
-                ) : (
-                  <Badge colorScheme="red">Not Uploaded</Badge>
-                )}
+                <Badge>{drivingLicense}</Badge>
               </BorderlessTableData>
             </Tr>
           </Tbody>

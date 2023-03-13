@@ -4,10 +4,10 @@ import OrderHistory from '../../components/Users/Profile/OrderHistory'
 import ProfileDetail from '../../components/Users/Profile/ProfileDetail'
 import ProfileName from '../../components/Users/Profile/ProfileName'
 import ProfilePicture from '../../components/Users/Profile/ProfilePicture'
-import useCustomBackground from '../../hooks/useCustomBackground'
-import colors from '../../utils/colors'
+import ProfileModel from './ProfileModel'
+
 export default function Profile() {
-  useCustomBackground(colors.secondary)
+  const { user, refetch } = ProfileModel()
 
   return (
     <>
@@ -24,12 +24,19 @@ export default function Profile() {
               flexDir={{ base: 'column', md: 'row' }}
               alignItems="center"
             >
-              <ProfilePicture imgUrl="https://source.unsplash.com/1000x1000?potrait" />
-              <ProfileName name="Delvin Jason" />
+              <ProfilePicture
+                imgUrl={
+                  user.photo ?? 'https://soruce.unsplash.com/500x500?potrait'
+                }
+                fetcher={refetch}
+              />
+              <ProfileName name={user.name} />
             </Flex>
             <ProfileDetail
-              email="delvinjason@mail.com"
-              phoneNumber="0928-3939-3948"
+              email={user.email}
+              phoneNumber={user.tel}
+              drivingLicense={user.sim}
+              nik={user.nik}
             />
           </CardBody>
         </Card>
