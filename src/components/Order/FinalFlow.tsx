@@ -10,7 +10,7 @@ import Lottie from 'lottie-react'
 
 export default function FinalFlow({ step }: WizardStep) {
   const { endOrder } = useOrderWizardStore((state) => ({
-    endOrder: state.endOrder
+    endOrder: state.doneOrder
   }))
 
   const navigate = useNavigate()
