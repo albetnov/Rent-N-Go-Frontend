@@ -9,5 +9,5 @@ After it type `pnpm i` or `npm i`. And you're set.
 
 ## Running the project
  
-To run the project simply type `pnpm dev` or `npm dev`. Since this project is still under development stage. You can gain access to admin by putting `tokens`
-with any value on the local storage. The app will let you act as you're logged in.
+To run the project simply type `pnpm dev` or `npm dev`. You're also need to start the backend which can be found
+above. After that make sure to put base url in `.env`.

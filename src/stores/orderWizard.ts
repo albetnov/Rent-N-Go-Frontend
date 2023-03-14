@@ -1,5 +1,12 @@
 import { create } from 'zustand'
 
+interface OrderItem {
+  module: 'tours' | 'cars' | 'drivers'
+  tourId?: number
+  carId?: number
+  driverId?: number
+}
+
 interface OrderWizardStore {
   step: number
   enableOrder: () => void
@@ -14,15 +21,22 @@ interface OrderWizardStore {
     returnLocation: string
   ) => void
   getLocation: string | null
+  item: OrderItem | null
   finishSecondFlow: () => void
   finishThirdFlow: () => void
   endOrder: () => void
+  orderTour: (tourId: number) => void
+  orderDriver: (driverId: number) => void
+  orderCar: (carId: number) => void
 }
 
 const useOrderWizardStore = create<OrderWizardStore>((set) => ({
   step: parseInt(localStorage.getItem('wizard_step') ?? '0'),
   hasOrder: !!localStorage.getItem('wizard_step'),
   getLocation: localStorage.getItem('order_location'),
+  item: localStorage.getItem('order_item')
+    ? (JSON.parse(localStorage.getItem('order_item') as string) as OrderItem)
+    : null,
 
   enableOrder() {
     localStorage.setItem('wizard_step', '1')
@@ -32,7 +46,8 @@ const useOrderWizardStore = create<OrderWizardStore>((set) => ({
   doneOrder() {
     localStorage.removeItem('order_location')
     localStorage.removeItem('wizard_step')
-    set(() => ({ hasOrder: false, step: 0 }))
+    localStorage.removeItem('order_item')
+    set(() => ({ hasOrder: false, step: 0, item: null, getLocation: null }))
   },
 
   inc() {
@@ -65,6 +80,36 @@ const useOrderWizardStore = create<OrderWizardStore>((set) => ({
   finishThirdFlow() {
     localStorage.setItem('wizard_step', '4')
     set(() => ({ step: 4 }))
+  },
+
+  orderTour(tourId) {
+    const item: OrderItem = {
+      module: 'tours',
+      tourId
+    }
+
+    localStorage.setItem('order_item', JSON.stringify(item))
+    set(() => ({ item }))
+  },
+
+  orderCar(carId) {
+    const item: OrderItem = {
+      module: 'cars',
+      carId
+    }
+
+    localStorage.setItem('order_item', JSON.stringify(item))
+    set(() => ({ item }))
+  },
+
+  orderDriver(driverId) {
+    const item: OrderItem = {
+      module: 'drivers',
+      driverId
+    }
+
+    localStorage.setItem('order_item', JSON.stringify(item))
+    set(() => ({ item }))
   },
 
   endOrder() {
