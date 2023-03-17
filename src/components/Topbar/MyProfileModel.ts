@@ -15,6 +15,7 @@ export default function MyProfileModel() {
   }))
 
   useEffect(() => {
+    const photoController = new AbortController()
     const applyPhoto = async () => {
       const propic = await getProfilePicture()
 
@@ -23,6 +24,7 @@ export default function MyProfileModel() {
       }
     }
 
+    const completionStatusController = new AbortController()
     const checkCompletionStatus = async () => {
       setIsComplete(!(await getCompletionStatus()))
     }
@@ -31,6 +33,8 @@ export default function MyProfileModel() {
     checkCompletionStatus()
 
     return () => {
+      photoController.abort()
+      completionStatusController.abort()
       setPhoto(false)
       setIsComplete(false)
     }

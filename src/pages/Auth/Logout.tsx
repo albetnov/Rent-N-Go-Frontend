@@ -15,8 +15,16 @@ export default function Logout() {
   }, 1000)
 
   useEffect(() => {
-    logout()
-    navigate('/')
+    let loggedOut = false
+
+    if (!loggedOut) {
+      logout()
+      navigate('/')
+    }
+
+    return () => {
+      loggedOut = true
+    }
   }, [])
 
   return <></>

@@ -2,8 +2,8 @@ import { AxiosError } from 'axios'
 import client from '../../utils/client'
 import { callToast } from '../../utils/toasts'
 
-const getProfile = async () => {
-  const result = await client.get('/profiles/current')
+const getProfile = async (signal?: AbortSignal) => {
+  const result = await client.get('/profiles/current', { signal })
 
   if (result.status < 200 || result.status > 300) {
     return false
@@ -12,16 +12,16 @@ const getProfile = async () => {
   return result.data.data
 }
 
-const getProfilePicture = async () => {
-  const result = await getProfile()
+const getProfilePicture = async (signal?: AbortSignal) => {
+  const result = await getProfile(signal)
 
   if (!result) return result
 
   return result.photo.PhotoPath
 }
 
-const getCompletionStatus = async () => {
-  const result = await client.get('/profiles/status')
+const getCompletionStatus = async (signal?: AbortSignal) => {
+  const result = await client.get('/profiles/status', { signal })
 
   if (result.status > 200 && result.data.percentage === 100) {
     return true
