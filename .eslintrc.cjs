@@ -20,7 +20,8 @@ module.exports = {
     '@typescript-eslint/no-misused-promises': 'off',
     '@typescript-eslint/restrict-template-expressions': 'off',
     '@typescript-eslint/no-non-null-assertion': 'off',
-    'multiline-ternary': 'off'
+    'multiline-ternary': 'off',
+    '@typescript-eslint/indent': 'off'
   },
   settings: {
     react: {
