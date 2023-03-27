@@ -32,7 +32,6 @@ export default function useInfiniteScroll<T extends HTMLElement, D>(
     if (pageNumber === currentPage) {
       return
     }
-
     const controller = new AbortController()
 
     const fetchData = async () => {
@@ -69,12 +68,39 @@ export default function useInfiniteScroll<T extends HTMLElement, D>(
     }
   }, [pageNumber])
 
+  interface SetterOptions {
+    data?: D[]
+    pageNumber?: number
+    nextPage?: boolean
+    loading?: boolean
+  }
+
+  const setter = (options: SetterOptions) => {
+    if (options.pageNumber) {
+      setPageNumber(options.pageNumber)
+    }
+
+    if (options.nextPage) {
+      setNextPage(options.nextPage)
+    }
+
+    if (options.data) {
+      setData(options.data)
+    }
+
+    if (typeof options.loading !== 'undefined') {
+      setLoading(options.loading)
+    }
+  }
+
   return {
     ref: lastItemRef,
     data,
+    loading,
+    setter,
     setData,
-    setPageNumber,
+    setLoading,
     setNextPage,
-    loading
+    setPageNumber
   }
 }
