@@ -35,7 +35,7 @@ export default function Profile() {
             <ProfileDetail user={user} fetcher={refetch} />
           </CardBody>
         </Card>
-        <OrderHistory />
+        <OrderHistory initialOrder={user.order} meta={user.meta} />
       </Box>
     </>
   )

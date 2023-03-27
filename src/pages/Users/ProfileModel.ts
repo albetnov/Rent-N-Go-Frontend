@@ -19,7 +19,7 @@ export default function ProfileModel() {
       return
     }
 
-    setUser(mapToUserData(result))
+    setUser(mapToUserData(result, user.order))
   }
 
   return { refetch, user }
