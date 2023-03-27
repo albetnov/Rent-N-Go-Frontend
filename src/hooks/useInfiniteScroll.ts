@@ -97,10 +97,6 @@ export default function useInfiniteScroll<T extends HTMLElement, D>(
     ref: lastItemRef,
     data,
     loading,
-    setter,
-    setData,
-    setLoading,
-    setNextPage,
-    setPageNumber
+    setter
   }
 }
