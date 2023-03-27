@@ -10,6 +10,7 @@ export default function useInfiniteScroll<T extends HTMLElement, D>(
   const [pageNumber, setPageNumber] = useState(currentPage)
   const [loading, setLoading] = useState(false)
   const [nextPage, setNextPage] = useState(hasNext)
+  const [error, setError] = useState(false)
 
   const observer = useRef<IntersectionObserver | null>(null)
   const lastItemRef: React.RefCallback<T> = useCallback(
@@ -35,14 +36,29 @@ export default function useInfiniteScroll<T extends HTMLElement, D>(
     const controller = new AbortController()
 
     const fetchData = async () => {
-      setLoading(true)
-      const data = await callback(controller.signal, pageNumber)
-      if (!data) return
-      setData((prev) => {
-        return [...new Set([...prev, ...data.data])]
-      })
-      setNextPage(data.meta.has_next)
-      setLoading(false)
+      try {
+        if (error) return
+
+        setLoading(true)
+
+        const data = await callback(controller.signal, pageNumber)
+
+        if (!data) {
+          setError(true)
+          return
+        }
+
+        setError(false)
+        setData((prev) => {
+          return [...new Set([...prev, ...data.data])]
+        })
+        setNextPage(data.meta.has_next)
+      } catch (err) {
+        setError(true)
+        console.error('anjay error', err)
+      } finally {
+        setLoading(false)
+      }
     }
 
     // eslint-disable-next-line @typescript-eslint/no-floating-promises
@@ -58,6 +74,7 @@ export default function useInfiniteScroll<T extends HTMLElement, D>(
     data,
     setData,
     setPageNumber,
-    setNextPage
+    setNextPage,
+    loading
   }
 }

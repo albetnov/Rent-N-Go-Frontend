@@ -38,11 +38,13 @@ export default function OrderHistory({
   const [loading, setLoading] = useState(false)
 
   const refetch = async (
-    filter?: string,
     page?: number,
-    signal?: AbortSignal
+    signal?: AbortSignal,
+    inDemandFilter?: string
   ) => {
-    const order = await getOrders(filter, page, signal)
+    const filtering = filter !== 'Order History' ? filter : undefined
+
+    const order = await getOrders(inDemandFilter ?? filtering, page, signal)
 
     if (!order) {
       callToast('failed to fetch order history', 'error')
@@ -52,9 +54,12 @@ export default function OrderHistory({
     return order
   }
 
-  const { data, ref, setData, setPageNumber, setNextPage } = useInfiniteScroll(
+  const { data, ref, setData, setPageNumber, setNextPage } = useInfiniteScroll<
+    HTMLTableRowElement,
+    OrderData
+  >(
     async (signal, page) => {
-      const result = await refetch(undefined, page, signal)
+      const result = await refetch(page, signal)
 
       if (result) return result
       return false
@@ -68,16 +73,15 @@ export default function OrderHistory({
     if (type === '') {
       setFilter('Order History')
     } else {
-      setFilter(type.charAt(0).toUpperCase() + type.slice(1))
+      setFilter(type)
     }
 
     setLoading(true)
-    const result = await refetch(type)
-    if (!result) {
-      setData(result.data)
-      setPageNumber(0)
-      setNextPage(result.meta.has_next)
-    }
+    const result = await refetch(undefined, undefined, type)
+    if (!result) return
+    setPageNumber(1)
+    setNextPage(result.meta.has_next)
+    setData(result.data)
     setLoading(false)
   }
 
@@ -114,7 +118,7 @@ export default function OrderHistory({
                 shadow="lg"
                 rightIcon={isOpen ? <FiChevronUp /> : <FiChevronDown />}
               >
-                {filter}
+                {filter.charAt(0).toUpperCase() + filter.slice(1)}
               </MenuButton>
               <MenuList p="2.5">
                 <OrderItem onClick={() => onMenuChange('')}>All</OrderItem>
