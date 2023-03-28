@@ -14,9 +14,10 @@ export interface TopbarViewProps {
 
 const links: LinkProps[] = [
   { name: 'Home', path: '/' },
-  { name: 'About Us', path: '/about' },
-  { name: 'Our Services', path: '#services' },
-  { name: 'Promo Cars', path: '#promo-cars' }
+  { name: 'Cars', path: '/cars' },
+  { name: 'Drivers', path: '/drivers' },
+  { name: 'Tours', path: '/tours' },
+  { name: 'FAQ', path: '/faq' }
 ]
 
 export default function Topbar() {

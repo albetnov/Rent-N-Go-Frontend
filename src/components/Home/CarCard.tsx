@@ -44,9 +44,6 @@ export default function CarCard() {
         gap={{ base: 0, md: 3 }}
         px={3}
       >
-        <Text fontSize="sm" color="gray.400" textDecoration="line-through">
-          Rp. 100.000/day
-        </Text>
         <Text fontSize="lg" fontWeight={700}>
           Rp 90.000/day
         </Text>

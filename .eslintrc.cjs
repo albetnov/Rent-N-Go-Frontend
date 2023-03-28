@@ -21,7 +21,8 @@ module.exports = {
     '@typescript-eslint/restrict-template-expressions': 'off',
     '@typescript-eslint/no-non-null-assertion': 'off',
     'multiline-ternary': 'off',
-    '@typescript-eslint/indent': 'off'
+    '@typescript-eslint/indent': 'off',
+    '@typescript-eslint/no-throw-literal': 'off'
   },
   settings: {
     react: {

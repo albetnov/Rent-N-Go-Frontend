@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-throw-literal */
 import { json } from 'react-router-dom'
 import { getOrders } from '../../services/apis/order'
 import { getProfile } from '../../services/apis/profile'
@@ -47,8 +46,15 @@ export function mapToUserData(user: any, order: any): UserData {
     nik: user.nik,
     sim: user.sim,
     photo: user.photo.PhotoPath,
-    order: order.data,
-    meta: order.meta
+    order: order ? order.data : null,
+    meta: order
+      ? order.meta
+      : {
+          current_page: 0,
+          has_next: false,
+          has_previous: false,
+          total_page: 0
+        }
   }
 }
 
@@ -56,11 +62,7 @@ export default async function ProfileLoader() {
   const [profile, userOrder] = await Promise.all([getProfile(), getOrders()])
 
   if (!profile) {
-    throw new Response('Not Found', { status: 404 })
-  }
-
-  if (!userOrder) {
-    throw new Response('Order not found', { status: 404 })
+    return json({ ctx: 'PROFILE' }, { status: 404 })
   }
 
   return json(mapToUserData(profile, userOrder))

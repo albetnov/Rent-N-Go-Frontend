@@ -20,7 +20,8 @@ const theme = extendTheme({
 })
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
-  <React.StrictMode>
+  // <React.StrictMode>
+  <>
     <ToastContainer />
     <HelmetProvider>
       <ChakraProvider theme={theme}>
@@ -29,5 +30,6 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
         </Suspense>
       </ChakraProvider>
     </HelmetProvider>
-  </React.StrictMode>
+  </>
+  // </React.StrictMode>
 )

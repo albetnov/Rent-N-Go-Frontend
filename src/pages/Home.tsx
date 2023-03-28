@@ -9,10 +9,16 @@ import SectionText from '../components/Home/SectionText'
 import 'swiper/css'
 import 'swiper/css/pagination'
 import CarCard from '../components/Home/CarCard'
+import Title from '../components/Title'
+import { useLoaderData } from 'react-router-dom'
+import { type CarData } from '../services/apis/car'
 
 export default function Home() {
+  const cars = useLoaderData()
+
   return (
     <Layout>
+      <Title title="Home" />
       <Box as="section">
         <Swiper
           modules={[Pagination]}
@@ -37,6 +43,7 @@ export default function Home() {
         mt={{ base: 14, lg: 32 }}
         p={{ base: 3, lg: 10 }}
         mx="auto"
+        id="services"
       >
         <SectionText>Our Services</SectionText>
         <Flex
@@ -47,12 +54,20 @@ export default function Home() {
           justifyContent="space-between"
           flexDir={{ base: 'column', md: 'row' }}
         >
-          <ServiceCard text="Car Rental" src="/service1.webp" />
-          <ServiceCard text="Personal Driver" src="/service2.webp" />
-          <ServiceCard text="Personal Tour Guide" src="/service3.webp" />
+          <ServiceCard link="/cars" text="Car Rental" src="/service1.webp" />
+          <ServiceCard
+            link="/drivers"
+            text="Personal Driver"
+            src="/service2.webp"
+          />
+          <ServiceCard
+            link="/tours"
+            text="Personal Tour Guide"
+            src="/service3.webp"
+          />
         </Flex>
       </Box>
-      <Box as="section" mt={{ base: 14, lg: 28 }} mx="auto">
+      <Box as="section" mt={{ base: 14, lg: 28 }} mx="auto" id="about">
         <SectionText ml={{ base: 3, lg: 10 }}>About Us</SectionText>
         <Grid
           bg="white"
@@ -90,6 +105,7 @@ export default function Home() {
         mt={{ base: 8, lg: 16 }}
         px={{ base: 3, lg: 10 }}
         mx="auto"
+        id="promo-cars"
       >
         <SectionText>Special Offers</SectionText>
         <Grid
@@ -99,16 +115,11 @@ export default function Home() {
           gap={10}
           justifyContent="center"
         >
-          <CarCard />
-          <CarCard />
-          <CarCard />
-          <CarCard />
-          <CarCard />
-          <CarCard />
-          <CarCard />
-          <CarCard />
-          <CarCard />
-          <CarCard />
+          {Array.isArray(cars) ? (
+            (cars as CarData[]).map((car) => <CarCard key={car.id} />)
+          ) : (
+            <Text>There are no cars available at the moment</Text>
+          )}
         </Grid>
       </Box>
     </Layout>

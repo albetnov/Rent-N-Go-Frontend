@@ -1,4 +1,5 @@
 import { Box, Card, CardBody, Flex } from '@chakra-ui/react'
+import Title from '../../components/Title'
 import Topbar from '../../components/Topbar/Topbar'
 import OrderHistory from '../../components/Users/Profile/OrderHistory'
 import ProfileDetail from '../../components/Users/Profile/ProfileDetail'
@@ -9,8 +10,13 @@ import ProfileModel from './ProfileModel'
 export default function Profile() {
   const { user, refetch } = ProfileModel()
 
+  if (!user) {
+    return <></>
+  }
+
   return (
     <>
+      <Title title="Profile" />
       <Topbar />
       <Box my={5} as="section" px={{ base: 0, md: 24 }}>
         <Card mt={10} mx="auto" shadow="xl" rounded="2xl">

@@ -3,6 +3,7 @@
 import {
   Box,
   Button,
+  Card,
   Flex,
   Menu,
   MenuButton,
@@ -17,12 +18,13 @@ import {
 import { FiChevronDown, FiChevronUp } from 'react-icons/fi'
 import { type OrderData } from '../../../pages/Users/ProfileLoader'
 import { type MetaData } from '../../../services/apis/type'
+import CenteredText from '../../CenteredText'
 import HistoryData from './HistoryData'
 import OrderHistoryModel from './Models/OrderHistoryModel'
 import OrderItem from './OrderItem'
 
 interface OrderHistoryProps {
-  initialOrder: OrderData[]
+  initialOrder: OrderData[] | null
   meta: MetaData
 }
 
@@ -31,9 +33,17 @@ export default function OrderHistory({
   meta
 }: OrderHistoryProps) {
   const { data, loading, onMenuChange, ref, filter } = OrderHistoryModel(
-    initialOrder,
+    initialOrder ?? [],
     meta
   )
+
+  if (!initialOrder) {
+    return (
+      <Card my={7} bg="white" p={8} rounded="lg" shadow="lg">
+        <CenteredText fontSize={36}>Cannot find any order</CenteredText>
+      </Card>
+    )
+  }
 
   return (
     <Box mt={14}>
@@ -78,14 +88,17 @@ export default function OrderHistory({
               </Tr>
             </Thead>
             <Tbody bg="white">
-              {data.map((item, i) => (
-                <HistoryData
-                  i={i}
-                  key={item.id}
-                  ref={data.length === i + 1 ? ref : undefined}
-                  item={item}
-                />
-              ))}
+              {data.map((item, i) => {
+                console.count('render')
+                return (
+                  <HistoryData
+                    i={i}
+                    key={item.id}
+                    ref={data.length === i + 1 ? ref : undefined}
+                    item={item}
+                  />
+                )
+              })}
             </Tbody>
           </Table>
         </TableContainer>
