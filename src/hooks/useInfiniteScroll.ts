@@ -30,6 +30,7 @@ export default function useInfiniteScroll<T extends HTMLElement, D>(
 
   useEffect(() => {
     if (pageNumber === currentPage) {
+      setError(false)
       return
     }
     const controller = new AbortController()
@@ -80,7 +81,7 @@ export default function useInfiniteScroll<T extends HTMLElement, D>(
       setPageNumber(options.pageNumber)
     }
 
-    if (options.nextPage) {
+    if (typeof options.nextPage !== 'undefined') {
       setNextPage(options.nextPage)
     }
 

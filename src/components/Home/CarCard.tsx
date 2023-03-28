@@ -1,6 +1,11 @@
 import { Box, Flex, GridItem, Image, Text } from '@chakra-ui/react'
+import { type CarData } from '../../services/apis/car'
 
-export default function CarCard() {
+interface CarCardProps {
+  car: CarData
+}
+
+export default function CarCard({ car }: CarCardProps) {
   return (
     <GridItem position="relative" w="fit-content">
       <Text
@@ -12,7 +17,7 @@ export default function CarCard() {
         fontSize={30}
         zIndex={2}
       >
-        Mobil Pokoknya
+        {car.name}
       </Text>
       <Box
         position="absolute"
@@ -24,14 +29,22 @@ export default function CarCard() {
         roundedTopLeft="57px"
       >
         <Image
-          src="https://source.unsplash.com/500x500?logo"
+          src={
+            car.pictures && car.pictures.length > 0
+              ? car.pictures[0].file_name
+              : 'https://source.unsplash.com/500x500?logo'
+          }
           width={{ base: '90px', md: '105px' }}
           height={{ base: '80px', md: '90px' }}
           objectFit="cover"
         />
       </Box>
       <Image
-        src="https://source.unsplash.com/1280x720?cars"
+        src={
+          car.pictures && car.pictures.length > 1
+            ? car.pictures[1].file_name
+            : 'https://source.unsplash.com/1280x720?cars'
+        }
         width={{ base: '320px', md: '427px' }}
         height={{ base: '230px', md: '288px' }}
         objectFit="cover"
@@ -45,7 +58,7 @@ export default function CarCard() {
         px={3}
       >
         <Text fontSize="lg" fontWeight={700}>
-          Rp 90.000/day
+          Rp {new Intl.NumberFormat('id-ID').format(car.price)}/day
         </Text>
       </Flex>
     </GridItem>

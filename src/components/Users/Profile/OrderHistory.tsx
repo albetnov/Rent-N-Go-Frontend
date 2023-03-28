@@ -89,7 +89,6 @@ export default function OrderHistory({
             </Thead>
             <Tbody bg="white">
               {data.map((item, i) => {
-                console.count('render')
                 return (
                   <HistoryData
                     i={i}

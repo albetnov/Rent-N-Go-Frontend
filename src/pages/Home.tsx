@@ -116,7 +116,7 @@ export default function Home() {
           justifyContent="center"
         >
           {Array.isArray(cars) ? (
-            (cars as CarData[]).map((car) => <CarCard key={car.id} />)
+            (cars as CarData[]).map((car) => <CarCard key={car.id} car={car} />)
           ) : (
             <Text>There are no cars available at the moment</Text>
           )}
