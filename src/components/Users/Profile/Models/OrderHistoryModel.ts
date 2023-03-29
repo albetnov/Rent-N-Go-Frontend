@@ -42,14 +42,10 @@ export default function OrderHistoryModel(
     setData(result.data)
   }
 
-  const refetch = async (
-    page?: number,
-    signal?: AbortSignal,
-    inDemandFilter?: string
-  ) => {
+  const refetch = async (page: number, inDemandFilter?: string) => {
     const filtering = filter !== 'Order History' ? filter : undefined
 
-    const order = await getOrders(inDemandFilter ?? filtering, page, signal)
+    const order = await getOrders(inDemandFilter ?? filtering, page)
 
     if (!order) {
       callToast('failed to fetch order history', 'error')
@@ -67,7 +63,7 @@ export default function OrderHistoryModel(
     }
 
     setLoading(true)
-    const result = await refetch(undefined, undefined, type)
+    const result = await refetch(1, type)
     setLoading(false)
 
     if (!result) return

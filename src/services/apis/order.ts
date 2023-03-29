@@ -1,17 +1,12 @@
 import client from '../../utils/client'
 import InvalidOptions from './InvalidOptions'
 
-const getOrders = async (
-  filter?: string,
-  page?: number,
-  signal?: AbortSignal
-) => {
+const getOrders = async (filter?: string, page?: number) => {
   const result = await client.get('/orders', {
     params: {
       filter,
       page
-    },
-    signal
+    }
   })
 
   if (result.status === 200) {
