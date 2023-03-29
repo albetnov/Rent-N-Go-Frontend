@@ -15,7 +15,12 @@ import {
   Thead,
   Tr
 } from '@chakra-ui/react'
-import { FiChevronDown, FiChevronUp } from 'react-icons/fi'
+import {
+  FiChevronDown,
+  FiChevronLeft,
+  FiChevronRight,
+  FiChevronUp
+} from 'react-icons/fi'
 import { type OrderData } from '../../../pages/Users/ProfileLoader'
 import { type MetaData } from '../../../services/apis/type'
 import CenteredText from '../../CenteredText'
@@ -32,10 +37,17 @@ export default function OrderHistory({
   initialOrder,
   meta
 }: OrderHistoryProps) {
-  const { data, loading, onMenuChange, ref, filter } = OrderHistoryModel(
-    initialOrder ?? [],
-    meta
-  )
+  const {
+    data,
+    loading,
+    onMenuChange,
+    filter,
+    nextPageHandler,
+    prevPageHandler,
+    hasPrevious,
+    hasNext,
+    startIndex
+  } = OrderHistoryModel(initialOrder ?? [], meta)
 
   if (!initialOrder) {
     return (
@@ -90,17 +102,33 @@ export default function OrderHistory({
             <Tbody bg="white">
               {data.map((item, i) => {
                 return (
-                  <HistoryData
-                    i={i}
-                    key={item.id}
-                    ref={data.length === i + 1 ? ref : undefined}
-                    item={item}
-                  />
+                  <HistoryData i={startIndex + i} key={item.id} item={item} />
                 )
               })}
             </Tbody>
           </Table>
         </TableContainer>
+        <Box mx="auto">
+          {hasPrevious && (
+            <Button
+              mr={3}
+              onClick={prevPageHandler}
+              colorScheme="messenger"
+              variant="outline"
+            >
+              <FiChevronLeft />
+            </Button>
+          )}
+          {hasNext && (
+            <Button
+              onClick={nextPageHandler}
+              colorScheme="messenger"
+              variant="outline"
+            >
+              <FiChevronRight />
+            </Button>
+          )}
+        </Box>
       </Flex>
     </Box>
   )

@@ -1,5 +1,4 @@
 import { useState } from 'react'
-import useInfiniteScroll from '../../../../hooks/useInfiniteScroll'
 import { type OrderData } from '../../../../pages/Users/ProfileLoader'
 import { getOrders } from '../../../../services/apis/order'
 import { type MetaData } from '../../../../services/apis/type'
@@ -10,6 +9,38 @@ export default function OrderHistoryModel(
   meta: MetaData
 ) {
   const [filter, setFilter] = useState('Order History')
+  const [data, setData] = useState(initialOrder)
+  const [currentPage, setCurrentPage] = useState(1)
+  const [hasNext, setHasNext] = useState(meta.has_next)
+  const [loading, setLoading] = useState(false)
+
+  const nextPageHandler = async () => {
+    if (!hasNext) return
+
+    setLoading(true)
+    const result = await refetch(currentPage + 1)
+    setLoading(false)
+
+    if (!result) return
+
+    setCurrentPage((prev) => prev + 1)
+    setHasNext(result.meta.has_next)
+    setData(result.data)
+  }
+
+  const prevPageHandler = async () => {
+    if (currentPage === 1) return
+
+    setLoading(true)
+    const result = await refetch(currentPage - 1)
+    setLoading(false)
+
+    if (!result) return
+
+    setCurrentPage((prev) => prev - 1)
+    setHasNext(result.meta.has_next)
+    setData(result.data)
+  }
 
   const refetch = async (
     page?: number,
@@ -28,46 +59,32 @@ export default function OrderHistoryModel(
     return order
   }
 
-  const { data, ref, loading, setter } = useInfiniteScroll<
-    HTMLTableRowElement,
-    OrderData
-  >(
-    async (signal, page) => {
-      const result = await refetch(page, signal)
-
-      if (result) return result
-      return false
-    },
-    initialOrder,
-    meta.current_page,
-    meta.has_next
-  )
-
   const onMenuChange = async (type: string) => {
     if (type === '') {
       setFilter('Order History')
     } else {
       setFilter(type)
     }
-    setter({ loading: true })
+
+    setLoading(true)
     const result = await refetch(undefined, undefined, type)
-    if (!result) {
-      setter({ loading: false })
-      return
-    }
-    setter({
-      pageNumber: 1,
-      nextPage: result.meta.has_next,
-      data: result.data,
-      loading: false
-    })
+    setLoading(false)
+
+    if (!result) return
+    setData(result.data)
+    setCurrentPage(result.meta.current_page)
+    setHasNext(result.meta.has_next)
   }
 
   return {
     data,
-    ref,
     loading,
     onMenuChange,
+    nextPageHandler,
+    prevPageHandler,
+    hasNext,
+    hasPrevious: currentPage > 1,
+    startIndex: currentPage > 1 ? (currentPage - 1) * 15 : 0,
     filter: filter.charAt(0).toUpperCase() + filter.slice(1)
   }
 }

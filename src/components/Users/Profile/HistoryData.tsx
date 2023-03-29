@@ -1,6 +1,5 @@
-import { Td, Tr, forwardRef } from '@chakra-ui/react'
+import { Td, Tr } from '@chakra-ui/react'
 import dayjs from 'dayjs'
-import { type ForwardedRef } from 'react'
 import { type OrderData } from '../../../pages/Users/ProfileLoader'
 
 interface HistoryOrderProps {
@@ -8,10 +7,7 @@ interface HistoryOrderProps {
   i: number
 }
 
-const HistoryOrder = (
-  { item, i }: HistoryOrderProps,
-  ref: ForwardedRef<HTMLTableRowElement>
-) => {
+export default function HistoryData({ item, i }: HistoryOrderProps) {
   const getItemNameByType = (payload: OrderData) => {
     switch (payload.type) {
       case 'car':
@@ -33,7 +29,7 @@ const HistoryOrder = (
   }
 
   return (
-    <Tr ref={ref} key={item.id}>
+    <Tr key={item.id}>
       <Td>{++i}</Td>
       <Td>{item.type}</Td>
       <Td>{getItemNameByType(item)}</Td>
@@ -45,5 +41,3 @@ const HistoryOrder = (
     </Tr>
   )
 }
-
-export default forwardRef<HistoryOrderProps, 'tr'>(HistoryOrder)
