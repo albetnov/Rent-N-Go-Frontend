@@ -5,8 +5,8 @@ interface CarOrderCardProps {
   imgUrl: string
   licenseNumber: string
   period: string
-  totalCost: string
-  price: string
+  price: number
+  duration: number
 }
 
 export default function CarOrderCard({
@@ -15,7 +15,7 @@ export default function CarOrderCard({
   licenseNumber,
   period,
   price,
-  totalCost
+  duration
 }: CarOrderCardProps) {
   const carCardDesc = [
     { label: 'Car Model', value: carModel },
@@ -25,7 +25,7 @@ export default function CarOrderCard({
     },
     {
       label: 'Price Per Day',
-      value: price
+      value: `Rp. ${price}/day`
     },
     {
       label: 'Rental Period',
@@ -37,7 +37,7 @@ export default function CarOrderCard({
     <PriceCard
       imgUrl={imgUrl}
       title="Rental Car"
-      totalCost={totalCost}
+      totalCost={`Rp. ${price * duration}`}
       descriptions={carCardDesc}
     />
   )

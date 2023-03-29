@@ -8,21 +8,18 @@ import PriceSummary from './PriceSummary'
 import SecondFlowModel from './SecondFlowModel'
 import TextCombo from './TextCombo'
 import TourOrderCard from './TourOrderCard'
-import { type WizardStep } from './types'
 
-export default function SecondFlow({ step }: WizardStep) {
+export default function SecondFlow() {
   const {
     pickupDate,
     pickupLocation,
     rentalEstimation,
     returnDate,
     returnLocation,
-    next
+    next,
+    item,
+    rentalDuration
   } = SecondFlowModel()
-
-  if (step !== 2) {
-    return <></>
-  }
 
   return (
     <Grid templateColumns={{ base: '1fr', md: '35% 1fr' }} gap={14}>
@@ -52,28 +49,37 @@ export default function SecondFlow({ step }: WizardStep) {
       <GridItem>
         <OrderDetailCard>
           <CarOrderCard
-            imgUrl="https://source.unsplash.com/1000x1000?car"
-            carModel="Lexus LC 500"
-            licenseNumber="BP 1080 AD"
-            price="Rp 1.000.000/day"
-            period="3 Days"
-            totalCost="Rp 3.000.000"
+            imgUrl={item.car.photo}
+            carModel={item.car.name}
+            licenseNumber={item.car.licensePlate}
+            price={item.car.price}
+            period={rentalEstimation}
+            duration={rentalDuration}
           />
-          <DriverOrderCard
-            imgUrl="https://source.unsplash.com/1000x1000?driver"
-            name="Delvin Jason"
-            period="3 Days"
-            price="Rp 500.000/day"
-            totalCost="Rp 1.500.000"
+          {item.driver && (
+            <DriverOrderCard
+              imgUrl={item.driver.photo}
+              name={item.driver.name}
+              period={rentalEstimation}
+              price={item.driver.price}
+              duration={rentalDuration}
+            />
+          )}
+          {item.tour && (
+            <TourOrderCard
+              imgUrl={item.tour.photo}
+              name={item.tour.name}
+              period={rentalEstimation}
+              price={item.tour.price}
+              duration={rentalDuration}
+            />
+          )}
+          <PriceSummary
+            duration={rentalDuration}
+            car={item.car}
+            tour={item.tour}
+            driver={item.driver}
           />
-          <TourOrderCard
-            imgUrl="https://source.unsplash.com/1000x1000?travel"
-            name="Place Tour"
-            period="3 Days"
-            price="Rp 5.000.000/day"
-            totalCost="Rp 15.000.000"
-          />
-          <PriceSummary />
         </OrderDetailCard>
       </GridItem>
       <GridItem colSpan={{ base: 1, md: 2 }}>

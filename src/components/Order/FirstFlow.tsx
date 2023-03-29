@@ -3,9 +3,8 @@ import firstFlowModel from './FirstFlowModel'
 import OrderInput from './OrderInput'
 import OrderSelect from './OrderSelect'
 import OutlineButton from './OutlineButton'
-import { type WizardStep } from './types'
 
-export default function FirstFlow({ step }: WizardStep) {
+export default function FirstFlow() {
   const {
     onPickupDateChange,
     onPickupLocationChange,
@@ -18,10 +17,6 @@ export default function FirstFlow({ step }: WizardStep) {
     locations,
     onSubmit
   } = firstFlowModel()
-
-  if (step !== 1) {
-    return <></>
-  }
 
   return (
     <Box>

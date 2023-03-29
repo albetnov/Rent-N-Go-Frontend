@@ -2,24 +2,24 @@ import PriceCard from './PriceCard'
 
 interface DriverOrderCardProps {
   name: string
-  price: string
+  price: number
   period: string
-  totalCost: string
   imgUrl: string
+  duration: number
 }
 
 export default function DriverOrderCard({
   name,
   price,
   period,
-  totalCost,
-  imgUrl
+  imgUrl,
+  duration
 }: DriverOrderCardProps) {
   const driverCardDesc = [
     { label: 'Driver Name', value: name },
     {
       label: 'Price Per Day',
-      value: price
+      value: `Rp. ${price}/day`
     },
     {
       label: 'Rental Period',
@@ -31,7 +31,7 @@ export default function DriverOrderCard({
     <PriceCard
       imgUrl={imgUrl}
       title="Personal Driver"
-      totalCost={totalCost}
+      totalCost={`Rp. ${price * duration}`}
       descriptions={driverCardDesc}
     />
   )

@@ -2,18 +2,18 @@ import PriceCard from './PriceCard'
 
 interface TourOrderCardProps {
   name: string
-  price: string
+  price: number
   period: string
-  totalCost: string
   imgUrl: string
+  duration: number
 }
 
 export default function TourOrderCard({
   name,
   price,
   period,
-  totalCost,
-  imgUrl
+  imgUrl,
+  duration
 }: TourOrderCardProps) {
   const tourCardDesc = [
     {
@@ -22,7 +22,7 @@ export default function TourOrderCard({
     },
     {
       label: 'Price Per Day',
-      value: price
+      value: `Rp. ${price}/day`
     },
     {
       label: 'Rental Period',
@@ -33,7 +33,7 @@ export default function TourOrderCard({
   return (
     <PriceCard
       descriptions={tourCardDesc}
-      totalCost={totalCost}
+      totalCost={`Rp. ${price * duration}`}
       imgUrl={imgUrl}
       title="Tour Guide"
     />

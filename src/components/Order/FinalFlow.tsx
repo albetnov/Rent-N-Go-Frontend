@@ -4,11 +4,10 @@ import { useNavigate } from 'react-router-dom'
 import useOrderWizardStore from '../../stores/orderWizard'
 import CenteredText from '../CenteredText'
 import Contact from '../Footer/Contact'
-import { type WizardStep } from './types'
 import checkMark from './check.json'
 import Lottie from 'lottie-react'
 
-export default function FinalFlow({ step }: WizardStep) {
+export default function FinalFlow() {
   const { endOrder } = useOrderWizardStore((state) => ({
     endOrder: state.doneOrder
   }))
@@ -16,10 +15,6 @@ export default function FinalFlow({ step }: WizardStep) {
   const navigate = useNavigate()
 
   useEffect(() => {
-    if (step !== 4) {
-      return
-    }
-
     const timer = setTimeout(() => {
       endOrder()
       navigate('/')
@@ -28,11 +23,7 @@ export default function FinalFlow({ step }: WizardStep) {
     return () => {
       clearTimeout(timer)
     }
-  }, [step])
-
-  if (step !== 4) {
-    return <></>
-  }
+  }, [])
 
   return (
     <Box my={24} mx="auto">

@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react'
-import { useNavigate, useParams } from 'react-router-dom'
+import { useNavigate, useParams, useSearchParams } from 'react-router-dom'
 import useOrderWizardStore from '../../stores/orderWizard'
-import { callToast } from '../../utils/toasts'
 
 export default function FakeOrderProcess() {
   const { requestId } = useParams()
+  const query = useSearchParams()[0]
   const { doneOrder, finOrder } = useOrderWizardStore((state) => ({
-    doneOrder: state.doneOrder,
+    doneOrder: state.cancelOrder,
     finOrder: state.finishThirdFlow
   }))
 
@@ -31,12 +31,10 @@ export default function FakeOrderProcess() {
   useEffect(() => {
     if (orderStatus !== '') {
       if (orderStatus === 'invalid') {
-        callToast('Ups, order invalid.', 'error')
         doneOrder()
         navigate('/')
       } else {
-        callToast('Order processed!', 'success')
-        finOrder()
+        finOrder(query.get('payment_method') ?? 'BCA')
         navigate('/order')
       }
     }

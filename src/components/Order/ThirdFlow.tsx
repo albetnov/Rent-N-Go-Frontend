@@ -15,21 +15,18 @@ import PrimaryButton from '../PrimaryButton'
 import PaymentCard from './PaymentCard'
 import PriceSummary from './PriceSummary'
 import ThirdFlowModel, { PAYMENT_CARDS } from './ThirdFlowModel'
-import { type WizardStep } from './types'
 
-export default function ThirdFlow({ step }: WizardStep) {
+export default function ThirdFlow() {
   const {
     selectedIndex,
     setSelectedIndex,
     onPayClick,
     onClose,
     isOpen,
-    paymentCallback
+    paymentCallback,
+    item,
+    duration
   } = ThirdFlowModel()
-
-  if (step !== 3) {
-    return <></>
-  }
 
   return (
     <>
@@ -76,7 +73,12 @@ export default function ThirdFlow({ step }: WizardStep) {
           ))}
         </Flex>
         <Box p={5}>
-          <PriceSummary />
+          <PriceSummary
+            duration={duration}
+            car={item.car}
+            driver={item.driver}
+            tour={item.tour}
+          />
         </Box>
         <PrimaryButton
           onClick={onPayClick}

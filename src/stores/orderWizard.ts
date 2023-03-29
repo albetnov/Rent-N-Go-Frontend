@@ -1,76 +1,134 @@
+import dayjs from 'dayjs'
 import { create } from 'zustand'
+import HaveOrder from '../services/apis/HaveOrder'
+import { placeOrder, type PlaceOrderOptions } from '../services/apis/order'
 
-interface OrderItem {
-  module: 'tours' | 'cars' | 'drivers'
+interface GenericOrderItemService {
   photo: string
   name: string
   price: number
-  licensePlate?: string
+}
+
+interface OrderCar extends GenericOrderItemService {
+  licensePlate: string
+}
+
+interface OrderItem {
+  module: 'tour' | 'car' | 'driver'
+  tour?: GenericOrderItemService
+  driver?: GenericOrderItemService
+  car: OrderCar
+  totalAmount: number
+  carId?: number
+  driverId?: number
+  tourId?: number
+}
+
+interface PickupData {
+  pickUpDate: string
+  pickUpLocation: string
+  returnDate: string
+  returnLocation: string
+  duration: number
 }
 
 interface OrderWizardStore {
   step: number
   enableOrder: () => void
-  inc: () => void
-  dec: () => void
   hasOrder: boolean
   doneOrder: () => void
-  setFirstFlow: (
-    pickUpDate: string,
-    pickUpLocation: string,
-    returnDate: string,
-    returnLocation: string
-  ) => void
-  getLocation: string | null
-  item: OrderItem[] | null
+  setFirstFlow: (options: Omit<PickupData, 'duration'>) => void
+  getLocation: PickupData | null
+  item: OrderItem | null
+  paymentMethod: string | null
   finishSecondFlow: () => void
-  finishThirdFlow: () => void
+  finishThirdFlow: (paymentMethod: string) => void
   orderTour: (tourId: number) => Promise<void>
   orderDriver: (driverId: number, carId: number) => Promise<void>
   orderCar: (carId: number) => Promise<void>
+  cancelOrder: (reason?: string) => void
+  isCancelled: boolean
+  reason: string | null
 }
 
 const WIZARD_STEP = 'wizard_step'
 const ORDER_LOCATION = 'order_location'
 const ORDER_ITEM = 'order_item'
+const PAYMENT_METHOD = 'payment_method'
 
-const useOrderWizardStore = create<OrderWizardStore>((set) => ({
+const useOrderWizardStore = create<OrderWizardStore>((set, get) => ({
   step: parseInt(localStorage.getItem(WIZARD_STEP) ?? '0'),
   hasOrder: !!localStorage.getItem(WIZARD_STEP),
-  getLocation: localStorage.getItem(ORDER_LOCATION),
-  item: localStorage.getItem(ORDER_ITEM)
-    ? (JSON.parse(localStorage.getItem(ORDER_ITEM) as string) as OrderItem[])
+  getLocation: localStorage.getItem(ORDER_LOCATION)
+    ? (JSON.parse(localStorage.getItem(ORDER_LOCATION) as string) as PickupData)
     : null,
+  item: localStorage.getItem(ORDER_ITEM)
+    ? (JSON.parse(localStorage.getItem(ORDER_ITEM) as string) as OrderItem)
+    : null,
+  paymentMethod: localStorage.getItem(PAYMENT_METHOD),
+  isCancelled: false,
+  reason: null,
 
   enableOrder() {
     localStorage.setItem(WIZARD_STEP, '1')
-    set(() => ({ hasOrder: true, step: 1 }))
+    const fakeData: OrderItem = {
+      module: 'tour',
+      tour: {
+        photo: 'https://source.unsplash.com/1000x1000?tour',
+        name: 'some touring',
+        price: 10000
+      },
+      car: {
+        photo: 'https://source.unsplash.com/1000x1000?car',
+        name: 'some car',
+        price: 10000,
+        licensePlate: 'AFG-1930'
+      },
+      driver: {
+        photo: 'https://source.unsplash.com/1000x1000?driver',
+        name: 'some driver',
+        price: 10000
+      },
+      tourId: 1,
+      totalAmount: 30000
+    }
+    localStorage.setItem(ORDER_ITEM, JSON.stringify(fakeData))
+    set(() => ({ hasOrder: true, step: 1, item: fakeData }))
+  },
+
+  cancelOrder(reason) {
+    localStorage.removeItem(ORDER_LOCATION)
+    localStorage.removeItem(WIZARD_STEP)
+    localStorage.removeItem(ORDER_ITEM)
+    localStorage.removeItem(PAYMENT_METHOD)
+    set(() => ({
+      hasOrder: false,
+      step: 0,
+      item: null,
+      getLocation: null,
+      isCancelled: true,
+      reason: reason ?? 'Failed when creating order, please try again later.'
+    }))
   },
 
   doneOrder() {
     localStorage.removeItem(ORDER_LOCATION)
     localStorage.removeItem(WIZARD_STEP)
     localStorage.removeItem(ORDER_ITEM)
+    localStorage.removeItem(PAYMENT_METHOD)
     set(() => ({ hasOrder: false, step: 0, item: null, getLocation: null }))
   },
 
-  inc() {
-    set((state) => ({ step: state.step + 1 }))
-  },
-
-  dec() {
-    set((state) => ({ step: state.step - 1 }))
-  },
-
-  setFirstFlow(pickUpDate, pickUpLocation, returnDate, returnLocation) {
-    const payload = JSON.stringify({
+  setFirstFlow({ pickUpDate, pickUpLocation, returnDate, returnLocation }) {
+    const payload = {
       pickUpDate,
       pickUpLocation,
       returnDate,
-      returnLocation
-    })
+      returnLocation,
+      duration: dayjs(returnDate).diff(dayjs(pickUpDate), 'day')
+    }
 
-    localStorage.setItem(ORDER_LOCATION, payload)
+    localStorage.setItem(ORDER_LOCATION, JSON.stringify(payload))
     localStorage.setItem(WIZARD_STEP, '2')
 
     set(() => ({ step: 2, getLocation: payload }))
@@ -81,9 +139,46 @@ const useOrderWizardStore = create<OrderWizardStore>((set) => ({
     set(() => ({ step: 3 }))
   },
 
-  finishThirdFlow() {
+  async finishThirdFlow(paymentMethod) {
+    const payload = get().item!
+
+    const builder: PlaceOrderOptions = {
+      type: payload.module,
+      paymentMethod: get().paymentMethod ?? 'BCA',
+      startPeriod: dayjs(get().getLocation?.pickUpDate).toISOString(),
+      endPeriod: dayjs(get().getLocation?.returnDate).toISOString()
+    }
+
+    switch (payload.module) {
+      case 'tour':
+        builder.tourId = payload.tourId
+        break
+      case 'car':
+        builder.carId = payload.carId
+        break
+      case 'driver':
+        builder.driverId = payload.driverId
+        break
+    }
+
+    try {
+      const res = await placeOrder(builder)
+      if (!res) {
+        get().cancelOrder()
+        return
+      }
+    } catch (err) {
+      if (err instanceof HaveOrder) {
+        get().cancelOrder(err.message)
+      }
+    }
+
     localStorage.setItem(WIZARD_STEP, '4')
-    set(() => ({ step: 4 }))
+    localStorage.setItem(PAYMENT_METHOD, paymentMethod)
+    set((state) => ({
+      step: 4,
+      paymentMethod: state.paymentMethod
+    }))
   },
 
   async orderTour(tourId) {
@@ -91,14 +186,27 @@ const useOrderWizardStore = create<OrderWizardStore>((set) => ({
     // const tourData = await client.get(tourId)
 
     // TODO: map the tour data
-    const item: OrderItem[] = [
-      {
-        module: 'tours',
-        photo: 'photo',
+    const item: OrderItem = {
+      module: 'tour',
+      tour: {
         name: '',
-        price: 1
-      }
-    ]
+        photo: '',
+        price: 0
+      },
+      driver: {
+        name: '',
+        photo: '',
+        price: 0
+      },
+      car: {
+        name: '',
+        photo: '',
+        price: 0,
+        licensePlate: ''
+      },
+      totalAmount: 0,
+      tourId
+    }
 
     // TODO: fetch the driver data and append it to order item
     // const driverData = await client.get(tourData.driverId)
@@ -120,15 +228,12 @@ const useOrderWizardStore = create<OrderWizardStore>((set) => ({
     // const result = await client.get(carId)
 
     // TODO: map the car data
-    const item: OrderItem[] = [
-      {
-        module: 'cars',
-        name: '',
-        photo: '',
-        price: 0,
-        licensePlate: ''
-      }
-    ]
+    const item: OrderItem = {
+      module: 'car',
+      car: { name: '', photo: '', price: 0, licensePlate: '' },
+      totalAmount: 0,
+      carId
+    }
 
     localStorage.setItem(WIZARD_STEP, '1')
     localStorage.setItem(ORDER_ITEM, JSON.stringify(item))
@@ -140,14 +245,14 @@ const useOrderWizardStore = create<OrderWizardStore>((set) => ({
     // const result = await client.get(driverId)
 
     // TODO: map the driver data
-    const item: OrderItem[] = [
-      {
-        module: 'drivers',
-        name: '',
-        photo: '',
-        price: 0
-      }
-    ]
+    const item: OrderItem = {
+      module: 'driver',
+      car: { name: '', photo: '', price: 0, licensePlate: '' },
+      driver: { name: '', photo: '', price: 0 },
+      totalAmount: 0,
+      driverId,
+      carId
+    }
 
     // TODO: fetch the car data and append it to order item
     // const carData  = await client.get(carId)

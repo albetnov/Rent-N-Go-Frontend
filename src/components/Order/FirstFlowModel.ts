@@ -56,7 +56,12 @@ export default function firstFlowModel() {
       )
       return
     }
-    continueOrder(pickupDate, pickupLocation, returnDate, returnLocation)
+    continueOrder({
+      pickUpDate: pickupDate,
+      pickUpLocation: pickupLocation,
+      returnDate,
+      returnLocation
+    })
     callToast('Location saved!')
   }
 
