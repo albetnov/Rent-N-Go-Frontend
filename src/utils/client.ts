@@ -62,7 +62,18 @@ client.interceptors.request.use(async (api) => {
 })
 
 client.interceptors.response.use(undefined, async (error) => {
-  if (error.response.status >= 500) {
+  if (error.code === 'ERR_NETWORK') {
+    toast({
+      title: "We can't reach our backend!",
+      description:
+        'Something went wrong. Please check your internet connection.',
+      status: 'error',
+      duration: 3000,
+      isClosable: true,
+      position: 'top-right'
+    })
+  }
+  if (error.response?.status >= 500) {
     toast({
       title: 'Error',
       description: 'Something went wrong. Please try again later.',
@@ -74,8 +85,8 @@ client.interceptors.response.use(undefined, async (error) => {
   }
 
   if (
-    error.response.status === 400 &&
-    error.response.data.action === 'INVALID_PAYLOAD'
+    error.response?.status === 400 &&
+    error.response?.data.action === 'INVALID_PAYLOAD'
   ) {
     const errors = error.response.data.errors
       .map((item: any) => `${item.FailedFields.split('.')[1]} is ${item.Tag}`)
@@ -91,7 +102,7 @@ client.interceptors.response.use(undefined, async (error) => {
     })
   }
 
-  if (error.response.status === 401) {
+  if (error.response?.status === 401) {
     const token = getTokens()
 
     if (!token) {
