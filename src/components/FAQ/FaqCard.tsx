@@ -12,7 +12,7 @@ export default function FaqCard({ question, answer }: FaqProps) {
         Q: {question}
       </Text>
 
-      <Text fontFamily="poppins" maxW={900} fontSize={20} fontWeight={40}>
+      <Text fontFamily="poppins" fontSize={20} fontWeight={40}>
         A: {answer}
       </Text>
     </Box>

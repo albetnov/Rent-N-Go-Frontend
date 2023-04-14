@@ -50,7 +50,7 @@ export default function Register() {
                 Rental Period: The rental period starts from the time the renter
                 takes possession of the vehicle and ends when the vehicle is
                 returned to Rent and Go. Late returns will incur additional
-                fees.
+                fees. The minimum rental period is 2 day.
               </ListItem>
               <ListItem>
                 Rental Rates: Renters are responsible for all charges associated
@@ -63,7 +63,7 @@ export default function Register() {
                 all rented vehicles. The renter is responsible for any damage or
                 loss to the rented vehicle, up to the deductible amount
                 specified in the rental agreement. Personal Driver and Tour
-                Guide
+                Guide (Please visit FAQ for more details about this)
               </ListItem>
               <ListItem>
                 Services: Rent and Go offers personal driver and tour guide
@@ -71,21 +71,25 @@ export default function Register() {
                 requirements for these services at the time of reservation.
               </ListItem>
               <ListItem>
-                Cancellation Policy: The renter may cancel a reservation up to
-                24 hours before the rental period starts without incurring any
-                penalty. If the renter cancels a reservation within 24 hours of
-                the rental period, they will be charged a cancellation fee.
+                Cancellation Policy: It is not possible to cancel the order.
+                When you rent the car, you simply paid for it. The money will
+                not be refunded by any means. Please make sure your <b>Child</b>{' '}
+                is not able to make any purchases about this. We don&lsquo;t
+                accept any reason.
               </ListItem>
               <ListItem>
                 Prohibited Use: The renter may not use the rented vehicle for
                 any illegal activity, towing or pushing other vehicles, or
-                allowing unauthorized drivers.
+                allowing unauthorized drivers. We not taking any fine money. You
+                will be directed to the police station immeaditely.
               </ListItem>
               <ListItem>
                 Vehicle Maintenance: Rent and Go provides well-maintained and
                 clean vehicles. The renter is responsible for checking basic
                 maintenance items during the rental period and returning the
-                vehicle in the same condition as it was rented.
+                vehicle in the same condition as it was rented. If the renter
+                broke something. Then a bill of full new car price is shall be
+                eagerly awaited.
               </ListItem>
               <ListItem>
                 Governing Law: These terms are governed by the laws of the
@@ -94,9 +98,7 @@ export default function Register() {
               </ListItem>
               <ListItem>
                 Indemnification: Renter holds Rent and Go harmless from any
-                claims, damages, or liability.By renting a vehicle, using
-                personal driver or tour guide services from Rent and Go, you
-                agree to the above terms and conditions.
+                claims, damages, or liability.
               </ListItem>
             </OrderedList>
           </ModalBody>
