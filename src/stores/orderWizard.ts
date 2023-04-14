@@ -1,7 +1,11 @@
 import dayjs from 'dayjs'
 import { create } from 'zustand'
 import HaveOrder from '../services/apis/HaveOrder'
-import { placeOrder, type PlaceOrderOptions } from '../services/apis/order'
+import {
+  hasOrder,
+  placeOrder,
+  type PlaceOrderOptions
+} from '../services/apis/order'
 
 interface GenericOrderItemService {
   photo: string
@@ -182,6 +186,10 @@ const useOrderWizardStore = create<OrderWizardStore>((set, get) => ({
   },
 
   async orderTour(tourId) {
+    if (await hasOrder()) {
+      get().cancelOrder('You have an order, please finish it first.')
+      return
+    }
     // TODO: fetch the tour data
     // const tourData = await client.get(tourId)
 
@@ -224,6 +232,10 @@ const useOrderWizardStore = create<OrderWizardStore>((set, get) => ({
   },
 
   async orderCar(carId) {
+    if (await hasOrder()) {
+      get().cancelOrder('You have an order, please finish it first.')
+      return
+    }
     // TODO: fetch the car data
     // const result = await client.get(carId)
 
@@ -241,6 +253,10 @@ const useOrderWizardStore = create<OrderWizardStore>((set, get) => ({
   },
 
   async orderDriver(driverId, carId) {
+    if (await hasOrder()) {
+      get().cancelOrder('You have an order, please finish it first.')
+      return
+    }
     // TODO: fetch the driver data
     // const result = await client.get(driverId)
 
