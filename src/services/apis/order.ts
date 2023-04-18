@@ -16,10 +16,10 @@ const getOrders = async (filter?: string, page?: number) => {
       return result.data
     }
 
-    return []
+    return false
   } catch (err) {
     console.error(err)
-    return []
+    return false
   }
 }
 

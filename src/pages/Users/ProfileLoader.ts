@@ -47,15 +47,14 @@ export function mapToUserData(user: any, order: any): UserData {
     sim: user.sim,
     photo: user.photo.PhotoPath,
     order: order ? order.data : null,
-    meta:
-      order.length > 0
-        ? order.meta
-        : {
-            current_page: 0,
-            has_next: false,
-            has_previous: false,
-            total_page: 0
-          }
+    meta: order
+      ? order.meta
+      : {
+          current_page: 0,
+          has_next: false,
+          has_previous: false,
+          total_page: 0
+        }
   }
 }
 
