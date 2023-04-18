@@ -4,18 +4,23 @@ import HaveOrder from './HaveOrder'
 import InvalidOptions from './InvalidOptions'
 
 const getOrders = async (filter?: string, page?: number) => {
-  const result = await client.get('/orders', {
-    params: {
-      filter,
-      page
+  try {
+    const result = await client.get('/orders', {
+      params: {
+        filter,
+        page
+      }
+    })
+
+    if (result.status === 200) {
+      return result.data
     }
-  })
 
-  if (result.status === 200) {
-    return result.data
+    return []
+  } catch (err) {
+    console.error(err)
+    return []
   }
-
-  return []
 }
 
 export interface PlaceOrderOptions {
