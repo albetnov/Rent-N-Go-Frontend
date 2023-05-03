@@ -3,6 +3,7 @@ import { lazy } from 'react'
 import { createBrowserRouter } from 'react-router-dom'
 import homeLoader from '../pages/HomeLoader'
 import ProfileLoader from '../pages/Users/ProfileLoader'
+import CarLoader from '../components/Cars/CarLoader'
 const NotFound = lazy(() => import('../pages/NotFound'))
 const FakeOrderProcess = lazy(
   () => import('../pages/Services/FakeOrderProcess')
@@ -29,6 +30,7 @@ export default createBrowserRouter([
   },
   {
     path: '/cars',
+    loader: CarLoader,
     element: <CarList />
   },
   {

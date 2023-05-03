@@ -16,11 +16,6 @@ export interface MetaData {
   total_page: number
 }
 
-export interface MappedFeature {
-  icon: string
-  label: string
-}
-
 export interface MappedPicture {
   file_name: string
 }
