@@ -21,6 +21,7 @@ const FAQ = lazy(() => import('../pages/Services/FAQ'))
 const Artificier = lazy(() => import('../pages/Artificier'))
 const Order = lazy(() => import('../pages/Services/Order'))
 const Guest = lazy(() => import('../services/Guest'))
+const CarDetail = lazy(() => import('../pages/Services/CarDetail'))
 
 export default createBrowserRouter([
   {
@@ -32,6 +33,10 @@ export default createBrowserRouter([
     path: '/cars',
     loader: CarLoader,
     element: <CarList />
+  },
+  {
+    path: '/cars/:id',
+    element: <CarDetail />
   },
   {
     path: '/drivers',
