@@ -12,76 +12,95 @@ import OutlineCard from '../../components/Services/OutlineCard'
 import { GiCarSeat, GiComputerFan } from 'react-icons/gi'
 import { FiBriefcase } from 'react-icons/fi'
 import IconCard from '../../components/Services/IconCard'
-import TextCombo from '../../components/Order/TextCombo'
 import RowText from '../../components/Order/RowText'
+import { useLoaderData } from 'react-router-dom'
+import { useEffect } from 'react'
+import { callToast } from '../../utils/toasts'
+import { type CarData } from '../../services/apis/car'
+import CenteredText from '../../components/CenteredText'
 
 export default function CarDetail() {
+  const carData = useLoaderData() as CarData
+
+  useEffect(() => {
+    if ('ctx' in carData && carData.ctx === 'ERROR') {
+      callToast(
+        'Failed to fetch data from server. Please try again later.',
+        'error'
+      )
+    }
+  }, [carData])
+
   return (
     <Layout>
-      <Grid templateColumns="70% 1fr" gap={3} px={5} py={3}>
-        <GridItem>
-          <OutlineCard>
-            <Flex overflowX="auto" gap={5} justifyContent="center">
-              <Image src="https://source.unsplash.com/500x500?games" />
-            </Flex>
-            <Text mt={4} fontSize={42} fontWeight="bold">
-              Lexus LC 500
-            </Text>
-            <Text mt={2} color="green.500">
-              Available For Rent
-            </Text>
+      {'ctx' in carData && (
+        <CenteredText>Ups. Somewhing went wrong</CenteredText>
+      )}
 
-            <IconCard flexProps={{ mt: 3 }} Icon={GiCarSeat} text="10" />
-            <IconCard Icon={FiBriefcase} text="10" />
-            <IconCard Icon={GiComputerFan} text="10" />
-
-            <Text mt={5} mb={10}>
-              Lorem ipsum, dolor sit amet consectetur adipisicing elit. Omnis
-              quae laboriosam facere, suscipit culpa corrupti veniam molestiae,
-              ea saepe ullam veritatis mollitia quibusdam nesciunt iste natus
-              corporis, optio cum inventore?
-            </Text>
-          </OutlineCard>
-        </GridItem>
-        <GridItem display="flex" gap={3} flexDir="column">
-          <OutlineCard>
-            <Flex gap={3} alignItems="center">
-              <Text fontWeight="bold" fontSize={27}>
-                Rp 1.000.000
+      {!('ctx' in carData) && (
+        <Grid templateColumns="70% 1fr" gap={3} px={5} py={3}>
+          <GridItem>
+            <OutlineCard>
+              <Flex overflowX="auto" gap={5} justifyContent="center">
+                {carData.pictures.map((item) => (
+                  <Image src={item.file_name} key={item.file_name} />
+                ))}
+              </Flex>
+              <Text mt={4} fontSize={42} fontWeight="bold">
+                {carData.name}
               </Text>
-              <Text>Per Day</Text>
-            </Flex>
-          </OutlineCard>
-          <OutlineCard>
-            <Text fontWeight="bold" fontSize={27}>
-              Payment Details
-            </Text>
-            <Box mt={5} mb={3}>
-              <Text>Car rental fee per day</Text>
-              <RowText text1="Lexus LC 500" text2="Rp 1.000.000" />
-            </Box>
-            <Box borderTop="1px solid" borderColor="gray.600" mb={3}>
-              <RowText noBold text1="Car Rental Period" text2="2 Day" />
-              <RowText text1="Subtotal" text2="Rp 2.000.000" />
-            </Box>
-            <Box borderTop="1px solid" borderColor="gray.600">
-              <TextCombo label="Total Fee" child="Rp 2.000.000" />
-            </Box>
+              <Text mt={2} color="green.500">
+                {carData.hold_stock > 0
+                  ? 'Available For Rent'
+                  : 'Not Available For Rent'}
+              </Text>
 
-            <Button
-              mt={5}
-              colorScheme="blue"
-              fontWeight="bold"
-              color="white"
-              py={1}
-              px={3}
-              rounded="full"
-            >
-              Proceed to checkout
-            </Button>
-          </OutlineCard>
-        </GridItem>
-      </Grid>
+              <IconCard
+                flexProps={{ mt: 3 }}
+                Icon={GiCarSeat}
+                text={carData.seats}
+              />
+              <IconCard Icon={FiBriefcase} text={carData.baggages} />
+              <IconCard Icon={GiComputerFan} text="Air Conditioner" />
+
+              <Text mt={5} mb={10}>
+                {carData.desc}
+              </Text>
+            </OutlineCard>
+          </GridItem>
+          <GridItem display="flex" gap={3} flexDir="column">
+            <OutlineCard>
+              <Flex gap={3} alignItems="center">
+                <Text fontWeight="bold" fontSize={27}>
+                  Rp {carData.price}
+                </Text>
+                <Text>Per Day</Text>
+              </Flex>
+            </OutlineCard>
+            <OutlineCard>
+              <Text fontWeight="bold" fontSize={27}>
+                Payment Details
+              </Text>
+              <Box mt={5} mb={3}>
+                <Text>Car rental fee per day</Text>
+                <RowText text1="Lexus LC 500" text2="Rp 1.000.000" />
+              </Box>
+
+              <Button
+                mt={5}
+                colorScheme="blue"
+                fontWeight="bold"
+                color="white"
+                py={1}
+                px={3}
+                rounded="full"
+              >
+                Proceed to checkout
+              </Button>
+            </OutlineCard>
+          </GridItem>
+        </Grid>
+      )}
     </Layout>
   )
 }

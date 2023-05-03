@@ -54,4 +54,19 @@ const getCars = async (
   }
 }
 
-export { getRecommendation, getCars }
+const getCarDetail = async (id: number) => {
+  try {
+    const res = await client.get(`/cars/${id}`)
+
+    if (res.status !== 200) {
+      throw new Error('Something went wrong')
+    }
+
+    return res.data.data
+  } catch (err) {
+    console.error('nt', err)
+    return false
+  }
+}
+
+export { getRecommendation, getCars, getCarDetail }
