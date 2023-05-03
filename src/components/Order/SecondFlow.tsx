@@ -51,7 +51,6 @@ export default function SecondFlow() {
           <CarOrderCard
             imgUrl={item.car.photo}
             carModel={item.car.name}
-            licenseNumber={item.car.licensePlate}
             price={item.car.price}
             period={rentalEstimation}
             duration={rentalDuration}

@@ -13,11 +13,12 @@ import { GiCarSeat, GiComputerFan } from 'react-icons/gi'
 import { FiBriefcase } from 'react-icons/fi'
 import IconCard from '../../components/Services/IconCard'
 import RowText from '../../components/Order/RowText'
-import { useLoaderData } from 'react-router-dom'
-import { useEffect } from 'react'
+import { useLoaderData, useNavigate } from 'react-router-dom'
+import { useEffect, useState } from 'react'
 import { callToast } from '../../utils/toasts'
 import { type CarData } from '../../services/apis/car'
 import CenteredText from '../../components/CenteredText'
+import useOrderWizardStore from '../../stores/orderWizard'
 
 export default function CarDetail() {
   const carData = useLoaderData() as CarData
@@ -30,6 +31,21 @@ export default function CarDetail() {
       )
     }
   }, [carData])
+
+  const [isLoading, setIsLoading] = useState(false)
+
+  const { orderCar } = useOrderWizardStore((state) => ({
+    orderCar: state.orderCar
+  }))
+
+  const navigate = useNavigate()
+
+  const checkout = async () => {
+    setIsLoading(true)
+    await orderCar(carData.id)
+    setIsLoading(false)
+    navigate('/order')
+  }
 
   return (
     <Layout>
@@ -94,6 +110,8 @@ export default function CarDetail() {
                 py={1}
                 px={3}
                 rounded="full"
+                onClick={checkout}
+                isLoading={isLoading}
               >
                 Proceed to checkout
               </Button>

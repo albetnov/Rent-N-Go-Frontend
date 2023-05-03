@@ -3,7 +3,6 @@ import PriceCard from './PriceCard'
 interface CarOrderCardProps {
   carModel: string
   imgUrl: string
-  licenseNumber: string
   period: string
   price: number
   duration: number
@@ -12,17 +11,12 @@ interface CarOrderCardProps {
 export default function CarOrderCard({
   carModel,
   imgUrl,
-  licenseNumber,
   period,
   price,
   duration
 }: CarOrderCardProps) {
   const carCardDesc = [
     { label: 'Car Model', value: carModel },
-    {
-      label: 'License Number',
-      value: licenseNumber
-    },
     {
       label: 'Price Per Day',
       value: `Rp. ${price}/day`

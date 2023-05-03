@@ -1,11 +1,13 @@
 import dayjs from 'dayjs'
 import { create } from 'zustand'
+import { getCarDetail } from '../services/apis/car'
 import HaveOrder from '../services/apis/HaveOrder'
 import {
   hasOrder,
   placeOrder,
   type PlaceOrderOptions
 } from '../services/apis/order'
+import { callToast } from '../utils/toasts'
 
 interface GenericOrderItemService {
   photo: string
@@ -13,15 +15,11 @@ interface GenericOrderItemService {
   price: number
 }
 
-interface OrderCar extends GenericOrderItemService {
-  licensePlate: string
-}
-
 interface OrderItem {
   module: 'tour' | 'car' | 'driver'
   tour?: GenericOrderItemService
   driver?: GenericOrderItemService
-  car: OrderCar
+  car: GenericOrderItemService
   totalAmount: number
   carId?: number
   driverId?: number
@@ -85,8 +83,7 @@ const useOrderWizardStore = create<OrderWizardStore>((set, get) => ({
       car: {
         photo: 'https://source.unsplash.com/1000x1000?car',
         name: 'some car',
-        price: 10000,
-        licensePlate: 'AFG-1930'
+        price: 10000
       },
       driver: {
         photo: 'https://source.unsplash.com/1000x1000?driver',
@@ -209,8 +206,7 @@ const useOrderWizardStore = create<OrderWizardStore>((set, get) => ({
       car: {
         name: '',
         photo: '',
-        price: 0,
-        licensePlate: ''
+        price: 0
       },
       totalAmount: 0,
       tourId
@@ -237,13 +233,22 @@ const useOrderWizardStore = create<OrderWizardStore>((set, get) => ({
       return
     }
     // TODO: fetch the car data
-    // const result = await client.get(carId)
+    const result = await getCarDetail(carId)
+
+    if (!result) {
+      callToast('Failed to get car data, please try again later.', 'error')
+      return
+    }
 
     // TODO: map the car data
     const item: OrderItem = {
       module: 'car',
-      car: { name: '', photo: '', price: 0, licensePlate: '' },
-      totalAmount: 0,
+      car: {
+        name: result.name,
+        photo: result.pictures[0].file_name,
+        price: result.price
+      },
+      totalAmount: result.price,
       carId
     }
 
@@ -263,7 +268,7 @@ const useOrderWizardStore = create<OrderWizardStore>((set, get) => ({
     // TODO: map the driver data
     const item: OrderItem = {
       module: 'driver',
-      car: { name: '', photo: '', price: 0, licensePlate: '' },
+      car: { name: '', photo: '', price: 0 },
       driver: { name: '', photo: '', price: 0 },
       totalAmount: 0,
       driverId,

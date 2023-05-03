@@ -54,7 +54,7 @@ const getCars = async (
   }
 }
 
-const getCarDetail = async (id: number) => {
+const getCarDetail = async (id: number): Promise<CarData | false> => {
   try {
     const res = await client.get(`/cars/${id}`)
 
