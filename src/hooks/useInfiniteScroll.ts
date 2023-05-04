@@ -95,7 +95,7 @@ export default function useInfiniteScroll<T extends HTMLElement, D>(
   }
 
   return {
-    ref: lastItemRef,
+    sentinel: lastItemRef,
     data,
     loading,
     setter

@@ -6,9 +6,24 @@ import {
   PopoverContent,
   PopoverTrigger
 } from '@chakra-ui/react'
+import { useState, type KeyboardEvent } from 'react'
 import { FiSearch } from 'react-icons/fi'
 
-export default function SearchBar() {
+interface SearchBarProps {
+  onSearch: (text: string) => Promise<void>
+}
+
+export default function SearchBar({ onSearch }: SearchBarProps) {
+  const [isLoading, setIsLoading] = useState(false)
+
+  const onSearchEnter = async (e: KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') {
+      setIsLoading(true)
+      await onSearch(e.currentTarget.value)
+      setIsLoading(false)
+    }
+  }
+
   return (
     <Popover>
       <PopoverTrigger>
@@ -16,7 +31,14 @@ export default function SearchBar() {
           <InputLeftElement pointerEvents="none">
             <FiSearch />
           </InputLeftElement>
-          <Input type="search" bgColor="white" placeholder="Search" w="full" />
+          <Input
+            disabled={isLoading}
+            onKeyDown={onSearchEnter}
+            type="search"
+            bgColor="white"
+            placeholder="Search"
+            w="full"
+          />
         </InputGroup>
       </PopoverTrigger>
       <PopoverContent w="full" maxH={500} overflowY="auto"></PopoverContent>
