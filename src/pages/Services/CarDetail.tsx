@@ -19,6 +19,7 @@ import { callToast } from '../../utils/toasts'
 import { type CarData } from '../../services/apis/car'
 import CenteredText from '../../components/CenteredText'
 import useOrderWizardStore from '../../stores/orderWizard'
+import useAuthStore from '../../stores/auth'
 
 export default function CarDetail() {
   const carData = useLoaderData() as CarData
@@ -38,9 +39,23 @@ export default function CarDetail() {
     orderCar: state.orderCar
   }))
 
+  const { isLoggedIn } = useAuthStore((state) => ({
+    isLoggedIn: state.isLoggedIn
+  }))
+
   const navigate = useNavigate()
 
   const checkout = async () => {
+    if (!isLoggedIn) {
+      callToast('Ups, you suppose to log in first!', 'error')
+
+      setTimeout(() => {
+        navigate('/login')
+      }, 2500)
+
+      return
+    }
+
     setIsLoading(true)
     await orderCar(carData.id)
     setIsLoading(false)

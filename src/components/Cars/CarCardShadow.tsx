@@ -15,6 +15,8 @@ export default function CarCardShadow({ car }: CarCardProps) {
         seats={car.seats}
         baggages={car.baggages}
         stock={car.hold_stock}
+        id={car.id}
+        price={car.price}
       />
     </ShadowBox>
   )

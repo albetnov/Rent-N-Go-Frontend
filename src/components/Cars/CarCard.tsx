@@ -9,6 +9,8 @@ interface CarCardProps {
   seats: number
   baggages: number
   stock: number
+  price: number
+  id: number
 }
 
 export default function CarCard({
@@ -16,13 +18,15 @@ export default function CarCard({
   imgUrl,
   seats,
   baggages,
-  stock
+  stock,
+  price,
+  id
 }: CarCardProps) {
   return (
     <Card>
       <CarDetail name={name} imgUrl={imgUrl} />
       <CarFeature seats={seats} baggages={baggages} stock={stock} />
-      <CardAction />
+      <CardAction price={price} id={id} />
     </Card>
   )
 }

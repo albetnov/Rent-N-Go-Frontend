@@ -1,15 +1,24 @@
 import { Box, Flex, Text } from '@chakra-ui/react'
+import { useNavigate } from 'react-router-dom'
 import PrimaryButton from '../PrimaryButton'
 
 interface CardActionProps {
   price?: number
   type?: string
+  id?: number
 }
 
 export default function CardAction({
   price = 100000,
-  type = 'Day'
+  type = 'Day',
+  id = 0
 }: CardActionProps) {
+  const navigate = useNavigate()
+
+  const navigateToDetail = () => {
+    navigate(`/cars/${id}`)
+  }
+
   return (
     <Box alignSelf="flex-end">
       <Flex flexDir="column">
@@ -21,7 +30,12 @@ export default function CardAction({
           / {type}
         </Text>
       </Flex>
-      <PrimaryButton px={{ base: 7, md: 14 }} py={{ base: 3, md: 7 }} mt={5}>
+      <PrimaryButton
+        onClick={navigateToDetail}
+        px={{ base: 7, md: 14 }}
+        py={{ base: 3, md: 7 }}
+        mt={5}
+      >
         Continue
       </PrimaryButton>
     </Box>
