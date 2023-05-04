@@ -1,6 +1,5 @@
 import { Box, Image } from '@chakra-ui/react'
 import Contact from './Contact'
-import FaqButton from './FaqButton'
 
 export default function DesktopView() {
   return (
@@ -21,7 +20,6 @@ export default function DesktopView() {
         <Image src="/logo.webp" width="272px" />
         <Contact />
       </Box>
-      <FaqButton right={5} bottom={5} position="absolute" />
     </Box>
   )
 }

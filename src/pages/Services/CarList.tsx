@@ -10,6 +10,7 @@ import { useEffect } from 'react'
 import { type CarData } from '../../services/apis/car'
 import { callToast } from '../../utils/toasts'
 import CenteredText from '../../components/CenteredText'
+import { Container } from '@chakra-ui/react'
 
 export default function CarList() {
   const carData = useLoaderData() as CarData
@@ -25,22 +26,24 @@ export default function CarList() {
 
   return (
     <Layout>
-      <FilterContainer>
-        <SearchBar />
+      <Container maxW="7xl">
+        <FilterContainer>
+          <SearchBar />
 
-        <SeatFilter />
-        <PriceFilter />
-      </FilterContainer>
+          <SeatFilter />
+          <PriceFilter />
+        </FilterContainer>
 
-      <ItemContainer>
-        {Array.isArray(carData) ? (
-          carData.map((item) => <CarCardShadow car={item} key={item.id} />)
-        ) : (
-          <CenteredText fontSize="3xl" fontWeight="bold">
-            Ups. No Cars Available at the moment
-          </CenteredText>
-        )}
-      </ItemContainer>
+        <ItemContainer>
+          {Array.isArray(carData) ? (
+            carData.map((item) => <CarCardShadow car={item} key={item.id} />)
+          ) : (
+            <CenteredText fontSize="3xl" fontWeight="bold">
+              Ups. No Cars Available at the moment
+            </CenteredText>
+          )}
+        </ItemContainer>
+      </Container>
     </Layout>
   )
 }

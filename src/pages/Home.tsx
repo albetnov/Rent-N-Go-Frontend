@@ -76,21 +76,21 @@ export default function Home() {
           py={5}
           px={{ base: 3, lg: 20 }}
         >
-          <GridItem justifySelf="center">
+          <GridItem justifySelf="center" placeSelf="center">
             <Image src="/about.webp" width="330px" />
           </GridItem>
           <GridItem>
             <Text fontWeight={700} fontSize={40}>
               Rent N Go
             </Text>
-            <Text mt={2}>
+            <Text mt={2} fontSize={20}>
               The color blue was chosen because it conveys a professional image
               and signifies trustworthiness. We believe in the reliability of
               our customers to responsibly take the keys and drive the car to
               their desired destination, while we ensure that our services are
               delivered in a professional manner.
             </Text>
-            <Text mt={2}>
+            <Text mt={2} fontSize={20}>
               On the other hand, the color red was selected to symbolize the
               courage required to start this business venture, given the
               significant amount of capital needed. Furthermore, it is used to

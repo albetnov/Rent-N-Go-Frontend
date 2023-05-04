@@ -23,7 +23,7 @@ export default function FaqButton(props: ButtonProps) {
       }}
       onClick={redirectToFaq}
     >
-      ?
+      ? | FAQ
     </Button>
   )
 }
