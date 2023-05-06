@@ -68,9 +68,9 @@ export default function CarList() {
       if (!result) return false
       return result
     },
-    initialCarData.cars,
-    initialCarData.meta.current_page,
-    initialCarData.meta.has_next
+    initialCarData?.cars,
+    initialCarData.meta?.current_page ?? 0,
+    initialCarData.meta?.has_next
   )
 
   const onFilter = async (callback: Promise<CarResponse | false>) => {
