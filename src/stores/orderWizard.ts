@@ -1,6 +1,8 @@
 import dayjs from 'dayjs'
 import { create } from 'zustand'
-import { getCarDetail } from '../services/apis/car'
+import { getCarData, getCarDetail } from '../services/apis/car'
+
+import { getTourDetail } from '../services/apis/tour'
 import HaveOrder from '../services/apis/HaveOrder'
 import {
   hasOrder,
@@ -187,44 +189,77 @@ const useOrderWizardStore = create<OrderWizardStore>((set, get) => ({
       get().cancelOrder('You have an order, please finish it first.')
       return
     }
-    // TODO: fetch the tour data
-    // const tourData = await client.get(tourId)
+    // Fetch the tour data
+    const result = await getTourDetail(tourId)
 
-    // TODO: map the tour data
-    const item: OrderItem = {
-      module: 'tour',
-      tour: {
-        name: '',
-        photo: '',
-        price: 0
-      },
-      driver: {
-        name: '',
-        photo: '',
-        price: 0
-      },
-      car: {
-        name: '',
-        photo: '',
-        price: 0
-      },
-      totalAmount: 0,
-      tourId
+    if (!result) {
+      callToast('Failed to get tour data, please try again later.', 'error')
+      return
     }
 
-    // TODO: fetch the driver data and append it to order item
-    // const driverData = await client.get(tourData.driverId)
-    // item.push({})
+    const carData = await getCarData()
 
-    // TODO: fetch the car data and append it to order item
-    // const carData  = await client.get(tourData.carId)
-    // item.push({})
+    if (carData) {
+      // Set the value of carId to carData.id
+      const carId = carData.id
 
-    localStorage.setItem(WIZARD_STEP, '2')
-    // TODO: set the location of the order to the tour location
-    // localStorage.setItem(ORDER_LOCATION, JSON.stringify({}))
-    localStorage.setItem(ORDER_ITEM, JSON.stringify(item))
-    set(() => ({ item }))
+      const carName = await getCarDetail(carId)
+      const carPicture = await getCarDetail(carId)
+      const carPrice = await getCarDetail(carId)
+
+      if (!carName) {
+        callToast(
+          'Failed to get carName data, please try again later.',
+          'error'
+        )
+        return
+      }
+
+      if (!carPicture) {
+        callToast(
+          'Failed to get carPicture data, please try again later.',
+          'error'
+        )
+        return
+      }
+
+      if (!carPrice) {
+        callToast(
+          'Failed to get carPrice data, please try again later.',
+          'error'
+        )
+        return
+      }
+
+      // Map the tour and car data to an OrderItem object
+      const item: OrderItem = {
+        module: 'tour',
+        tour: {
+          name: result.name,
+          photo: result.pictures[0].file_name,
+          price: result.price
+        },
+        driver: {
+          name: result.name,
+          photo: result.pictures[0].file_name,
+          price: result.price
+        },
+        car: {
+          name: carName.name,
+          photo: carPicture.pictures[0].file_name,
+          price: carPrice.price
+        },
+        totalAmount: result.price,
+        tourId
+      }
+
+      localStorage.setItem(WIZARD_STEP, '2')
+      localStorage.setItem(ORDER_ITEM, JSON.stringify(item))
+      set(() => ({ item }))
+    } else {
+      // Handle the case where carData is undefined
+      // ...
+    }
   },
 
   async orderCar(carId) {

@@ -1,18 +1,25 @@
+import { type TourData } from '../../services/apis/tour'
 import ShadowBox from '../ShadowBox'
 import TourCard from './TourCard'
 
-export default function TourCardShadow() {
+interface TourCardProps {
+  tour: TourData
+}
+
+export default function TourCardShadow({ tour }: TourCardProps) {
+  console.log('tour.pictures:', tour.pictures)
   return (
     <ShadowBox>
       <TourCard
-        imgUrl="https://i.pinimg.com/564x/e0/9c/d4/e09cd488c87e5c31fc80e51280fbf2fe.jpg"
-        name="Harros Hotel and Resident Package"
-        price={3000000}
-        features={[
-          { name: 'Very Comfortable', isChecked: true },
-          { name: 'Breakfast buffet', isChecked: true },
-          { name: 'Luxurious Pool', isChecked: true }
-        ]}
+        name={tour.name}
+        imgUrl={
+          tour.pictures && tour.pictures.length > 0
+            ? tour.pictures[0].file_name
+            : ''
+        }
+        id={tour.id}
+        price={tour.price}
+        features={[]}
       />
     </ShadowBox>
   )

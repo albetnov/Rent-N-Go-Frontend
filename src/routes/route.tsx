@@ -5,6 +5,8 @@ import homeLoader from '../pages/HomeLoader'
 import ProfileLoader from '../pages/Users/ProfileLoader'
 import CarLoader from '../components/Cars/CarLoader'
 import CarDetailLoader from '../components/Cars/CarDetailLoader'
+import TourLoader from '../components/Tour/TourLoader'
+import TourDetailLoader from '../components/Tour/TourDetailLoader'
 const NotFound = lazy(() => import('../pages/NotFound'))
 const FakeOrderProcess = lazy(
   () => import('../pages/Services/FakeOrderProcess')
@@ -23,6 +25,7 @@ const Artificier = lazy(() => import('../pages/Artificier'))
 const Order = lazy(() => import('../pages/Services/Order'))
 const Guest = lazy(() => import('../services/Guest'))
 const CarDetail = lazy(() => import('../pages/Services/CarDetail'))
+const TourDetail = lazy(() => import('../pages/Services/TourDetail'))
 
 export default createBrowserRouter([
   {
@@ -41,6 +44,16 @@ export default createBrowserRouter([
     element: <CarDetail />
   },
   {
+    path: '/tours',
+    loader: TourLoader,
+    element: <TourGuide />
+  },
+  {
+    path: '/tours/:id',
+    loader: TourDetailLoader,
+    element: <TourDetail />
+  },
+  {
     path: '/drivers',
     element: <Drivers />
   },
@@ -51,10 +64,6 @@ export default createBrowserRouter([
   {
     path: '/about/teams',
     element: <Artificier />
-  },
-  {
-    path: '/tours',
-    element: <TourGuide />
   },
   {
     path: '/auth',
