@@ -89,4 +89,16 @@ const getCarDetail = async (id: number): Promise<CarData | false> => {
   }
 }
 
-export { getRecommendation, getCars, getCarDetail }
+async function getCarData(): Promise<CarData | undefined> {
+  const carResponse = await getCars({})
+
+  if (carResponse) {
+    const carData: CarData = carResponse.data[0]
+
+    return carData
+  } else {
+    console.log('Failed to get tour data, please try again later.', 'error')
+  }
+}
+
+export { getRecommendation, getCars, getCarDetail, getCarData }

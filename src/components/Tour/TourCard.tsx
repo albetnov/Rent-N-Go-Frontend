@@ -1,6 +1,6 @@
 import { Image } from '@chakra-ui/react'
 import Card from '../Services/Card'
-import CardAction from '../Services/CardAction'
+import TourCardAction from '../Services/TourCardAction'
 import TourDetail from './TourDetail'
 
 interface Feature {
@@ -13,13 +13,15 @@ export interface TourCardProps {
   features: Feature[]
   price: number
   imgUrl: string
+  id: number
 }
 
 export default function TourCard({
   imgUrl,
   price,
   features,
-  name
+  name,
+  id
 }: TourCardProps) {
   return (
     <Card>
@@ -31,7 +33,7 @@ export default function TourCard({
         maxHeight={365}
       />
       <TourDetail features={features} name={name} />
-      <CardAction price={price} />
+      <TourCardAction price={price} id={id} />
     </Card>
   )
 }
