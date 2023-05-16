@@ -1,6 +1,6 @@
 import dayjs from 'dayjs'
 import { create } from 'zustand'
-import { getCarData, getCarDetail } from '../services/apis/car'
+import { getCarDetail } from '../services/apis/car'
 
 import { getTourDetail } from '../services/apis/tour'
 import HaveOrder from '../services/apis/HaveOrder'
@@ -38,9 +38,7 @@ interface PickupData {
 
 interface OrderWizardStore {
   step: number
-  enableOrder: () => void
   hasOrder: boolean
-  doneOrder: () => void
   setFirstFlow: (options: Omit<PickupData, 'duration'>) => void
   getLocation: PickupData | null
   item: OrderItem | null
@@ -73,32 +71,6 @@ const useOrderWizardStore = create<OrderWizardStore>((set, get) => ({
   isCancelled: false,
   reason: null,
 
-  enableOrder() {
-    localStorage.setItem(WIZARD_STEP, '1')
-    const fakeData: OrderItem = {
-      module: 'tour',
-      tour: {
-        photo: 'https://source.unsplash.com/1000x1000?tour',
-        name: 'some touring',
-        price: 10000
-      },
-      car: {
-        photo: 'https://source.unsplash.com/1000x1000?car',
-        name: 'some car',
-        price: 10000
-      },
-      driver: {
-        photo: 'https://source.unsplash.com/1000x1000?driver',
-        name: 'some driver',
-        price: 10000
-      },
-      tourId: 1,
-      totalAmount: 30000
-    }
-    localStorage.setItem(ORDER_ITEM, JSON.stringify(fakeData))
-    set(() => ({ hasOrder: true, step: 1, item: fakeData }))
-  },
-
   cancelOrder(reason) {
     localStorage.removeItem(ORDER_LOCATION)
     localStorage.removeItem(WIZARD_STEP)
@@ -112,14 +84,6 @@ const useOrderWizardStore = create<OrderWizardStore>((set, get) => ({
       isCancelled: true,
       reason: reason ?? 'Failed when creating order, please try again later.'
     }))
-  },
-
-  doneOrder() {
-    localStorage.removeItem(ORDER_LOCATION)
-    localStorage.removeItem(WIZARD_STEP)
-    localStorage.removeItem(ORDER_ITEM)
-    localStorage.removeItem(PAYMENT_METHOD)
-    set(() => ({ hasOrder: false, step: 0, item: null, getLocation: null }))
   },
 
   setFirstFlow({ pickUpDate, pickUpLocation, returnDate, returnLocation }) {
@@ -189,7 +153,7 @@ const useOrderWizardStore = create<OrderWizardStore>((set, get) => ({
       get().cancelOrder('You have an order, please finish it first.')
       return
     }
-    // Fetch the tour data
+
     const result = await getTourDetail(tourId)
 
     if (!result) {
@@ -197,69 +161,30 @@ const useOrderWizardStore = create<OrderWizardStore>((set, get) => ({
       return
     }
 
-    const carData = await getCarData()
-
-    if (carData) {
-      // Set the value of carId to carData.id
-      const carId = carData.id
-
-      const carName = await getCarDetail(carId)
-      const carPicture = await getCarDetail(carId)
-      const carPrice = await getCarDetail(carId)
-
-      if (!carName) {
-        callToast(
-          'Failed to get carName data, please try again later.',
-          'error'
-        )
-        return
+    const item: OrderItem = {
+      module: 'tour',
+      tourId,
+      totalAmount: result.price,
+      tour: {
+        name: result.name,
+        photo: result.pictures[0].file_name,
+        price: result.price
+      },
+      car: {
+        name: result.car.Name,
+        photo: result.car.Pictures[0].file_name,
+        price: result.car.Price
+      },
+      driver: {
+        name: 'test',
+        photo: 'https://source.unsplash.com/1000x1000?driver',
+        price: 10000
       }
-
-      if (!carPicture) {
-        callToast(
-          'Failed to get carPicture data, please try again later.',
-          'error'
-        )
-        return
-      }
-
-      if (!carPrice) {
-        callToast(
-          'Failed to get carPrice data, please try again later.',
-          'error'
-        )
-        return
-      }
-
-      // Map the tour and car data to an OrderItem object
-      const item: OrderItem = {
-        module: 'tour',
-        tour: {
-          name: result.name,
-          photo: result.pictures[0].file_name,
-          price: result.price
-        },
-        driver: {
-          name: result.name,
-          photo: result.pictures[0].file_name,
-          price: result.price
-        },
-        car: {
-          name: carName.name,
-          photo: carPicture.pictures[0].file_name,
-          price: carPrice.price
-        },
-        totalAmount: result.price,
-        tourId
-      }
-
-      localStorage.setItem(WIZARD_STEP, '2')
-      localStorage.setItem(ORDER_ITEM, JSON.stringify(item))
-      set(() => ({ item }))
-    } else {
-      // Handle the case where carData is undefined
-      // ...
     }
+
+    localStorage.setItem(WIZARD_STEP, '1')
+    localStorage.setItem(ORDER_ITEM, JSON.stringify(item))
+    set(() => ({ item, step: 1 }))
   },
 
   async orderCar(carId) {

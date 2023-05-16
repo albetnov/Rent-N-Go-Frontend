@@ -13,13 +13,13 @@ import { GiCarSeat, GiComputerFan } from 'react-icons/gi'
 import { FiBriefcase } from 'react-icons/fi'
 import IconCard from '../../components/Services/IconCard'
 import RowText from '../../components/Order/RowText'
-import { useLoaderData, useNavigate } from 'react-router-dom'
-import { useEffect, useState } from 'react'
+import { useLoaderData } from 'react-router-dom'
+import { useEffect } from 'react'
 import { callToast } from '../../utils/toasts'
 import { type CarData } from '../../services/apis/car'
 import CenteredText from '../../components/CenteredText'
 import useOrderWizardStore from '../../stores/orderWizard'
-import useAuthStore from '../../stores/auth'
+import useCheckout from '../../hooks/useCheckout'
 
 export default function CarDetail() {
   const carData = useLoaderData() as CarData
@@ -33,34 +33,13 @@ export default function CarDetail() {
     }
   }, [carData])
 
-  const [isLoading, setIsLoading] = useState(false)
-
   const { orderCar } = useOrderWizardStore((state) => ({
     orderCar: state.orderCar
   }))
 
-  const { isLoggedIn } = useAuthStore((state) => ({
-    isLoggedIn: state.isLoggedIn
-  }))
-
-  const navigate = useNavigate()
-
-  const checkout = async () => {
-    if (!isLoggedIn) {
-      callToast('Ups, you suppose to log in first!', 'error')
-
-      setTimeout(() => {
-        navigate('/login')
-      }, 2500)
-
-      return
-    }
-
-    setIsLoading(true)
+  const { isLoading, checkout } = useCheckout(async () => {
     await orderCar(carData.id)
-    setIsLoading(false)
-    navigate('/order')
-  }
+  })
 
   return (
     <Layout>

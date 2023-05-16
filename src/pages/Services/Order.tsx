@@ -1,4 +1,4 @@
-import { Box, Button } from '@chakra-ui/react'
+import { Box } from '@chakra-ui/react'
 import { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import Layout from '../../components/Layout'
@@ -15,26 +15,11 @@ import { callToast } from '../../utils/toasts'
 export default function Order() {
   useCustomBackground(colors.white)
 
-  const { step, hasOrder, order, done, isCancelled, reason } =
-    useOrderWizardStore((state) => ({
-      step: state.step,
-      hasOrder: state.hasOrder,
-      order: state.enableOrder,
-      done: state.cancelOrder,
-      isCancelled: state.isCancelled,
-      reason: state.reason
-    }))
-
-  const onOrderEnabled = () => {
-    order()
-    callToast('Order Enabled')
-  }
-
-  const onOrderDisabled = () => {
-    done()
-    callToast('Order Disabled')
-  }
-
+  const { step, isCancelled, reason } = useOrderWizardStore((state) => ({
+    step: state.step,
+    isCancelled: state.isCancelled,
+    reason: state.reason
+  }))
   const navigate = useNavigate()
 
   useEffect(() => {
@@ -53,15 +38,6 @@ export default function Order() {
         {step === 3 && <ThirdFlow />}
         {step === 4 && <FinalFlow />}
       </Box>
-      {hasOrder ? (
-        <Box mt={14}>
-          <Button onClick={onOrderDisabled}>Disable Order</Button>
-        </Box>
-      ) : (
-        <Button mt={5} onClick={onOrderEnabled}>
-          Enable Order
-        </Button>
-      )}
     </Layout>
   )
 }

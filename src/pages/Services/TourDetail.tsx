@@ -20,7 +20,6 @@ import useAuthStore from '../../stores/auth'
 
 export default function TourDetail() {
   const tourData = useLoaderData() as TourData
-  console.log(tourData)
 
   useEffect(() => {
     if ('ctx' in tourData && tourData.ctx === 'ERROR') {
