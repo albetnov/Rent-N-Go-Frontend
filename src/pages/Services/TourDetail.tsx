@@ -10,13 +10,13 @@ import {
 import Layout from '../../components/Layout'
 import OutlineCard from '../../components/Services/OutlineCard'
 import RowText from '../../components/Order/RowText'
-import { useLoaderData, useNavigate } from 'react-router-dom'
-import { useEffect, useState } from 'react'
+import { useLoaderData } from 'react-router-dom'
+import { useEffect } from 'react'
 import { callToast } from '../../utils/toasts'
 import { type TourData } from '../../services/apis/tour'
 import CenteredText from '../../components/CenteredText'
 import useOrderWizardStore from '../../stores/orderWizard'
-import useAuthStore from '../../stores/auth'
+import useCheckout from '../../hooks/useCheckout'
 
 export default function TourDetail() {
   const tourData = useLoaderData() as TourData
@@ -30,34 +30,13 @@ export default function TourDetail() {
     }
   }, [tourData])
 
-  const [isLoading, setIsLoading] = useState(false)
-
   const { orderTour } = useOrderWizardStore((state) => ({
     orderTour: state.orderTour
   }))
 
-  const { isLoggedIn } = useAuthStore((state) => ({
-    isLoggedIn: state.isLoggedIn
-  }))
-
-  const navigate = useNavigate()
-
-  const checkout = async () => {
-    if (!isLoggedIn) {
-      callToast('Ups, you suppose to log in first!', 'error')
-
-      setTimeout(() => {
-        navigate('/login')
-      }, 2500)
-
-      return
-    }
-
-    setIsLoading(true)
+  const { isLoading, checkout } = useCheckout(async () => {
     await orderTour(tourData.id)
-    setIsLoading(false)
-    navigate('/order')
-  }
+  })
 
   return (
     <Layout>
