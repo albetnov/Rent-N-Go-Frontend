@@ -1,6 +1,6 @@
 import dayjs from 'dayjs'
 import { create } from 'zustand'
-import { getCarDetail } from '../services/apis/car'
+import { type CarData, getCarDetail } from '../services/apis/car'
 
 import { getTourDetail } from '../services/apis/tour'
 import HaveOrder from '../services/apis/HaveOrder'
@@ -10,6 +10,7 @@ import {
   type PlaceOrderOptions
 } from '../services/apis/order'
 import { callToast } from '../utils/toasts'
+import { type DriverData, getDriverDetail } from '../services/apis/driver'
 
 interface GenericOrderItemService {
   photo: string
@@ -176,9 +177,9 @@ const useOrderWizardStore = create<OrderWizardStore>((set, get) => ({
         price: result.car.Price
       },
       driver: {
-        name: 'test',
-        photo: 'https://source.unsplash.com/1000x1000?driver',
-        price: 10000
+        name: result.driver.Name,
+        photo: result.driver.Pictures[0].file_name,
+        price: result.driver.Price
       }
     }
 
@@ -222,22 +223,31 @@ const useOrderWizardStore = create<OrderWizardStore>((set, get) => ({
       get().cancelOrder('You have an order, please finish it first.')
       return
     }
-    // TODO: fetch the driver data
-    // const result = await client.get(driverId)
+    const [driverResult, carResult]: [DriverData | false, CarData | false] =
+      await Promise.all([getDriverDetail(driverId), getCarDetail(carId)])
+
+    if (!driverResult || !carResult) {
+      get().cancelOrder('Failed to get driver data, please try again later.')
+      return
+    }
 
     // TODO: map the driver data
     const item: OrderItem = {
       module: 'driver',
-      car: { name: '', photo: '', price: 0 },
-      driver: { name: '', photo: '', price: 0 },
-      totalAmount: 0,
+      car: {
+        name: carResult.name,
+        photo: carResult.pictures[0].file_name,
+        price: carResult.price
+      },
+      driver: {
+        name: driverResult.name,
+        photo: driverResult.pictures[0].file_name,
+        price: driverResult.price
+      },
+      totalAmount: driverResult.price + carResult.price,
       driverId,
       carId
     }
-
-    // TODO: fetch the car data and append it to order item
-    // const carData  = await client.get(carId)
-    // item.push({})
 
     localStorage.setItem(WIZARD_STEP, '1')
     localStorage.setItem(ORDER_ITEM, JSON.stringify(item))
