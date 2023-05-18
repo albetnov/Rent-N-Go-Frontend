@@ -1,6 +1,6 @@
 import { Box, Image } from '@chakra-ui/react'
 import Card from '../Services/Card'
-import CardAction from '../Services/CardAction'
+import DriverCardAction from '../Services/DriverCardAction'
 import DriverFeature, { type DriverFeatureProps } from './DriverFeatures'
 import DriverName from './DriverName'
 
@@ -9,13 +9,17 @@ interface DriverProps {
   stars: 1 | 2 | 3 | 4 | 5
   features: DriverFeatureProps
   imgUrl: string
+  id: number
+  price: number
 }
 
 export default function DriverCard({
   name,
   stars,
   features,
-  imgUrl
+  imgUrl,
+  id,
+  price
 }: DriverProps) {
   return (
     <Card>
@@ -24,7 +28,7 @@ export default function DriverCard({
         <DriverName name={name} stars={stars} />
         <DriverFeature {...features} />
       </Box>
-      <CardAction />
+      <DriverCardAction price={price} id={id} />
     </Card>
   )
 }
