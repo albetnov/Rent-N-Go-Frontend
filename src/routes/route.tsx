@@ -7,6 +7,8 @@ import CarLoader from '../components/Cars/CarLoader'
 import CarDetailLoader from '../components/Cars/CarDetailLoader'
 import TourLoader from '../components/Tour/TourLoader'
 import TourDetailLoader from '../components/Tour/TourDetailLoader'
+import DriverLoader from '../components/Drivers/DriverLoader'
+import DriverDetailLoader from '../components/Drivers/DriverDetailLoader'
 const NotFound = lazy(() => import('../pages/NotFound'))
 const FakeOrderProcess = lazy(
   () => import('../pages/Services/FakeOrderProcess')
@@ -18,7 +20,6 @@ const Home = lazy(() => import('../pages/Home'))
 const TourGuide = lazy(() => import('../pages/Services/TourGuide'))
 const Profile = lazy(() => import('../pages/Users/Profile'))
 const Authed = lazy(() => import('../services/Authed'))
-const Drivers = lazy(() => import('../pages/Services/Drivers'))
 const CarList = lazy(() => import('../pages/Services/CarList'))
 const FAQ = lazy(() => import('../pages/Services/FAQ'))
 const Artificier = lazy(() => import('../pages/Artificier'))
@@ -26,6 +27,8 @@ const Order = lazy(() => import('../pages/Services/Order'))
 const Guest = lazy(() => import('../services/Guest'))
 const CarDetail = lazy(() => import('../pages/Services/CarDetail'))
 const TourDetail = lazy(() => import('../pages/Services/TourDetail'))
+const DriverList = lazy(() => import('../pages/Services/DriverList'))
+const DriverDetail = lazy(() => import('../pages/Services/DriverDetail'))
 
 export default createBrowserRouter([
   {
@@ -55,7 +58,13 @@ export default createBrowserRouter([
   },
   {
     path: '/drivers',
-    element: <Drivers />
+    loader: DriverLoader,
+    element: <DriverList />
+  },
+  {
+    path: '/drivers/:id',
+    loader: DriverDetailLoader,
+    element: <DriverDetail />
   },
   {
     path: '/faq',

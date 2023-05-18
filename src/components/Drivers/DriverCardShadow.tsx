@@ -1,6 +1,7 @@
 import ShadowBox from '../ShadowBox'
 import DriverCard from './DriverCard'
 import { type DriverFeatureProps } from './DriverFeatures'
+import { type DriverData } from '../../services/apis/driver'
 
 const DRIVER_FEATURE: DriverFeatureProps = {
   isPhotoChecked: true,
@@ -9,14 +10,20 @@ const DRIVER_FEATURE: DriverFeatureProps = {
   isSocialMediaChecked: true
 }
 
-export default function DriverCardShadow() {
+interface DriverCardProps {
+  driver: DriverData
+}
+
+export default function DriverCardShadow({ driver }: DriverCardProps) {
   return (
     <ShadowBox>
       <DriverCard
-        name="Atnan Ari Anderson"
+        name={driver.name}
         stars={4}
-        imgUrl="https://bit.ly/dan-abramov"
+        imgUrl={driver.pictures[0].file_name}
         features={DRIVER_FEATURE}
+        id={driver.id}
+        price={driver.price}
       />
     </ShadowBox>
   )
