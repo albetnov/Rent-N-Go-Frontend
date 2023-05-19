@@ -6,8 +6,11 @@ import CenteredText from '../CenteredText'
 import Contact from '../Footer/Contact'
 import checkMark from './check.json'
 import Lottie from 'lottie-react'
+import useAuthStore from '../../stores/auth'
 
 export default function FinalFlow() {
+  const { user } = useAuthStore((state) => ({ user: state.user }))
+
   const { endOrder } = useOrderWizardStore((state) => ({
     endOrder: state.doneOrder
   }))
@@ -39,7 +42,7 @@ export default function FinalFlow() {
             fontWeight="bold"
             fontSize={{ base: 24, md: 32, lg: 45 }}
           >
-            Thank you (PLACEHOLDER) for the payment!
+            Thank you {user.name} for the payment!
           </CenteredText>
           <CenteredText
             fontWeight={400}

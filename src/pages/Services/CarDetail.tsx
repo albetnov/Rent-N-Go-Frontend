@@ -93,7 +93,7 @@ export default function CarDetail() {
               </Text>
               <Box mt={5} mb={3}>
                 <Text>Car rental fee per day</Text>
-                <RowText text1="Lexus LC 500" text2="Rp 1.000.000" />
+                <RowText text1={carData.name} text2={`Rp. ${carData.price}`} />
               </Box>
 
               <Button

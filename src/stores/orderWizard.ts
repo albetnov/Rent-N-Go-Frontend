@@ -50,6 +50,7 @@ interface OrderWizardStore {
   orderDriver: (driverId: number, carId: number) => Promise<void>
   orderCar: (carId: number) => Promise<void>
   cancelOrder: (reason?: string) => void
+  doneOrder: () => void
   isCancelled: boolean
   reason: string | null
 }
@@ -85,6 +86,14 @@ const useOrderWizardStore = create<OrderWizardStore>((set, get) => ({
       isCancelled: true,
       reason: reason ?? 'Failed when creating order, please try again later.'
     }))
+  },
+
+  doneOrder() {
+    localStorage.removeItem(ORDER_LOCATION)
+    localStorage.removeItem(WIZARD_STEP)
+    localStorage.removeItem(ORDER_ITEM)
+    localStorage.removeItem(PAYMENT_METHOD)
+    set(() => ({ hasOrder: false, step: 0, item: null, getLocation: null }))
   },
 
   setFirstFlow({ pickUpDate, pickUpLocation, returnDate, returnLocation }) {
