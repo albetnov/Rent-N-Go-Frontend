@@ -27,7 +27,7 @@ export default function SearchBar({ onSearch }: SearchBarProps) {
   return (
     <Popover>
       <PopoverTrigger>
-        <InputGroup maxW={670} boxShadow="2xl">
+        <InputGroup maxW={1000} boxShadow="2xl">
           <InputLeftElement pointerEvents="none">
             <FiSearch />
           </InputLeftElement>
