@@ -91,12 +91,13 @@ export default function OrderHistory({
           <Table variant="unstyled">
             <Thead bg="primary" color="white">
               <Tr>
-                <Th>No.</Th>
-                <Th>Type</Th>
-                <Th>Name</Th>
-                <Th>Status</Th>
-                <Th>Price</Th>
-                <Th>Duration</Th>
+                <Th textAlign="center">No.</Th>
+                <Th textAlign="center">Type</Th>
+                <Th textAlign="center">Name</Th>
+                <Th textAlign="center">Status</Th>
+                <Th textAlign="center">Price</Th>
+                <Th textAlign="center">Duration</Th>
+                <Th textAlign="center">Actions</Th>
               </Tr>
             </Thead>
             <Tbody bg="white">

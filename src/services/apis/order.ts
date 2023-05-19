@@ -94,4 +94,23 @@ const hasOrder = async () => {
   }
 }
 
-export { getOrders, placeOrder, hasOrder }
+const cancelOrder = async (orderId: number) => {
+  try {
+    const result = await client.post(`/orders/cancel/${orderId}`)
+
+    if (
+      result.data &&
+      'action' in result.data &&
+      result.data.action === 'ORDER_CANCEL_FAILED'
+    ) {
+      return false
+    }
+
+    return true
+  } catch (err) {
+    console.error(err)
+    return false
+  }
+}
+
+export { getOrders, placeOrder, hasOrder, cancelOrder }
