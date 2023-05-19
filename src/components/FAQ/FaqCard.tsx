@@ -7,7 +7,7 @@ interface FaqProps {
 
 export default function FaqCard({ question, answer }: FaqProps) {
   return (
-    <Box>
+    <Box mb="1rem">
       <Text as="b" fontFamily="poppins" maxW={700} fontSize={20} mt={10}>
         Q: {question}
       </Text>
