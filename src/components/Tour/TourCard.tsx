@@ -25,13 +25,7 @@ export default function TourCard({
 }: TourCardProps) {
   return (
     <Card>
-      <Image
-        src={imgUrl}
-        maxWidth={665}
-        w="full"
-        objectFit="cover"
-        maxHeight={365}
-      />
+      <Image src={imgUrl} maxW={313} maxH={167} mt={9} />
       <TourDetail features={features} name={name} />
       <TourCardAction price={price} id={id} />
     </Card>
