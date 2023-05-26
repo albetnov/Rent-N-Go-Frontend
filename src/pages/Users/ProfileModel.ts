@@ -5,6 +5,7 @@ import { getProfile } from '../../services/apis/profile'
 import colors from '../../utils/colors'
 import { callToast } from '../../utils/toasts'
 import { mapToUserData, type UserData } from './ProfileLoader'
+import { getOrders } from '../../services/apis/order'
 
 export default function ProfileModel() {
   useCustomBackground(colors.secondary)
@@ -15,14 +16,13 @@ export default function ProfileModel() {
   const [user, setUser] = useState<UserData>()
 
   const refetch = async () => {
-    const result = await getProfile()
+    const [profile, userOrder] = await Promise.all([getProfile(), getOrders()])
 
-    if (!result) {
+    if (!profile || !userOrder) {
       callToast('Something went wrong', 'error')
       return
     }
-
-    setUser(mapToUserData(result, user!.order))
+    setUser(mapToUserData(profile, userOrder))
   }
 
   useEffect(() => {
