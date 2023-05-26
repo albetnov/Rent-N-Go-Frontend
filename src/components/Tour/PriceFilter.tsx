@@ -9,12 +9,13 @@ export default function PriceFilter({ onPriceChange }: PriceFilterProps) {
     <FilterSelect
       placeholder="Price"
       onChange={async (e) => {
+        console.log('PriceFilter onChange called with value:', e.target.value)
         await onPriceChange(parseInt(e.target.value))
       }}
     >
-      <option value="10000000">Mahal</option>
-      <option value="1500000">Biasa aja</option>
-      <option value="0">Secukupnya aja</option>
+      <option value="10000000"> 10000000</option>
+      <option value="1500000"> 1500000</option>
+      <option value="0">All</option>
     </FilterSelect>
   )
 }

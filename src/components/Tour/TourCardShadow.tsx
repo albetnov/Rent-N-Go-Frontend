@@ -7,7 +7,6 @@ interface TourCardProps {
 }
 
 export default function TourCardShadow({ tour }: TourCardProps) {
-  console.log('tour.pictures:', tour.pictures)
   return (
     <ShadowBox>
       <TourCard
