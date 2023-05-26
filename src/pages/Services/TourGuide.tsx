@@ -24,8 +24,6 @@ interface TourFilter {
 export default function TourList() {
   const initialTourData = useLoaderData() as any
 
-  console.log('initialTourData:', initialTourData)
-
   useEffect(() => {
     if (
       initialTourData &&
