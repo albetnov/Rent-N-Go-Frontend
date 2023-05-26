@@ -78,8 +78,11 @@ export default function DriverDetail() {
                 Payment Details
               </Text>
               <Box mt={5} mb={3}>
-                <Text>Car rental fee per day</Text>
-                <RowText text1="Lexus LC 500" text2="Rp 1.000.000" />
+                <Text>Driver rental fee per day</Text>
+                <RowText
+                  text1={driverData.name}
+                  text2={`Rp. ${driverData.price}`}
+                />
               </Box>
 
               <Button
