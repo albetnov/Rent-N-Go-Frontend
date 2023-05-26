@@ -12,7 +12,6 @@ export default function SeatFilter({ onSeatChange }: SeatFilterProps) {
         await onSeatChange(parseInt(e.target.value))
       }}
     >
-      <option value="10">10</option>
       <option value="6">6</option>
       <option value="4">4</option>
       <option value="2">2</option>

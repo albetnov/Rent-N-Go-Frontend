@@ -1,11 +1,4 @@
-import {
-  InputGroup,
-  InputLeftElement,
-  Input,
-  Popover,
-  PopoverContent,
-  PopoverTrigger
-} from '@chakra-ui/react'
+import { InputGroup, InputLeftElement, Input } from '@chakra-ui/react'
 import { useState, type KeyboardEvent } from 'react'
 import { FiSearch } from 'react-icons/fi'
 
@@ -25,23 +18,18 @@ export default function SearchBar({ onSearch }: SearchBarProps) {
   }
 
   return (
-    <Popover>
-      <PopoverTrigger>
-        <InputGroup maxW={1000} boxShadow="2xl">
-          <InputLeftElement pointerEvents="none">
-            <FiSearch />
-          </InputLeftElement>
-          <Input
-            disabled={isLoading}
-            onKeyDown={onSearchEnter}
-            type="search"
-            bgColor="white"
-            placeholder="Search"
-            w="full"
-          />
-        </InputGroup>
-      </PopoverTrigger>
-      <PopoverContent w="full" maxH={500} overflowY="auto"></PopoverContent>
-    </Popover>
+    <InputGroup maxW={1000} boxShadow="2xl">
+      <InputLeftElement pointerEvents="none">
+        <FiSearch />
+      </InputLeftElement>
+      <Input
+        disabled={isLoading}
+        onKeyDown={onSearchEnter}
+        type="search"
+        bgColor="white"
+        placeholder="Search"
+        w="full"
+      />
+    </InputGroup>
   )
 }
