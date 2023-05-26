@@ -75,7 +75,7 @@ export default function TourDetail() {
                 Payment Details
               </Text>
               <Box mt={5} mb={3}>
-                <Text>Car rental fee per day</Text>
+                <Text>Tour rental fee per day</Text>
                 <RowText
                   text1={tourData.name}
                   text2={`Rp. ${tourData.price}`}

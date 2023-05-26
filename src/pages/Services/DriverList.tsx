@@ -1,6 +1,6 @@
 import Layout from '../../components/Layout'
 import SearchBar from '../../components/Searchbar'
-import PriceFilter from '../../components/Cars/PriceFilter'
+import PriceFilter from '../../components/Drivers/PriceFilter'
 import DriverCardShadow from '../../components/Drivers/DriverCardShadow'
 import FilterContainer from '../../components/Services/FilterContainer'
 import ItemContainer from '../../components/Services/ItemContainer'
