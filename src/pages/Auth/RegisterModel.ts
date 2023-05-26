@@ -48,8 +48,8 @@ export default function RegisterModel() {
       confirm_password: confirmPassword
     })
 
-    if (result.action && result.action === 'CHANGE_EMAIL') {
-      callToast(result.message, 'error')
+    if (result.action) {
+      if (result.action === 'CHANGE_EMAIL') callToast(result.message, 'error')
       return
     }
 
