@@ -5,11 +5,13 @@ import DriverCarCardShadow from './DriverCarCardShadow'
 interface CarSelectionProps {
   carData: CarData[]
   onCarSelect: (carId: number | undefined) => void
+  sentinel: React.RefCallback<HTMLDivElement>
 }
 
 export default function CarSelection({
   carData,
-  onCarSelect
+  onCarSelect,
+  sentinel
 }: CarSelectionProps) {
   const [selectedCarId, setSelectedCarId] = useState<number>()
 
@@ -42,6 +44,7 @@ export default function CarSelection({
           </div>
         </div>
       ))}
+      <div ref={sentinel} />
     </div>
   )
 }

@@ -7,8 +7,10 @@ export default async function DriverDetailLoader({ params }: any) {
     getDriverDetail(params.id),
     getCars({})
   ])
-  if (!driver) {
+
+  if (!driver || !cars) {
     return json({ ctx: 'ERROR' }, { status: 404 })
   }
+
   return json({ driver, cars })
 }

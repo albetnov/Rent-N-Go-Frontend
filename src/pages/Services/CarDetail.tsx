@@ -39,6 +39,7 @@ export default function CarDetail() {
 
   const { isLoading, checkout } = useCheckout(async () => {
     await orderCar(carData.id)
+    return true
   })
 
   return (

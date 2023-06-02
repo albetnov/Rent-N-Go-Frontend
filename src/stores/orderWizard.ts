@@ -135,6 +135,7 @@ const useOrderWizardStore = create<OrderWizardStore>((set, get) => ({
         break
       case 'driver':
         builder.driverId = payload.driverId
+        builder.carId = payload.carId
         break
     }
 
@@ -194,7 +195,7 @@ const useOrderWizardStore = create<OrderWizardStore>((set, get) => ({
 
     localStorage.setItem(WIZARD_STEP, '1')
     localStorage.setItem(ORDER_ITEM, JSON.stringify(item))
-    set(() => ({ item, step: 1 }))
+    set(() => ({ item, step: 1, hasOrder: true }))
   },
 
   async orderCar(carId) {
@@ -224,7 +225,7 @@ const useOrderWizardStore = create<OrderWizardStore>((set, get) => ({
 
     localStorage.setItem(WIZARD_STEP, '1')
     localStorage.setItem(ORDER_ITEM, JSON.stringify(item))
-    set(() => ({ item, step: 1 }))
+    set(() => ({ item, step: 1, hasOrder: true }))
   },
 
   async orderDriver(driverId, carId) {
@@ -260,7 +261,7 @@ const useOrderWizardStore = create<OrderWizardStore>((set, get) => ({
 
     localStorage.setItem(WIZARD_STEP, '1')
     localStorage.setItem(ORDER_ITEM, JSON.stringify(item))
-    set(() => ({ item, step: 1 }))
+    set(() => ({ item, step: 1, hasOrder: true }))
   }
 }))
 

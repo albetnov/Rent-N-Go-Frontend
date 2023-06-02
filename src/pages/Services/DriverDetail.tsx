@@ -18,7 +18,11 @@ import { type DriverData } from '../../services/apis/driver'
 import CenteredText from '../../components/CenteredText'
 import useOrderWizardStore from '../../stores/orderWizard'
 import useCheckout from '../../hooks/useCheckout'
-import { type CarData, getCars } from '../../services/apis/car'
+import {
+  type CarData,
+  getCars,
+  type CarResponse
+} from '../../services/apis/car'
 
 import ItemContainer from '../../components/Services/ItemContainer'
 import CarSelection from '../../components/Drivers/DriverCarSelection'
@@ -35,32 +39,20 @@ interface CarFilter {
 }
 
 export default function DriverDetail() {
-  const data = useLoaderData() as { driver: DriverData }
-  const driverData = data.driver
-  const [carData, setCarData] = useState<CarData[]>([])
+  const data = useLoaderData() as {
+    driver: DriverData
+    cars: CarResponse
+  }
   const [selectedCarId, setSelectedCarId] = useState<number>()
-  const initialCarData = useLoaderData() as any
 
   useEffect(() => {
-    if ('ctx' in driverData && driverData.ctx === 'ERROR') {
+    if ('ctx' in data && data.ctx === 'ERROR') {
       callToast(
         'Failed to fetch data from server. Please try again later.',
         'error'
       )
     }
-  }, [driverData])
-
-  useEffect(() => {
-    const fetchCars = async () => {
-      const cars = await getCars({})
-      if (cars) {
-        setCarData(cars.data)
-      } else {
-        callToast('Failed to fetch car data', 'error')
-      }
-    }
-    /* eslint-disable @typescript-eslint/no-floating-promises */ fetchCars()
-  }, [])
+  }, [data])
 
   const refetch = async (
     page: number,
@@ -83,16 +75,22 @@ export default function DriverDetail() {
     return cars
   }
 
-  const { setter } = useInfiniteScroll<HTMLDivElement, CarData>(
+  const {
+    setter,
+    data: carData,
+    loading: carLoading,
+    sentinel: carSentinel
+  } = useInfiniteScroll<HTMLDivElement, CarData>(
     async (abortSignal, pageNumber) => {
       const result = await refetch(pageNumber, abortSignal, {})
 
-      if (!result) return false
+      if (!result || result.data === null) return false
+
       return result
     },
-    initialCarData?.cars,
-    initialCarData.meta?.current_page ?? 0,
-    initialCarData.meta?.has_next
+    data.cars.data,
+    data.cars.meta?.current_page ?? 0,
+    data.cars.meta?.has_next
   )
 
   const onFilter = async (callback: () => Promise<CarData[] | false>) => {
@@ -139,33 +137,33 @@ export default function DriverDetail() {
 
   const { isLoading, checkout } = useCheckout(async () => {
     if (selectedCarId) {
-      await orderDriver(driverData.id, selectedCarId)
+      await orderDriver(data.driver.id, selectedCarId)
+      return true
     } else {
-      // Handle the case where no car is selected
+      callToast('Pilih mas, mobilnya dipilih yaampun!')
+      return false
     }
   })
 
   return (
     <Layout>
-      {'ctx' in driverData && (
-        <CenteredText>Ups. Somewhing went wrong</CenteredText>
-      )}
+      {'ctx' in data && <CenteredText>Ups. Somewhing went wrong</CenteredText>}
 
-      {!('ctx' in driverData) && (
+      {!('ctx' in data) && (
         <Grid templateColumns="70% 1fr" gap={3} px={5} py={3}>
           <GridItem>
             <OutlineCard>
               <Flex overflowX="auto" gap={5} justifyContent="center">
-                {driverData.pictures.map((item) => (
+                {data.driver.pictures.map((item) => (
                   <Image src={item.file_name} key={item.file_name} />
                 ))}
               </Flex>
               <Text mt={4} fontSize={42} fontWeight="bold">
-                {driverData.name}
+                {data.driver.name}
               </Text>
 
               <Text mt={5} mb={10}>
-                {driverData.desc}
+                {data.driver.desc}
               </Text>
             </OutlineCard>
           </GridItem>
@@ -174,7 +172,7 @@ export default function DriverDetail() {
             <OutlineCard>
               <Flex gap={3} alignItems="center">
                 <Text fontWeight="bold" fontSize={27}>
-                  Rp {driverData.price}
+                  Rp {data.driver.price}
                 </Text>
                 <Text>Per Day</Text>
               </Flex>
@@ -186,8 +184,8 @@ export default function DriverDetail() {
               <Box mt={5} mb={3}>
                 <Text>Driver rental fee per day</Text>
                 <RowText
-                  text1={driverData.name}
-                  text2={`Rp. ${driverData.price}`}
+                  text1={data.driver.name}
+                  text2={`Rp. ${data.driver.price}`}
                 />
               </Box>
 
@@ -216,7 +214,7 @@ export default function DriverDetail() {
                 textColor="green"
                 fontWeight="bold"
                 fontSize={26}
-              >{`Available Cars for your personal driver: ${driverData.name}`}</Text>
+              >{`Available Cars for your personal driver: ${data.driver.name}`}</Text>
 
               <Container maxW="7x1">
                 <FilterContainer>
@@ -225,10 +223,15 @@ export default function DriverDetail() {
                   <PriceFilter onPriceChange={onPriceChange} />
                 </FilterContainer>
                 <ItemContainer>
-                  <CarSelection
-                    carData={carData}
-                    onCarSelect={setSelectedCarId}
-                  />
+                  {carLoading ? (
+                    'Car is Loading'
+                  ) : (
+                    <CarSelection
+                      carData={carData}
+                      onCarSelect={setSelectedCarId}
+                      sentinel={carSentinel}
+                    />
+                  )}
                 </ItemContainer>
               </Container>
             </OutlineCard>

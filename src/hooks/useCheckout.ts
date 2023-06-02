@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import useAuthStore from '../stores/auth'
 import { callToast } from '../utils/toasts'
 
-export default function useCheckout(cb: () => Promise<void>) {
+export default function useCheckout(cb: () => Promise<boolean>) {
   const [isLoading, setIsLoading] = useState(false)
 
   const { isLoggedIn } = useAuthStore((state) => ({
@@ -24,8 +24,9 @@ export default function useCheckout(cb: () => Promise<void>) {
     }
 
     setIsLoading(true)
-    await cb()
+    const result = await cb()
     setIsLoading(false)
+    if (!result) return
     navigate('/order')
   }
 

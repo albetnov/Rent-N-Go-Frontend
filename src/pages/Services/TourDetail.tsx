@@ -36,6 +36,7 @@ export default function TourDetail() {
 
   const { isLoading, checkout } = useCheckout(async () => {
     await orderTour(tourData.id)
+    return true
   })
 
   return (
