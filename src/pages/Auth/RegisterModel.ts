@@ -40,6 +40,7 @@ export default function RegisterModel() {
   }
 
   const registerAction = async () => {
+    setIsUserAgree(false)
     const result = await register({
       name: fields.name,
       email: fields.email,
