@@ -28,13 +28,13 @@ export default function Home() {
           slidesPerView={1}
         >
           <SwiperSlide>
-            <ImageSlide url="https://source.unsplash.com/1920x1080?travel" />
+            <ImageSlide url="baneeer1.jpg" />
           </SwiperSlide>
           <SwiperSlide>
-            <ImageSlide url="https://source.unsplash.com/1920x1080?travel" />
+            <ImageSlide url="baneeer2.jpg" />
           </SwiperSlide>
           <SwiperSlide>
-            <ImageSlide url="https://source.unsplash.com/1920x1080?travel" />
+            <ImageSlide url="baneeer3.jpg" />
           </SwiperSlide>
         </Swiper>
       </Box>
