@@ -182,14 +182,14 @@ const useOrderWizardStore = create<OrderWizardStore>((set, get) => ({
         price: result.price
       },
       car: {
-        name: result.car.Name,
-        photo: result.car.Pictures[0].file_name,
-        price: result.car.Price
+        name: result.car.name,
+        photo: result.car.pictures[0].file_name,
+        price: result.car.price
       },
       driver: {
-        name: result.driver.Name,
-        photo: result.driver.Pictures[0].file_name,
-        price: result.driver.Price
+        name: result.driver.name,
+        photo: result.driver.pictures[0].file_name,
+        price: result.driver.price
       }
     }
 

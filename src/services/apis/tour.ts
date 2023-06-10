@@ -1,28 +1,28 @@
 import client from '../../utils/client'
 import { type MetaData, type MappedPicture } from './type'
 interface TourCar {
-  ID: number
-  CreatedAt: string
-  UpdatedAt: string
-  DeletedAt: any
-  Name: string
-  Stock: number
-  Desc: string
-  Price: number
-  Pictures: MappedPicture[]
-  Seats: number
-  Baggage: number
+  id: number
+  create_at: string
+  updated_at: string
+  deleted_at: any
+  name: string
+  stock: number
+  desc: string
+  price: number
+  pictures: MappedPicture[]
+  seats: number
+  baggage: number
 }
 
 interface TourDriver {
-  ID: number
-  CreatedAt: string
-  UpdatedAt: string
-  DeletedAt: any
-  Name: string
-  Desc: string
-  Price: number
-  Pictures: MappedPicture[]
+  id: number
+  create_at: string
+  updated_at: string
+  deleted_at: any
+  name: string
+  desc: string
+  price: number
+  pictures: MappedPicture[]
 }
 
 export interface TourData {
