@@ -13,7 +13,6 @@ export default function FAQModel() {
       id: 2,
       question: 'What types of vehicles are available for rent at Rent N Go?',
       answer: `At Rent N Go, we offer a variety of vehicles to suit your travel needs. 
-        Our fleet includes everything from economy cars to luxury SUVs. I
         You can find more information about our vehicle options on our 
         website or by reaching out to our customer support team.`
     },
@@ -21,8 +20,7 @@ export default function FAQModel() {
       id: 3,
       question: 'How can I rent a car from Rent and Go?',
       answer: `Renting a car from us is easy! Simply visit our website, choose a car that suits your needs, select the date
-      or the pickup location. We only limited to 'BATAM' right now. Should you require car outside the city, please
-      take the car by plane and hand it back to us by plane too. Of course, all the cost including the plane
+      or the pickup location. We only limited to 'BATAM' right now. Should you require car outside the citY.  Of course, all the cost including the plane
       will be convered by you.`
     },
     {
@@ -42,7 +40,7 @@ export default function FAQModel() {
     {
       id: 6,
       question: 'What is the minimum rental period?',
-      answer: 'The minimum rental period is 1 day only!'
+      answer: 'The minimum rental period is 2 day only!'
     },
     {
       id: 7,
